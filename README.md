@@ -6,8 +6,14 @@ Eine Notenverwaltungsapp
 
 ### Variablen deklarieren
 
-Java: String foo = "abc";
+#### Java
+String foo = "abc";
 
-Dart: var/final foo = "abc"; 
+#### Dart
+ 
+var/final foo = "abc";
+String foo = "abc"; 
+
+
 
 
