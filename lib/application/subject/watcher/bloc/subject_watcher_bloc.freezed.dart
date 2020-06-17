@@ -428,9 +428,9 @@ abstract class ChangeTerm implements SubjectWatcherEvent {
 class _$SubjectWatcherStateTearOff {
   const _$SubjectWatcherStateTearOff();
 
-  Initial initial(Term term) {
+  Initial initial({Term term}) {
     return Initial(
-      term,
+      term: term,
     );
   }
 
@@ -544,13 +544,13 @@ class _$InitialCopyWithImpl<$Res>
     Object term = freezed,
   }) {
     return _then(Initial(
-      term == freezed ? _value.term : term as Term,
+      term: term == freezed ? _value.term : term as Term,
     ));
   }
 }
 
 class _$Initial implements Initial {
-  const _$Initial(this.term) : assert(term != null);
+  const _$Initial({this.term});
 
   @override
   final Term term;
@@ -640,7 +640,7 @@ class _$Initial implements Initial {
 }
 
 abstract class Initial implements SubjectWatcherState {
-  const factory Initial(Term term) = _$Initial;
+  const factory Initial({Term term}) = _$Initial;
 
   @override
   Term get term;

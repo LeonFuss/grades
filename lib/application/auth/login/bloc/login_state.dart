@@ -1,5 +1,6 @@
 part of 'login_bloc.dart';
 
+///Speichert den aktuellen Zustand, des [LoginScreen]s.
 @freezed
 abstract class LoginState with _$LoginState {
   const factory LoginState({

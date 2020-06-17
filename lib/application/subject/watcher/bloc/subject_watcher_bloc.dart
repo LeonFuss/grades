@@ -14,37 +14,54 @@ part 'subject_watcher_bloc.freezed.dart';
 part 'subject_watcher_event.dart';
 part 'subject_watcher_state.dart';
 
+///[SubjectWatcherBloc] verwaltet alle anfragen von der UI die die Fächer betreffen und
+/// gibt die korrespondierenden Ergebnisse zurück.
 @injectable
-class NoteWatcherBloc extends Bloc<SubjectWatcherEvent, SubjectWatcherState> {
-  final ISubjectRepository _noteRepository;
+class SubjectWatcherBloc
+    extends Bloc<SubjectWatcherEvent, SubjectWatcherState> {
+  final ISubjectRepository _subjectRepository;
 
-  NoteWatcherBloc(this._noteRepository);
+  SubjectWatcherBloc(this._subjectRepository);
 
   StreamSubscription<Either<SubjectFailures, KtList<Subject>>>
-      _noteStreamSubscription;
+      _subjectStreamSubscription;
 
   @override
-  SubjectWatcherState get initialState => SubjectWatcherState.initial(Term(1));
+  SubjectWatcherState get initialState =>
+      SubjectWatcherState.initial(term: Term(1));
 
   @override
   Stream<SubjectWatcherState> mapEventToState(
     SubjectWatcherEvent event,
   ) async* {
     yield* event.map(
+      ///[SubjectWatcherEvent.watchAllStarted] wurde ausgelöst.
       watchAllStarted: (e) async* {
+        ///Der Zustand wird auf laden geändet.
         yield SubjectWatcherState.loadInProgress(term: term);
-        await _noteStreamSubscription?.cancel();
-        _noteStreamSubscription = _noteRepository.watchAll(term).listen(
-            (subjects) => add(SubjectWatcherEvent.subjectsReceived(subjects)));
+
+        ///Ein Stream zur Datenbank wird hergestellt und
+        ///1die ermittelten Daten werden durch das Event [SubjectWatcherEvent.subjectsReceived] weitergegeben.
+        await _subjectStreamSubscription?.cancel();
+        _subjectStreamSubscription = _subjectRepository.watchAll(term).listen(
+                (subjects) =>
+                add(SubjectWatcherEvent.subjectsReceived(subjects)));
       },
+
+      ///[SubjectWatcherEvent.subjectsReceived] wurde ausgelöst.
       subjectsReceived: (e) async* {
+        ///Bei den empfangen Daten wird geprüft ob diese gültig sind.
+        ///Sollten sie Fehler enthalten wird der Zustand auf [SubjectWatcherState.loadFailure] gesetzt.
+        ///Ansonsten wird der Zustand auf  SubjectWatcherState.loadSuccess gesetzt.
         yield e.failureOrSubjects.fold(
-          (f) =>
+              (f) =>
               SubjectWatcherState.loadFailure(subjectFailures: f, term: term),
-          (subjects) =>
+              (subjects) =>
               SubjectWatcherState.loadSuccess(subjects: subjects, term: term),
         );
       },
+
+      ///[SubjectWatcherEvent.changeTerm] wurde ausgelöst.
       changeTerm: (e) async* {
         yield copyStateWithChangedTerm(
             e.maybeWhen(changeTerm: (t) => t, orElse: () => Term(1)));
@@ -52,12 +69,14 @@ class NoteWatcherBloc extends Bloc<SubjectWatcherEvent, SubjectWatcherState> {
     );
   }
 
+  ///[close] bereinigt den Speicher, kurz bevor die Klasse gelöscht wird.
   @override
   Future<void> close() async {
-    await _noteStreamSubscription.cancel();
+    await _subjectStreamSubscription.cancel();
     return super.close();
   }
 
+  ///[term] ist eine getter Methode, um das aktuelle Halbjahr aus den Zuständen zu extrahieren.
   Term get term {
     final currentState = state;
     if (currentState is Initial) {
@@ -72,6 +91,7 @@ class NoteWatcherBloc extends Bloc<SubjectWatcherEvent, SubjectWatcherState> {
     return Term(1);
   }
 
+  ///[copyStateWithChangedTerm] ist eine Methode um das aktuelle Halbjahr im Zustand zu ändern.
   SubjectWatcherState copyStateWithChangedTerm(Term term) {
     final currentState = state;
     if (currentState is Initial) {
