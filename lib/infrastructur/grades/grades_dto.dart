@@ -7,6 +7,7 @@ import 'package:grades/domain/grades/value_objects.dart';
 part 'grades_dto.freezed.dart';
 part 'grades_dto.g.dart';
 
+///[GradesDTO] ist das Datentransferobjekt der Entität [Grade].
 @freezed
 abstract class GradesDTO implements _$GradesDTO {
   const GradesDTO._();

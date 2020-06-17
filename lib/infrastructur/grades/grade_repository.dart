@@ -11,6 +11,7 @@ import 'package:rxdart/rxdart.dart';
 
 import 'grades_dto.dart';
 
+///Implementierung des [IGradeRepository]s.
 @prod
 @lazySingleton
 @Injectable(as: IGradeRepository)
@@ -19,6 +20,7 @@ class GradeRepository implements IGradeRepository {
 
   GradeRepository(this._firestore);
 
+  ///Gibt alle Noten eines Faches als Stream zurück, der bei sich Änderungen in der Datenbank aktualisiert .
   @override
   Stream<Either<GradeFailures, KtList<Grade>>> watchSubjectGrades(
       s.Subject subject) async* {
@@ -48,6 +50,7 @@ class GradeRepository implements IGradeRepository {
     });
   }
 
+  ///Erstellt eine Note in der Datenbank
   @override
   Future<Either<GradeFailures, Unit>> create(Grade grade) async {
     try {
@@ -75,6 +78,7 @@ class GradeRepository implements IGradeRepository {
     }
   }
 
+  ///Aktualisiert eine Note in der Datenbank.
   @override
   Future<Either<GradeFailures, Unit>> update(Grade grade) async {
     try {
@@ -104,6 +108,7 @@ class GradeRepository implements IGradeRepository {
     }
   }
 
+  ///Löscht eine Note in der Datenbank.
   @override
   Future<Either<GradeFailures, Unit>> delete(Grade grade) async {
     try {
@@ -130,6 +135,7 @@ class GradeRepository implements IGradeRepository {
     }
   }
 
+  ///Gibt eine bestimmte Note als Stream zurück, der sich selbst aktualisiert.
   @override
   Stream<Either<GradeFailures, Grade>> watchGrade(Grade grade) async* {
     final userDoc = await _firestore.userDocument();

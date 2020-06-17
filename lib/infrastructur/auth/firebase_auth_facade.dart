@@ -11,6 +11,7 @@ import 'package:meta/meta.dart';
 
 import 'firebase_user_mapper.dart';
 
+///Implementierung des Interfaces [IAuthFacade].
 @prod
 @lazySingleton
 @Injectable(as: IAuthFacade)
@@ -23,11 +24,18 @@ class FirebaseAuthFacade implements IAuthFacade {
     this._googleSignIn,
   );
 
+  ///Gibt den aktuell angemeldeten Benutzer zurück.
+  ///Der Benutzer wird dabei in die [User] Entität transformiert.
+  ///Solle niemand angemeldet sind, wird [Option] mit Wert [None] zurückgegeben.
   @override
   Future<Option<User>> getSignedInUser() async => _firebaseAuth
       .currentUser()
       .then((firebaseUser) => optionOf(firebaseUser?.toDomain()));
 
+  ///Registriert einen neuen Benutzer bei Firebase.
+  ///Bei erfolgreichem Abschließen wird [Either] mit Wer [Unit] zurückgegeben.
+  ///Sollte ein Fehler auftreten, wird dieser in einen [AuthFailure] transformiert um [Exception] und [Error],
+  /// die einen Absturz der App mit sich tragen, auszuschließen.
   @override
   Future<Either<AuthFailure, Unit>> registerWithEmailAndPassword({
     @required EmailAddress emailAddress,
@@ -52,6 +60,10 @@ class FirebaseAuthFacade implements IAuthFacade {
     }
   }
 
+  ///Meldet einen Benutzer bei Firebase an.
+  ///Bei erfolgreichem Abschließen wird [Either] mit Wer [Unit] zurückgegeben.
+  ///Sollte ein Fehler auftreten, wird dieser in einen [AuthFailure] transformiert um [Exception] und [Error],
+  /// die einen Absturz der App mit sich tragen, auszuschließen.
   @override
   Future<Either<AuthFailure, Unit>> signInWithEmailAndPassword({
     @required EmailAddress emailAddress,
@@ -76,6 +88,10 @@ class FirebaseAuthFacade implements IAuthFacade {
     }
   }
 
+  ///Meldet einen Benutzer über Google bei bei Firebase an.
+  ///Bei erfolgreichem Abschließen wird [Either] mit Wer [Unit] zurückgegeben.
+  ///Sollte ein Fehler auftreten, wird dieser in einen [AuthFailure] transformiert um [Exception] und [Error],
+  /// die einen Absturz der App mit sich tragen, auszuschließen.
   @override
   Future<Either<AuthFailure, Unit>> signInWithGoogle() async {
     try {
@@ -98,6 +114,8 @@ class FirebaseAuthFacade implements IAuthFacade {
     }
   }
 
+  ///Meldet den Benutzer von Firebase ab.
+  ///Sollte der Benutzer sich über Google angemeldet haben, wird er auch dort ausgeloggt.
   @override
   Future<void> signOut() async {
     return Future.wait([

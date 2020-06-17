@@ -4,6 +4,8 @@ import 'package:injectable/injectable.dart';
 
 import 'firestore_helpers.dart';
 
+///Ermöglicht die "dependency injection" bzw Abhändigkeitsinjection auch von Klassen
+///auf die nur eingeschränkter Zugriff besteht.
 @module
 abstract class FirebaseInjectableModule {
   @lazySingleton

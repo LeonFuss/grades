@@ -19,6 +19,7 @@ class SubjectRepository implements ISubjectRepository {
 
   SubjectRepository(this._firestore);
 
+  ///Gibt Fächer als Stream zurück, der bei sich Änderungen in der Datenbank aktualisiert .
   @override
   Stream<Either<SubjectFailures, KtList<s.Subject>>> watchAll(
       Term term) async* {
@@ -51,6 +52,8 @@ class SubjectRepository implements ISubjectRepository {
     });
   }
 
+  ///Gibt Fächer als Future zurück
+  ///(Im Gegensatz zum Stream ist dieser einmalig und aktualisiert sich nicht bei Änderungen).
   @override
   Future<Either<SubjectFailures, KtList<s.Subject>>> getAll(Term term) async {
     return term.value.fold((l) => left(const SubjectFailures.unexpected()),
@@ -78,6 +81,7 @@ class SubjectRepository implements ISubjectRepository {
     });
   }
 
+  ///Erstellt ein Fach in der Datenbank.
   @override
   Future<Either<SubjectFailures, Unit>> create(s.Subject subject) async {
     try {
@@ -105,6 +109,7 @@ class SubjectRepository implements ISubjectRepository {
     }
   }
 
+  ///Aktualisiert ein Fach in der Datenbank.
   @override
   Future<Either<SubjectFailures, Unit>> update(s.Subject subject) async {
     try {
@@ -130,6 +135,7 @@ class SubjectRepository implements ISubjectRepository {
     }
   }
 
+  ///Löscht ein Fach in der Datenbank.
   @override
   Future<Either<SubjectFailures, Unit>> delete(s.Subject subject) async {
     try {
@@ -163,6 +169,7 @@ class SubjectRepository implements ISubjectRepository {
     }
   }
 
+  ///Gibt ein einzelnens Fach als Stream, der sich ständig aktualisiert.
   @override
   Stream<Either<SubjectFailures, s.Subject>> watchSubject(
       s.Subject subject) async* {
@@ -188,6 +195,8 @@ class SubjectRepository implements ISubjectRepository {
     });
   }
 
+  ///Tauscht den Positions Wert zweier Fächer und
+  ///somit die Reihenfolge in der die Fächer dem Benutzer angezeigt werden.
   @override
   Future<Either<SubjectFailures, Unit>> changePosition(
       s.Subject a, s.Subject b) async {
