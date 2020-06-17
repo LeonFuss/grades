@@ -7,6 +7,7 @@ import 'package:grades/domain/subjects/value_objects.dart';
 
 part 'subject.freezed.dart';
 
+///[Subject] ist eine Entität, die ein Fach beschreibt. Sie beinhaltet nur Wertobjekte die sich selbst validieren.
 @freezed
 abstract class Subject implements _$Subject {
   const Subject._();
@@ -32,6 +33,7 @@ abstract class Subject implements _$Subject {
     );
   }
 
+  ///Verifizierung aller enthaltenen Wertobjekte.
   Option<ValueFailure<dynamic>> get failureOption {
     return name.failureOrUnit
         .andThen(average.failureOrUnit)

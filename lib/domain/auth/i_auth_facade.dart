@@ -5,6 +5,7 @@ import 'package:grades/domain/auth/user.dart';
 import 'auth_failure.dart';
 import 'value_objects.dart';
 
+///Interface zur Kommunikation mit dem Authentifizierungsservice
 abstract class IAuthFacade {
   Future<Option<User>> getSignedInUser();
   Future<Either<AuthFailure, Unit>> registerWithEmailAndPassword({

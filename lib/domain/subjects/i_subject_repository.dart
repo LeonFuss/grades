@@ -4,6 +4,7 @@ import 'package:grades/domain/subjects/subject.dart';
 import 'package:grades/domain/subjects/subject_failures.dart';
 import 'package:kt_dart/collection.dart';
 
+///Interface zur Kommunikation mit der Datenbank
 abstract class ISubjectRepository {
   Stream<Either<SubjectFailures, Subject>> watchSubject(Subject subject);
 

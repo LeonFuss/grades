@@ -2,6 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'failures.freezed.dart';
 
+///Eine Sammlung aller Fehler, die bei der Validierung auftreten können, repräsentiert durch benannte Konstruktoren.
 @freezed
 abstract class ValueFailure<T> with _$ValueFailure<T> {
   const factory ValueFailure.exceedingLength({

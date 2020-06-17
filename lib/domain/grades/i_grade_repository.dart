@@ -4,6 +4,7 @@ import 'package:grades/domain/grades/grade_failures.dart';
 import 'package:grades/domain/subjects/subject.dart';
 import 'package:kt_dart/collection.dart';
 
+///Interface zur Kommunikation mit der Datenbank
 abstract class IGradeRepository {
   Stream<Either<GradeFailures, KtList<Grade>>> watchSubjectGrades(
       Subject subject);

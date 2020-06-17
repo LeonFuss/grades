@@ -3,6 +3,14 @@ import 'package:grades/domain/core/failures.dart';
 import 'package:grades/domain/core/value_objects.dart';
 import 'package:grades/domain/core/value_validators.dart';
 import 'package:grades/domain/grades/grade.dart';
+import 'package:grades/domain/subjects/subject.dart';
+
+///Die Datei enthält alle Wertobjekte, die für die Klasse [Subject] notwendig sind.
+///Die Wertobjekte folgen dabei dem gleichen Schema:
+///Sie erweitern alle die generische abstrakte Klasse [ValueObject].
+///Jede Klasse besitzt einen Privaten Konstruktor, der von der Factory-Methode aufgerufen wird,
+///nachdem eine validierung des eingegebenen Wertes vorgenommen wurde.
+///Die validierten Eingaben werden dann in dem Attribut value gespeichert.
 
 class SubjectName extends ValueObject<String> {
   @override

@@ -7,6 +7,7 @@ import 'package:grades/domain/subjects/subject.dart';
 
 part 'grade.freezed.dart';
 
+///[Grade] ist eine Entität, die eine Note beschreibt. Sie beinhaltet nur Wertobjekte die sich selbst validieren.
 @freezed
 abstract class Grade implements _$Grade {
   const Grade._();
@@ -29,6 +30,7 @@ abstract class Grade implements _$Grade {
         term: Term(1));
   }
 
+  ///Verifizierung aller enthaltenen Wertobjekte.
   Option<ValueFailure<dynamic>> get failureOption {
     return value.failureOrUnit
         .andThen(type.failureOrUnit)

@@ -1,5 +1,6 @@
 import 'failures.dart';
 
+///Für die App angepasste Fehler, die die App zum Absturz bringen sollen, das Debuggen einfacher zu gestalten.
 class NotAuthenticatedError extends Error {}
 
 class UnexpectedValueError extends Error {

@@ -3,6 +3,9 @@ import 'package:kt_dart/kt.dart';
 
 import 'failures.dart';
 
+///Das Dokument beinhaltet nur Top-Level Funktionen, die die Wertobjekte verifizieren.
+
+
 Either<ValueFailure<String>, String> validateMaxStringLength(
   String input,
   int maxLength,
