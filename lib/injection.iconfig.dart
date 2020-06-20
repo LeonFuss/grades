@@ -10,8 +10,12 @@ import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:grades/application/auth/bloc/auth_bloc.dart';
 import 'package:grades/application/auth/login/bloc/login_bloc.dart';
+import 'package:grades/application/grades/actor/grade_actor_bloc.dart';
+import 'package:grades/application/grades/watcher/grade_watcher_bloc.dart';
+import 'package:grades/application/subject/actor/bloc/subject_actor_bloc.dart';
 import 'package:grades/application/subject/watcher/bloc/subject_watcher_bloc.dart';
 import 'package:grades/domain/auth/i_auth_facade.dart';
+import 'package:grades/domain/grades/i_grade_repository.dart';
 import 'package:grades/domain/subjects/i_subject_repository.dart';
 import 'package:grades/infrastructur/auth/firebase_auth_facade.dart';
 import 'package:grades/infrastructur/core/firebase_injectable_module.dart';
@@ -26,7 +30,13 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerLazySingleton<Firestore>(() => firebaseInjectableModule.firestore);
   g.registerLazySingleton<GoogleSignIn>(
       () => firebaseInjectableModule.googleSignIn);
+  g.registerFactory<GradeActorBloc>(
+      () => GradeActorBloc(g<IGradeRepository>()));
+  g.registerFactory<GradeWatcherBloc>(
+      () => GradeWatcherBloc(g<IGradeRepository>()));
   g.registerFactory<LoginBloc>(() => LoginBloc(g<IAuthFacade>()));
+  g.registerFactory<SubjectActorBloc>(
+      () => SubjectActorBloc(g<ISubjectRepository>()));
   g.registerFactory<SubjectWatcherBloc>(
       () => SubjectWatcherBloc(g<ISubjectRepository>()));
 

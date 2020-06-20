@@ -1,10 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
+//ignore_for_file: non_constant_identifier_names
 
 part of 'grades_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
+
 
 _$_GradesDTO _$_$_GradesDTOFromJson(Map<String, dynamic> json) {
   return _$_GradesDTO(
