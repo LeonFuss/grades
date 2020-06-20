@@ -7,59 +7,58 @@ import 'package:grades/domain/grades/grade.dart';
 import 'package:grades/domain/grades/grade_failures.dart';
 import 'package:grades/domain/grades/i_grade_repository.dart';
 import 'package:grades/domain/grades/value_objects.dart';
-import 'package:grades/domain/subjects/subject.dart';
 import 'package:injectable/injectable.dart';
-import 'package:kt_dart/collection.dart';
 
 part 'grade_watcher_bloc.freezed.dart';
 part 'grade_watcher_event.dart';
 part 'grade_watcher_state.dart';
 
-///[GradeWatcherBloc] verwaltet alle anfragen von der UI die die Noten betreffen und
+///[SingleGradeWatcherBloc] verwaltet alle anfragen von der UI die eine einzige Note betreffen betreffen und
 /// gibt die korrespondierenden Ergebnisse zurück.
 @injectable
-class GradeWatcherBloc extends Bloc<GradeWatcherEvent, GradeWatcherState> {
+class SingleGradeWatcherBloc
+    extends Bloc<SingleGradeWatcherEvent, SingleGradeWatcherState> {
   final IGradeRepository _gradeRepository;
 
-  GradeWatcherBloc(this._gradeRepository);
+  SingleGradeWatcherBloc(this._gradeRepository);
 
-  StreamSubscription<Either<GradeFailures, KtList<Grade>>>
-      _gradeStreamSubscription;
-
-  @override
-  GradeWatcherState get initialState =>
-      GradeWatcherState.initial(term: Term(1));
+  StreamSubscription<Either<GradeFailures, Grade>> _gradeStreamSubscription;
 
   @override
-  Stream<GradeWatcherState> mapEventToState(
-    GradeWatcherEvent event,
+  SingleGradeWatcherState get initialState =>
+      SingleGradeWatcherState.initial(term: Term(1));
+
+  @override
+  Stream<SingleGradeWatcherState> mapEventToState(
+    SingleGradeWatcherEvent event,
   ) async* {
     yield* event.map(
-      ///[GradeWatcherEvent.watchAllStarted] wurde ausgelöst.
-      watchSubjectGradesStarted: (e) async* {
+      ///[SingleGradeWatcherEvent.watchAllStarted] wurde ausgelöst.
+      watchGradeStarted: (e) async* {
         ///Der Zustand wird auf laden geändet.
-        yield GradeWatcherState.loadInProgress(term: term);
+        yield SingleGradeWatcherState.loadInProgress(term: term);
 
         ///Ein Stream zur Datenbank wird hergestellt und
-        ///die ermittelten Daten werden durch das Event [GradeWatcherEvent.gradesReceived] weitergegeben.
+        ///die ermittelten Daten werden durch das Event [SingleGradeWatcherEvent.gradesReceived] weitergegeben.
         await _gradeStreamSubscription?.cancel();
-        _gradeStreamSubscription = _gradeRepository
-            .watchSubjectGrades(e.subject)
-            .listen((grades) => add(GradeWatcherEvent.gradesReceived(grades)));
+        _gradeStreamSubscription = _gradeRepository.watchGrade(e.grade).listen(
+            (grade) => add(SingleGradeWatcherEvent.gradesReceived(grade)));
       },
 
-      ///[GradeWatcherEvent.gradesReceived] wurde ausgelöst.
+      ///[SingleGradeWatcherEvent.gradesReceived] wurde ausgelöst.
       gradesReceived: (e) async* {
         ///Bei den empfangen Daten wird geprüft ob diese gültig sind.
-        ///Sollten sie Fehler enthalten wird der Zustand auf [GradeWatcherState.loadFailure] gesetzt.
-        ///Ansonsten wird der Zustand auf  GradeWatcherState.loadSuccess gesetzt.
-        yield e.failureOrGrades.fold(
-          (f) => GradeWatcherState.loadFailure(gradeFailures: f, term: term),
-          (grades) => GradeWatcherState.loadSuccess(grades: grades, term: term),
+        ///Sollten sie Fehler enthalten wird der Zustand auf [SingleGradeWatcherState.loadFailure] gesetzt.
+        ///Ansonsten wird der Zustand auf  SingleGradeWatcherState.loadSuccess gesetzt.
+        yield e.failureOrGrade.fold(
+          (f) =>
+              SingleGradeWatcherState.loadFailure(gradeFailures: f, term: term),
+          (grade) =>
+              SingleGradeWatcherState.loadSuccess(grade: grade, term: term),
         );
       },
 
-      ///[GradeWatcherEvent.changeTerm] wurde ausgelöst.
+      ///[SingleGradeWatcherEvent.changeTerm] wurde ausgelöst.
       changeTerm: (e) async* {
         yield copyStateWithChangedTerm(
             e.maybeWhen(changeTerm: (t) => t, orElse: () => Term(1)));
@@ -90,7 +89,7 @@ class GradeWatcherBloc extends Bloc<GradeWatcherEvent, GradeWatcherState> {
   }
 
   ///[copyStateWithChangedTerm] ist eine Methode um das aktuelle Halbjahr im Zustand zu ändern.
-  GradeWatcherState copyStateWithChangedTerm(Term term) {
+  SingleGradeWatcherState copyStateWithChangedTerm(Term term) {
     final currentState = state;
     if (currentState is Initial) {
       return currentState.copyWith(term: term);

@@ -10,6 +10,7 @@ import 'package:get_it/get_it.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:grades/application/auth/bloc/auth_bloc.dart';
 import 'package:grades/application/auth/login/bloc/login_bloc.dart';
+import 'package:grades/application/grade/watcher/grade_watcher_bloc.dart';
 import 'package:grades/application/grades/actor/grade_actor_bloc.dart';
 import 'package:grades/application/grades/watcher/grade_watcher_bloc.dart';
 import 'package:grades/application/subject/actor/bloc/subject_actor_bloc.dart';
@@ -24,30 +25,31 @@ import 'package:grades/infrastructur/subjects/subject_repository.dart';
 
 void $initGetIt(GetIt g, {String environment}) {
   final firebaseInjectableModule = _$FirebaseInjectableModule();
-  g.registerFactory<AuthBloc>(() => AuthBloc(g<IAuthFacade>()));
   g.registerLazySingleton<FirebaseAuth>(
       () => firebaseInjectableModule.firebaseAuth);
   g.registerLazySingleton<Firestore>(() => firebaseInjectableModule.firestore);
   g.registerLazySingleton<GoogleSignIn>(
       () => firebaseInjectableModule.googleSignIn);
-  g.registerFactory<GradeActorBloc>(
-      () => GradeActorBloc(g<IGradeRepository>()));
-  g.registerFactory<GradeWatcherBloc>(
-      () => GradeWatcherBloc(g<IGradeRepository>()));
   g.registerFactory<LoginBloc>(() => LoginBloc(g<IAuthFacade>()));
+  g.registerFactory<SingleGradeWatcherBloc>(
+      () => SingleGradeWatcherBloc(g<IGradeRepository>()));
   g.registerFactory<SubjectActorBloc>(
       () => SubjectActorBloc(g<ISubjectRepository>()));
   g.registerFactory<SubjectWatcherBloc>(
       () => SubjectWatcherBloc(g<ISubjectRepository>()));
+  g.registerFactory<AuthBloc>(() => AuthBloc(g<IAuthFacade>()));
+  g.registerFactory<GradeActorBloc>(
+      () => GradeActorBloc(g<IGradeRepository>()));
+  g.registerFactory<GradeWatcherBloc>(
+      () => GradeWatcherBloc(g<IGradeRepository>()));
 
   //Register prod Dependencies --------
   if (environment == 'prod') {
-    g.registerLazySingleton<GradeRepository>(
-        () => GradeRepository(g<Firestore>()));
-    g.registerLazySingleton<SubjectRepository>(
-        () => SubjectRepository(g<Firestore>()));
-    g.registerLazySingleton<FirebaseAuthFacade>(
+    g.registerFactory<IAuthFacade>(
         () => FirebaseAuthFacade(g<FirebaseAuth>(), g<GoogleSignIn>()));
+    g.registerFactory<IGradeRepository>(() => GradeRepository(g<Firestore>()));
+    g.registerFactory<ISubjectRepository>(
+        () => SubjectRepository(g<Firestore>()));
   }
 }
 

@@ -12,7 +12,6 @@ import 'package:rxdart/rxdart.dart';
 import '../../domain/subjects/i_subject_repository.dart';
 
 @prod
-@lazySingleton
 @Injectable(as: ISubjectRepository)
 class SubjectRepository implements ISubjectRepository {
   final Firestore _firestore;

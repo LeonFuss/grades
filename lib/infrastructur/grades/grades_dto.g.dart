@@ -7,7 +7,6 @@ part of 'grades_dto.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-
 _$_GradesDTO _$_$_GradesDTOFromJson(Map<String, dynamic> json) {
   return _$_GradesDTO(
     value: json['value'] as int,

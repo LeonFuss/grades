@@ -13,7 +13,6 @@ import 'grades_dto.dart';
 
 ///Implementierung des [IGradeRepository]s.
 @prod
-@lazySingleton
 @Injectable(as: IGradeRepository)
 class GradeRepository implements IGradeRepository {
   final Firestore _firestore;

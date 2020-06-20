@@ -13,7 +13,6 @@ import 'firebase_user_mapper.dart';
 
 ///Implementierung des Interfaces [IAuthFacade].
 @prod
-@lazySingleton
 @Injectable(as: IAuthFacade)
 class FirebaseAuthFacade implements IAuthFacade {
   final FirebaseAuth _firebaseAuth;
