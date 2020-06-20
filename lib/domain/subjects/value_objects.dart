@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:grades/domain/core/errors.dart';
 import 'package:grades/domain/core/failures.dart';
 import 'package:grades/domain/core/value_objects.dart';
 import 'package:grades/domain/core/value_validators.dart';
@@ -43,6 +44,25 @@ class Average extends ValueObject<double> {
 
   factory Average.empty() {
     return Average._(left(const ValueFailure.notInitialized(failedValue: -1)));
+  }
+
+  @override
+  double getOrCrash() {
+    return value.fold(
+        (f) => f.maybeWhen(
+            notInitialized: (value) => value,
+            orElse: () => throw UnexpectedValueError(f)),
+        id);
+  }
+
+  @override
+  String toString() {
+    final double = this.getOrCrash();
+    if (double == -1) {
+      return '--';
+    } else {
+      return double.roundToDouble().toString();
+    }
   }
 
   const Average._(this.value);

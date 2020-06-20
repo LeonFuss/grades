@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "911892911144",
+    "firebase_url": "https://grades-7c313.firebaseio.com",
+    "project_id": "grades-7c313",
+    "storage_bucket": "grades-7c313.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:911892911144:android:2cb69a7af9a8e01018111d",
+        "android_client_info": {
+          "package_name": "de.fuss.grades"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "911892911144-98rm6mjudo8tns7grmom4v1m78n0fkbp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "de.fuss.grades",
+            "certificate_hash": "43d18bc1ba9d311eb3d2d544495fc60a75c9ec07"
+          }
+        },
+        {
+          "client_id": "911892911144-ehcumpaoaihgr6s9nvk1p0k4kvorp7fp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOVmlrj5LrLRd3U-m8bEOL600gUiWyeDk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "911892911144-ehcumpaoaihgr6s9nvk1p0k4kvorp7fp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

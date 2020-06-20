@@ -41,7 +41,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           () => const AuthState.unauthenticated(),
 
           ///Zustand wird auf identifiziert gesetzt.
-              (_) => const AuthState.authenticated(),
+          (_) => const AuthState.authenticated(),
         );
       },
       //Event [AuthEvent.signOut()] wurde aufgerufen

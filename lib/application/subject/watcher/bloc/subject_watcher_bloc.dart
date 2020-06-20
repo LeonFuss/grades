@@ -44,8 +44,7 @@ class SubjectWatcherBloc
         ///1die ermittelten Daten werden durch das Event [SubjectWatcherEvent.subjectsReceived] weitergegeben.
         await _subjectStreamSubscription?.cancel();
         _subjectStreamSubscription = _subjectRepository.watchAll(term).listen(
-                (subjects) =>
-                add(SubjectWatcherEvent.subjectsReceived(subjects)));
+            (subjects) => add(SubjectWatcherEvent.subjectsReceived(subjects)));
       },
 
       ///[SubjectWatcherEvent.subjectsReceived] wurde ausgelöst.
@@ -54,9 +53,9 @@ class SubjectWatcherBloc
         ///Sollten sie Fehler enthalten wird der Zustand auf [SubjectWatcherState.loadFailure] gesetzt.
         ///Ansonsten wird der Zustand auf  SubjectWatcherState.loadSuccess gesetzt.
         yield e.failureOrSubjects.fold(
-              (f) =>
+          (f) =>
               SubjectWatcherState.loadFailure(subjectFailures: f, term: term),
-              (subjects) =>
+          (subjects) =>
               SubjectWatcherState.loadSuccess(subjects: subjects, term: term),
         );
       },
@@ -105,4 +104,17 @@ class SubjectWatcherBloc
     }
     return currentState;
   }
+}
+
+Term getTermFromState(SubjectWatcherState state) {
+  if (state is Initial) {
+    return state.term;
+  } else if (state is DataTransferInProgress) {
+    return state.term;
+  } else if (state is LoadSuccess) {
+    return state.term;
+  } else if (state is LoadFailure) {
+    return state.term;
+  }
+  return Term(1);
 }

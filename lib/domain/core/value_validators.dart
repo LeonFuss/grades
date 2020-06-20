@@ -60,6 +60,8 @@ Either<ValueFailure<double>, double> validateAverageRange(
     double grade, double highestValue) {
   if (grade >= 0 && grade <= highestValue) {
     return right(grade);
+  } else if (grade == -1) {
+    return left(ValueFailure.notInitialized(failedValue: grade));
   } else {
     return left(ValueFailure.averageOutOfRange(failedValue: grade));
   }

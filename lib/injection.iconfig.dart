@@ -14,6 +14,7 @@ import 'package:grades/application/grade/watcher/grade_watcher_bloc.dart';
 import 'package:grades/application/grades/actor/grade_actor_bloc.dart';
 import 'package:grades/application/grades/watcher/grade_watcher_bloc.dart';
 import 'package:grades/application/subject/actor/bloc/subject_actor_bloc.dart';
+import 'package:grades/application/subject/form/bloc/subject_form_bloc.dart';
 import 'package:grades/application/subject/watcher/bloc/subject_watcher_bloc.dart';
 import 'package:grades/domain/auth/i_auth_facade.dart';
 import 'package:grades/domain/grades/i_grade_repository.dart';
@@ -35,6 +36,8 @@ void $initGetIt(GetIt g, {String environment}) {
       () => SingleGradeWatcherBloc(g<IGradeRepository>()));
   g.registerFactory<SubjectActorBloc>(
       () => SubjectActorBloc(g<ISubjectRepository>()));
+  g.registerFactory<SubjectFormBloc>(
+      () => SubjectFormBloc(g<ISubjectRepository>()));
   g.registerFactory<SubjectWatcherBloc>(
       () => SubjectWatcherBloc(g<ISubjectRepository>()));
   g.registerFactory<AuthBloc>(() => AuthBloc(g<IAuthFacade>()));
