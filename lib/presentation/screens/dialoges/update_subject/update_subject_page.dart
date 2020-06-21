@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grades/application/subject/form/bloc/subject_form_bloc.dart';
 import 'package:grades/domain/subjects/subject.dart';
+import 'package:grades/presentation/core/app_colors.dart';
 import 'package:grades/presentation/routes/router.gr.dart';
 
 import '../../../../injection.dart';
@@ -45,8 +46,6 @@ class UpdateSubjectPage extends StatelessWidget {
                   ).show(context);
                 },
                 (_) {
-                  // Can't be just a simple pop. If another route (like a Flushbar) is on top of stack, we'll need to pop even that to get to
-                  // the overview page.
                   ExtendedNavigator.of(context).popUntil((route) =>
                       route.settings.name == Routes.gradesOverviewScreen);
                 },
@@ -82,7 +81,7 @@ class SavingInProgressOverlay extends StatelessWidget {
       ignoring: !isSaving,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 150),
-        color: isSaving ? Colors.black.withOpacity(0.8) : Colors.transparent,
+        color: isSaving ? Colors.black.withOpacity(0.6) : Colors.transparent,
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Visibility(
@@ -93,8 +92,7 @@ class SavingInProgressOverlay extends StatelessWidget {
               const CircularProgressIndicator(),
               const SizedBox(height: 8),
               Text(
-                'Saving',
-                // Not within a Scaffold. We have to get the TextStyle from a theme ourselves.
+                'Speichern...',
                 style: Theme.of(context).textTheme.bodyText2.copyWith(
                       color: Colors.white,
                       fontSize: 16,
@@ -117,11 +115,15 @@ class NoteFormPageScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: AppColors.inputBg),
         title: BlocBuilder<SubjectFormBloc, SubjectFormState>(
           condition: (p, c) => p.isEditing != c.isEditing,
           builder: (context, state) => Text(
-              state.isEditing ? 'Bearbeite das Fach' : 'Erstelle ein Fach'),
+            state.isEditing ? 'Bearbeite ein Fach' : 'Erstelle ein Fach',
+            style: Theme.of(context).textTheme.headline6,
+          ),
         ),
+        centerTitle: true,
         actions: <Widget>[
           Builder(
             builder: (context) {
@@ -143,6 +145,7 @@ class NoteFormPageScaffold extends StatelessWidget {
           return Form(
             autovalidate: state.showErrorMessages,
             child: const CustomScrollView(
+              physics: BouncingScrollPhysics(),
               slivers: <Widget>[
                 SliverToBoxAdapter(child: NameField()),
               ],

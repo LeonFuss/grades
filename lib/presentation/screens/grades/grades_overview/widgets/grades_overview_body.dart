@@ -9,9 +9,11 @@ class GradesOverviewBody extends StatelessWidget {
     return BlocBuilder<SubjectWatcherBloc, SubjectWatcherState>(
       builder: (BuildContext context, SubjectWatcherState state) {
         return state.when(
-            initial: (term) => CircularProgressIndicator(),
-            loadInProgress: (term) => CircularProgressIndicator(),
-            loadFailure: (failure, term) => Text('Fehler'),
+            initial: (term) => const SizedBox(),
+            loadInProgress: (term) =>
+                const Center(child: CircularProgressIndicator()),
+            loadFailure: (failure, term) =>
+                const Center(child: Text('Ein Fehler ist aufgetreten Fehler')),
             loadSuccess: (subjects, term) =>
                 SubjectOverviewList(subjects: subjects));
       },

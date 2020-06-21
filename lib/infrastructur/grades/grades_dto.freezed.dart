@@ -211,7 +211,6 @@ class _$_GradesDTO extends _GradesDTO {
 }
 
 abstract class _GradesDTO extends GradesDTO {
-  const _GradesDTO._() : super._();
   const factory _GradesDTO(
       {@JsonKey(ignore: true) String id,
       @required int value,
@@ -219,6 +218,8 @@ abstract class _GradesDTO extends GradesDTO {
       @required String description,
       @required String subjectId,
       @required int term}) = _$_GradesDTO;
+
+  const _GradesDTO._() : super._();
 
   factory _GradesDTO.fromJson(Map<String, dynamic> json) =
       _$_GradesDTO.fromJson;

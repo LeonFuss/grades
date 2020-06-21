@@ -22,11 +22,14 @@ class AppWidget extends StatelessWidget {
         title: 'Grades',
         debugShowCheckedModeBanner: false,
         builder: ExtendedNavigator(router: Router()),
-        theme: ThemeData.light().copyWith(
-          primaryColor: AppColors.activeInputColor,
+        theme: ThemeData(
+          primaryColor: AppColors.inputBg,
           accentColor: AppColors.accentColor,
-          textTheme: GoogleFonts.montserratTextTheme(
-              TextTheme(headline6: TextStyle(color: AppColors.accentColor))),
+          textTheme: GoogleFonts.montserratTextTheme(const TextTheme().apply(
+              bodyColor: AppColors.inputBg,
+              displayColor: AppColors.inputBg,
+              decorationColor: AppColors.inputBg,
+              fontSizeDelta: 50)),
           inputDecorationTheme: InputDecorationTheme(
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: AppColors.inputBg),

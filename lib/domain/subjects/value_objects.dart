@@ -57,7 +57,7 @@ class Average extends ValueObject<double> {
 
   @override
   String toString() {
-    final double = this.getOrCrash();
+    final double = getOrCrash();
     if (double == -1) {
       return '--';
     } else {

@@ -10,11 +10,8 @@ part 'subjects_dto.g.dart';
 
 ///[SubjectsDTO] ist das Datentransferobjekt der Entität [Subject].
 
-
 @freezed
 abstract class SubjectsDTO implements _$SubjectsDTO {
-  const SubjectsDTO._();
-
   const factory SubjectsDTO({
     @JsonKey(ignore: true) String id,
     @required String name,
@@ -24,6 +21,8 @@ abstract class SubjectsDTO implements _$SubjectsDTO {
     @required int position,
     @required int term,
   }) = _SubjectsDTO;
+
+  const SubjectsDTO._();
 
   factory SubjectsDTO.fromDomain(Subject subject) {
     return SubjectsDTO(

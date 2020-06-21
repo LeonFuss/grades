@@ -3,7 +3,7 @@ description: A new Flutter application.
 
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -81,3 +81,4 @@ flutter_icons:
   android: "launcher_icon"
   ios: true
   image_path: "assets/grades_logo.png"
+  adaptive_icon_background: \#FFFAF7ED

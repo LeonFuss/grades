@@ -6,6 +6,7 @@ import 'package:grades/application/auth/bloc/auth_bloc.dart';
 import 'package:grades/application/subject/actor/bloc/subject_actor_bloc.dart';
 import 'package:grades/application/subject/watcher/bloc/subject_watcher_bloc.dart';
 import 'package:grades/injection.dart';
+import 'package:grades/presentation/core/app_colors.dart';
 import 'package:grades/presentation/routes/router.gr.dart';
 import 'package:grades/presentation/screens/grades/grades_overview/widgets/grades_overview_body.dart';
 
@@ -67,8 +68,12 @@ class GradesOverviewScreen extends HookWidget implements AutoRouteWrapper {
             getTermFromState(newDelegate).value,
         builder: (context, state) => Scaffold(
           appBar: AppBar(
-              title:
-                  Text('Notes', style: Theme.of(context).textTheme.headline6),
+              title: Text('Grades',
+                  style: Theme.of(context).textTheme.headline5.copyWith(
+                      letterSpacing: 2,
+                      color: AppColors.inputBg,
+                      fontWeight: FontWeight.w100,
+                      fontSize: 30)),
               actions: [
                 IconButton(
                   icon: Icon(Icons.exit_to_app),

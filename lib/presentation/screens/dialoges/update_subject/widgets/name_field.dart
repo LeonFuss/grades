@@ -29,10 +29,9 @@ class NameField extends HookWidget {
               labelText: 'Fachname',
               counterText: '',
             ),
+            autofocus: true,
             maxLength: SubjectName.maxLength,
             maxLengthEnforced: true,
-            maxLines: null,
-            minLines: 5,
             onChanged: (value) => context
                 .bloc<SubjectFormBloc>()
                 .add(SubjectFormEvent.nameChanged(value)),

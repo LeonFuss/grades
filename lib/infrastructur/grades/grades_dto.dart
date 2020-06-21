@@ -10,8 +10,6 @@ part 'grades_dto.g.dart';
 ///[GradesDTO] ist das Datentransferobjekt der Entität [Grade].
 @freezed
 abstract class GradesDTO implements _$GradesDTO {
-  const GradesDTO._();
-
   const factory GradesDTO(
       {@JsonKey(ignore: true) String id,
       @required int value,
@@ -30,6 +28,8 @@ abstract class GradesDTO implements _$GradesDTO {
       term: grade.term.getOrCrash(),
     );
   }
+
+  const GradesDTO._();
 
   Grade toDomain() {
     return Grade(

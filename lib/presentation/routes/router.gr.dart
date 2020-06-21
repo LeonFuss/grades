@@ -53,7 +53,7 @@ class Router extends RouterBase {
         );
       case Routes.updateSubjectPage:
         return MaterialPageRoute<dynamic>(
-          builder: (context) => UpdateSubjectPage(),
+          builder: (context) => const UpdateSubjectPage(),
           settings: settings,
           fullscreenDialog: true,
         );
