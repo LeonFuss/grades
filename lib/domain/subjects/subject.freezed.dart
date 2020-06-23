@@ -218,6 +218,7 @@ class _$_Subject extends _Subject {
 }
 
 abstract class _Subject extends Subject {
+  const _Subject._() : super._();
   const factory _Subject(
       {@required UniqueId id,
       @required SubjectName name,
@@ -226,8 +227,6 @@ abstract class _Subject extends Subject {
       @required Average writtenAverage,
       @required int position,
       @required Term term}) = _$_Subject;
-
-  const _Subject._() : super._();
 
   @override
   UniqueId get id;

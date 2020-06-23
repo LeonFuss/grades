@@ -54,9 +54,18 @@ class GradeWatcherBloc extends Bloc<GradeWatcherEvent, GradeWatcherState> {
         ///Sollten sie Fehler enthalten wird der Zustand auf [GradeWatcherState.loadFailure] gesetzt.
         ///Ansonsten wird der Zustand auf  GradeWatcherState.loadSuccess gesetzt.
         yield e.failureOrGrades.fold(
-          (f) => GradeWatcherState.loadFailure(gradeFailures: f, term: term),
-          (grades) => GradeWatcherState.loadSuccess(grades: grades, term: term),
-        );
+            (f) => GradeWatcherState.loadFailure(gradeFailures: f, term: term),
+            (grades) {
+          final oralGrades =
+              grades.filter((grade) => grade.type.getOrCrash() == "Mündlich");
+          final writtenGrades = grades
+              .filter((grade) => grade.type.getOrCrash() == "Schriftlich");
+          return GradeWatcherState.loadSuccess(
+              grades: grades,
+              oralGrades: oralGrades,
+              writtenGrades: writtenGrades,
+              term: term);
+        });
       },
 
       ///[GradeWatcherEvent.changeTerm] wurde ausgelöst.

@@ -236,6 +236,7 @@ class _$_SubjectsDTO extends _SubjectsDTO {
 }
 
 abstract class _SubjectsDTO extends SubjectsDTO {
+  const _SubjectsDTO._() : super._();
   const factory _SubjectsDTO(
       {@JsonKey(ignore: true) String id,
       @required String name,
@@ -244,8 +245,6 @@ abstract class _SubjectsDTO extends SubjectsDTO {
       @required double writtenAverage,
       @required int position,
       @required int term}) = _$_SubjectsDTO;
-
-  const _SubjectsDTO._() : super._();
 
   factory _SubjectsDTO.fromJson(Map<String, dynamic> json) =
       _$_SubjectsDTO.fromJson;

@@ -12,8 +12,12 @@ abstract class GradeWatcherState with _$GradeWatcherState {
 
   ///Zustand der eintritt, wenn Daten erfolgreich geladen wurden.
   ///Die geladenen Daten und das aktuelle Halbjahr sind gespeichert.
-  const factory GradeWatcherState.loadSuccess(
-      {@required KtList<Grade> grades, @required Term term}) = LoadSuccess;
+  const factory GradeWatcherState.loadSuccess({
+    @required KtList<Grade> grades,
+    @required KtList<Grade> oralGrades,
+    @required KtList<Grade> writtenGrades,
+    @required Term term,
+  }) = LoadSuccess;
 
   ///Zustand der eintritt, wenn Daten nicht erfolgreich geladen wurden.
   ///Es sind ein Fehlerbericht und das aktuelle Halbjahr gespeichert.

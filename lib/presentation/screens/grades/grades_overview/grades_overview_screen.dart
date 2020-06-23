@@ -1,10 +1,15 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:grades/application/auth/bloc/auth_bloc.dart';
+import 'package:grades/application/grades/actor/grade_actor_bloc.dart';
 import 'package:grades/application/subject/actor/bloc/subject_actor_bloc.dart';
 import 'package:grades/application/subject/watcher/bloc/subject_watcher_bloc.dart';
+import 'package:grades/domain/core/value_objects.dart';
+import 'package:grades/domain/grades/grade.dart';
+import 'package:grades/domain/grades/value_objects.dart';
 import 'package:grades/injection.dart';
 import 'package:grades/presentation/core/app_colors.dart';
 import 'package:grades/presentation/routes/router.gr.dart';
@@ -25,6 +30,9 @@ class GradesOverviewScreen extends HookWidget implements AutoRouteWrapper {
         BlocProvider<SubjectActorBloc>(
           create: (context) => getIt<SubjectActorBloc>(),
         ),
+        BlocProvider<GradeActorBloc>(
+          create: (context) => getIt<GradeActorBloc>(),
+        )
       ],
       child: this,
     );
@@ -85,9 +93,26 @@ class GradesOverviewScreen extends HookWidget implements AutoRouteWrapper {
           body: GradesOverviewBody(),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              ExtendedNavigator.of(context).pushNamed(
-                Routes.updateSubjectPage,
-              );
+              if (state is LoadSuccess) {
+                if (!state.subjects.isEmpty()) {
+                  context.bloc<GradeActorBloc>().add(
+                        GradeActorEvent.create(
+                          Grade(
+                            type: GradeType.schriftlich(),
+                            term: Term.first(),
+                            subjectId: state.subjects.asList().first.id,
+                            id: UniqueId(),
+                            description: GradeDescription('Test Note'),
+                            value: GradeValue(14),
+                          ),
+                        ),
+                      );
+                  FlushbarHelper.createInformation(
+                    message: 'Note erfolgreich im ersten Fach erstellt',
+                    duration: const Duration(seconds: 5),
+                  );
+                }
+              }
             },
             child: Icon(Icons.add),
           ),

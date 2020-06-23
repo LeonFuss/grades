@@ -61,6 +61,17 @@ class GradeType extends ValueObject<String> {
     );
   }
 
+  factory GradeType.muendlich() {
+    return GradeType._(
+      validateGradeType('Mündlich', gradeTypes),
+    );
+  }
+  factory GradeType.schriftlich() {
+    return GradeType._(
+      validateGradeType('Schriftlich', gradeTypes),
+    );
+  }
+
   const GradeType._(this.value);
 }
 

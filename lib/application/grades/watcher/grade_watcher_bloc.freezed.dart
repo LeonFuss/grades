@@ -477,9 +477,14 @@ class _$GradeWatcherStateTearOff {
   }
 
   LoadSuccess loadSuccess(
-      {@required KtList<Grade> grades, @required Term term}) {
+      {@required KtList<Grade> grades,
+      @required KtList<Grade> oralGrades,
+      @required KtList<Grade> writtenGrades,
+      @required Term term}) {
     return LoadSuccess(
       grades: grades,
+      oralGrades: oralGrades,
+      writtenGrades: writtenGrades,
       term: term,
     );
   }
@@ -503,14 +508,17 @@ mixin _$GradeWatcherState {
   Result when<Result extends Object>({
     @required Result initial(Term term),
     @required Result loadInProgress(Term term),
-    @required Result loadSuccess(KtList<Grade> grades, Term term),
+    @required
+        Result loadSuccess(KtList<Grade> grades, KtList<Grade> oralGrades,
+            KtList<Grade> writtenGrades, Term term),
     @required Result loadFailure(GradeFailures gradeFailures, Term term),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result initial(Term term),
     Result loadInProgress(Term term),
-    Result loadSuccess(KtList<Grade> grades, Term term),
+    Result loadSuccess(KtList<Grade> grades, KtList<Grade> oralGrades,
+        KtList<Grade> writtenGrades, Term term),
     Result loadFailure(GradeFailures gradeFailures, Term term),
     @required Result orElse(),
   });
@@ -616,7 +624,9 @@ class _$Initial implements Initial {
   Result when<Result extends Object>({
     @required Result initial(Term term),
     @required Result loadInProgress(Term term),
-    @required Result loadSuccess(KtList<Grade> grades, Term term),
+    @required
+        Result loadSuccess(KtList<Grade> grades, KtList<Grade> oralGrades,
+            KtList<Grade> writtenGrades, Term term),
     @required Result loadFailure(GradeFailures gradeFailures, Term term),
   }) {
     assert(initial != null);
@@ -631,7 +641,8 @@ class _$Initial implements Initial {
   Result maybeWhen<Result extends Object>({
     Result initial(Term term),
     Result loadInProgress(Term term),
-    Result loadSuccess(KtList<Grade> grades, Term term),
+    Result loadSuccess(KtList<Grade> grades, KtList<Grade> oralGrades,
+        KtList<Grade> writtenGrades, Term term),
     Result loadFailure(GradeFailures gradeFailures, Term term),
     @required Result orElse(),
   }) {
@@ -745,7 +756,9 @@ class _$DataTransferInProgress implements DataTransferInProgress {
   Result when<Result extends Object>({
     @required Result initial(Term term),
     @required Result loadInProgress(Term term),
-    @required Result loadSuccess(KtList<Grade> grades, Term term),
+    @required
+        Result loadSuccess(KtList<Grade> grades, KtList<Grade> oralGrades,
+            KtList<Grade> writtenGrades, Term term),
     @required Result loadFailure(GradeFailures gradeFailures, Term term),
   }) {
     assert(initial != null);
@@ -760,7 +773,8 @@ class _$DataTransferInProgress implements DataTransferInProgress {
   Result maybeWhen<Result extends Object>({
     Result initial(Term term),
     Result loadInProgress(Term term),
-    Result loadSuccess(KtList<Grade> grades, Term term),
+    Result loadSuccess(KtList<Grade> grades, KtList<Grade> oralGrades,
+        KtList<Grade> writtenGrades, Term term),
     Result loadFailure(GradeFailures gradeFailures, Term term),
     @required Result orElse(),
   }) {
@@ -819,7 +833,11 @@ abstract class $LoadSuccessCopyWith<$Res>
           LoadSuccess value, $Res Function(LoadSuccess) then) =
       _$LoadSuccessCopyWithImpl<$Res>;
   @override
-  $Res call({KtList<Grade> grades, Term term});
+  $Res call(
+      {KtList<Grade> grades,
+      KtList<Grade> oralGrades,
+      KtList<Grade> writtenGrades,
+      Term term});
 }
 
 class _$LoadSuccessCopyWithImpl<$Res>
@@ -835,28 +853,46 @@ class _$LoadSuccessCopyWithImpl<$Res>
   @override
   $Res call({
     Object grades = freezed,
+    Object oralGrades = freezed,
+    Object writtenGrades = freezed,
     Object term = freezed,
   }) {
     return _then(LoadSuccess(
       grades: grades == freezed ? _value.grades : grades as KtList<Grade>,
+      oralGrades: oralGrades == freezed
+          ? _value.oralGrades
+          : oralGrades as KtList<Grade>,
+      writtenGrades: writtenGrades == freezed
+          ? _value.writtenGrades
+          : writtenGrades as KtList<Grade>,
       term: term == freezed ? _value.term : term as Term,
     ));
   }
 }
 
 class _$LoadSuccess implements LoadSuccess {
-  const _$LoadSuccess({@required this.grades, @required this.term})
+  const _$LoadSuccess(
+      {@required this.grades,
+      @required this.oralGrades,
+      @required this.writtenGrades,
+      @required this.term})
       : assert(grades != null),
+        assert(oralGrades != null),
+        assert(writtenGrades != null),
         assert(term != null);
 
   @override
   final KtList<Grade> grades;
   @override
+  final KtList<Grade> oralGrades;
+  @override
+  final KtList<Grade> writtenGrades;
+  @override
   final Term term;
 
   @override
   String toString() {
-    return 'GradeWatcherState.loadSuccess(grades: $grades, term: $term)';
+    return 'GradeWatcherState.loadSuccess(grades: $grades, oralGrades: $oralGrades, writtenGrades: $writtenGrades, term: $term)';
   }
 
   @override
@@ -865,6 +901,12 @@ class _$LoadSuccess implements LoadSuccess {
         (other is LoadSuccess &&
             (identical(other.grades, grades) ||
                 const DeepCollectionEquality().equals(other.grades, grades)) &&
+            (identical(other.oralGrades, oralGrades) ||
+                const DeepCollectionEquality()
+                    .equals(other.oralGrades, oralGrades)) &&
+            (identical(other.writtenGrades, writtenGrades) ||
+                const DeepCollectionEquality()
+                    .equals(other.writtenGrades, writtenGrades)) &&
             (identical(other.term, term) ||
                 const DeepCollectionEquality().equals(other.term, term)));
   }
@@ -873,6 +915,8 @@ class _$LoadSuccess implements LoadSuccess {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(grades) ^
+      const DeepCollectionEquality().hash(oralGrades) ^
+      const DeepCollectionEquality().hash(writtenGrades) ^
       const DeepCollectionEquality().hash(term);
 
   @override
@@ -884,14 +928,16 @@ class _$LoadSuccess implements LoadSuccess {
   Result when<Result extends Object>({
     @required Result initial(Term term),
     @required Result loadInProgress(Term term),
-    @required Result loadSuccess(KtList<Grade> grades, Term term),
+    @required
+        Result loadSuccess(KtList<Grade> grades, KtList<Grade> oralGrades,
+            KtList<Grade> writtenGrades, Term term),
     @required Result loadFailure(GradeFailures gradeFailures, Term term),
   }) {
     assert(initial != null);
     assert(loadInProgress != null);
     assert(loadSuccess != null);
     assert(loadFailure != null);
-    return loadSuccess(grades, term);
+    return loadSuccess(grades, oralGrades, writtenGrades, term);
   }
 
   @override
@@ -899,13 +945,14 @@ class _$LoadSuccess implements LoadSuccess {
   Result maybeWhen<Result extends Object>({
     Result initial(Term term),
     Result loadInProgress(Term term),
-    Result loadSuccess(KtList<Grade> grades, Term term),
+    Result loadSuccess(KtList<Grade> grades, KtList<Grade> oralGrades,
+        KtList<Grade> writtenGrades, Term term),
     Result loadFailure(GradeFailures gradeFailures, Term term),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (loadSuccess != null) {
-      return loadSuccess(grades, term);
+      return loadSuccess(grades, oralGrades, writtenGrades, term);
     }
     return orElse();
   }
@@ -944,9 +991,14 @@ class _$LoadSuccess implements LoadSuccess {
 
 abstract class LoadSuccess implements GradeWatcherState {
   const factory LoadSuccess(
-      {@required KtList<Grade> grades, @required Term term}) = _$LoadSuccess;
+      {@required KtList<Grade> grades,
+      @required KtList<Grade> oralGrades,
+      @required KtList<Grade> writtenGrades,
+      @required Term term}) = _$LoadSuccess;
 
   KtList<Grade> get grades;
+  KtList<Grade> get oralGrades;
+  KtList<Grade> get writtenGrades;
   @override
   Term get term;
   @override
@@ -1039,7 +1091,9 @@ class _$LoadFailure implements LoadFailure {
   Result when<Result extends Object>({
     @required Result initial(Term term),
     @required Result loadInProgress(Term term),
-    @required Result loadSuccess(KtList<Grade> grades, Term term),
+    @required
+        Result loadSuccess(KtList<Grade> grades, KtList<Grade> oralGrades,
+            KtList<Grade> writtenGrades, Term term),
     @required Result loadFailure(GradeFailures gradeFailures, Term term),
   }) {
     assert(initial != null);
@@ -1054,7 +1108,8 @@ class _$LoadFailure implements LoadFailure {
   Result maybeWhen<Result extends Object>({
     Result initial(Term term),
     Result loadInProgress(Term term),
-    Result loadSuccess(KtList<Grade> grades, Term term),
+    Result loadSuccess(KtList<Grade> grades, KtList<Grade> oralGrades,
+        KtList<Grade> writtenGrades, Term term),
     Result loadFailure(GradeFailures gradeFailures, Term term),
     @required Result orElse(),
   }) {

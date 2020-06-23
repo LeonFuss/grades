@@ -7,6 +7,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:grades/domain/subjects/subject.dart';
 import 'package:grades/presentation/screens/dialoges/update_subject/update_subject_page.dart';
 import 'package:grades/presentation/screens/grades/grades_overview/grades_overview_screen.dart';
 import 'package:grades/presentation/screens/sign_in/sign_in_screen.dart';
@@ -35,6 +36,7 @@ class Router extends RouterBase {
 
   @override
   Route<dynamic> onGenerateRoute(RouteSettings settings) {
+    final args = settings.arguments;
     switch (settings.name) {
       case Routes.splashPage:
         return MaterialPageRoute<dynamic>(
@@ -52,8 +54,17 @@ class Router extends RouterBase {
           settings: settings,
         );
       case Routes.updateSubjectPage:
+        if (hasInvalidArgs<UpdateSubjectPageArguments>(args)) {
+          return misTypedArgsRoute<UpdateSubjectPageArguments>(args);
+        }
+        final typedArgs =
+            args as UpdateSubjectPageArguments ?? UpdateSubjectPageArguments();
         return MaterialPageRoute<dynamic>(
-          builder: (context) => const UpdateSubjectPage(),
+          builder: (context) => UpdateSubjectPage(
+              key: typedArgs.key,
+              title: typedArgs.title,
+              onSubmit: typedArgs.onSubmit,
+              subject: typedArgs.subject),
           settings: settings,
           fullscreenDialog: true,
         );
@@ -61,6 +72,20 @@ class Router extends RouterBase {
         return unknownRoutePage(settings.name);
     }
   }
+}
+
+// *************************************************************************
+// Arguments holder classes
+// **************************************************************************
+
+//UpdateSubjectPage arguments holder class
+class UpdateSubjectPageArguments {
+  final Key key;
+  final String title;
+  final dynamic Function(Subject) onSubmit;
+  final Subject subject;
+  UpdateSubjectPageArguments(
+      {this.key, this.title, this.onSubmit, this.subject});
 }
 
 // *************************************************************************
@@ -74,5 +99,15 @@ extension RouterNavigationHelperMethods on ExtendedNavigatorState {
 
   Future pushGradesOverviewScreen() => pushNamed(Routes.gradesOverviewScreen);
 
-  Future pushUpdateSubjectPage() => pushNamed(Routes.updateSubjectPage);
+  Future pushUpdateSubjectPage({
+    Key key,
+    String title,
+    dynamic Function(Subject) onSubmit,
+    Subject subject,
+  }) =>
+      pushNamed(
+        Routes.updateSubjectPage,
+        arguments: UpdateSubjectPageArguments(
+            key: key, title: title, onSubmit: onSubmit, subject: subject),
+      );
 }

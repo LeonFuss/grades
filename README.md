@@ -2,6 +2,8 @@
 
 Eine Notenverwaltungsapp
 
+Der von uns selbst geschriebene Code befindet sich in dem lib Ordner.
+
 ## Dart im Kontrast zu Java
 
 #### Das "new" Schlüsselwort kann in Dart weggelassen werden
