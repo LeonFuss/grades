@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -7,13 +6,12 @@ import 'package:grades/application/auth/bloc/auth_bloc.dart';
 import 'package:grades/application/grades/actor/grade_actor_bloc.dart';
 import 'package:grades/application/subject/actor/bloc/subject_actor_bloc.dart';
 import 'package:grades/application/subject/watcher/bloc/subject_watcher_bloc.dart';
-import 'package:grades/domain/core/value_objects.dart';
-import 'package:grades/domain/grades/grade.dart';
-import 'package:grades/domain/grades/value_objects.dart';
 import 'package:grades/injection.dart';
 import 'package:grades/presentation/core/app_colors.dart';
 import 'package:grades/presentation/routes/router.gr.dart';
 import 'package:grades/presentation/screens/grades/grades_overview/widgets/grades_overview_body.dart';
+
+import 'widgets/header_card.dart';
 
 class GradesOverviewScreen extends HookWidget implements AutoRouteWrapper {
   @override
@@ -71,48 +69,26 @@ class GradesOverviewScreen extends HookWidget implements AutoRouteWrapper {
           },
         )*/
       child: BlocBuilder<SubjectWatcherBloc, SubjectWatcherState>(
-        condition: (oldDelegate, newDelegate) =>
-            getTermFromState(oldDelegate).value !=
-            getTermFromState(newDelegate).value,
         builder: (context, state) => Scaffold(
-          appBar: AppBar(
-              title: Text('Grades',
-                  style: Theme.of(context).textTheme.headline5.copyWith(
-                      letterSpacing: 2,
-                      color: AppColors.inputBg,
-                      fontWeight: FontWeight.w100,
-                      fontSize: 30)),
-              actions: [
-                IconButton(
-                  icon: Icon(Icons.exit_to_app),
-                  onPressed: () {
-                    context.bloc<AuthBloc>().add(const AuthEvent.signedOut());
-                  },
-                ),
-              ]),
-          body: GradesOverviewBody(),
+          backgroundColor: AppColors.scaffold,
+          body: ListView(
+            children: <Widget>[
+              HeaderCard(),
+              GradesOverviewBody(),
+            ],
+          ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {
-              if (state is LoadSuccess) {
-                if (!state.subjects.isEmpty()) {
-                  context.bloc<GradeActorBloc>().add(
-                        GradeActorEvent.create(
-                          Grade(
-                            type: GradeType.schriftlich(),
-                            term: Term.first(),
-                            subjectId: state.subjects.asList().first.id,
-                            id: UniqueId(),
-                            description: GradeDescription('Test Note'),
-                            value: GradeValue(14),
-                          ),
-                        ),
-                      );
-                  FlushbarHelper.createInformation(
-                    message: 'Note erfolgreich im ersten Fach erstellt',
-                    duration: const Duration(seconds: 5),
-                  );
-                }
-              }
+              context.bloc<SubjectWatcherBloc>().state.maybeMap(
+                  loadSuccess: (e) {
+                    if (e.subjects.asList().isNotEmpty) {
+                      ExtendedNavigator.of(context).pushNamed(
+                          Routes.updateGradePage,
+                          arguments: UpdateGradePageArguments(
+                              subject: e.subjects.asList().first));
+                    }
+                  },
+                  orElse: () {});
             },
             child: Icon(Icons.add),
           ),

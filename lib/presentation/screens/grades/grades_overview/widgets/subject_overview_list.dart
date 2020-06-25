@@ -52,7 +52,7 @@ class SubjectOverviewList extends StatelessWidget {
                             borderRadius: BorderRadius.all(Radius.circular(8))),
                         title: const Text('Fach löschen'),
                         content: Text(
-                          "Nach dem Löschen ist das Fach ${subject.name.getOrCrash()} nicht mehr wiederherstellbar",
+                          "Nach dem Löschen ist das Fach ${subject.name.getOrCrash().trim()} nicht mehr wiederherstellbar",
                         ),
                         actions: <Widget>[
                           FlatButton(

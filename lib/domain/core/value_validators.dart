@@ -56,6 +56,15 @@ Either<ValueFailure<int>, int> validateGradeRange(int grade, int highestValue) {
   }
 }
 
+Either<ValueFailure<int>, int> validateGradeFromString(String input) {
+  try {
+    final int grade = int.parse(input);
+    return right(grade);
+  } catch (e) {
+    return left(const ValueFailure.invalidStringInput(failedValue: -1));
+  }
+}
+
 Either<ValueFailure<double>, double> validateAverageRange(
     double grade, double highestValue) {
   if (grade >= 0 && grade <= highestValue) {

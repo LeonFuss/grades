@@ -80,6 +80,12 @@ class _$ValueFailureTearOff {
       failedValue: failedValue,
     );
   }
+
+  _InvalidStringInput<T> invalidStringInput<T>({@required T failedValue}) {
+    return _InvalidStringInput<T>(
+      failedValue: failedValue,
+    );
+  }
 }
 
 // ignore: unused_element
@@ -101,6 +107,7 @@ mixin _$ValueFailure<T> {
     @required Result invalidGradeType(T failedValue),
     @required Result notInitialized(T failedValue),
     @required Result termOutOfRange(T failedValue),
+    @required Result invalidStringInput(T failedValue),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
@@ -115,6 +122,7 @@ mixin _$ValueFailure<T> {
     Result invalidGradeType(T failedValue),
     Result notInitialized(T failedValue),
     Result termOutOfRange(T failedValue),
+    Result invalidStringInput(T failedValue),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -130,6 +138,7 @@ mixin _$ValueFailure<T> {
     @required Result invalidGradeType(InvalidGradeType<T> value),
     @required Result notInitialized(NotInitialized<T> value),
     @required Result termOutOfRange(TermOutOfRange<T> value),
+    @required Result invalidStringInput(_InvalidStringInput<T> value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
@@ -144,6 +153,7 @@ mixin _$ValueFailure<T> {
     Result invalidGradeType(InvalidGradeType<T> value),
     Result notInitialized(NotInitialized<T> value),
     Result termOutOfRange(TermOutOfRange<T> value),
+    Result invalidStringInput(_InvalidStringInput<T> value),
     @required Result orElse(),
   });
 
@@ -258,6 +268,7 @@ class _$ExceedingLength<T> implements ExceedingLength<T> {
     @required Result invalidGradeType(T failedValue),
     @required Result notInitialized(T failedValue),
     @required Result termOutOfRange(T failedValue),
+    @required Result invalidStringInput(T failedValue),
   }) {
     assert(exceedingLength != null);
     assert(empty != null);
@@ -270,6 +281,7 @@ class _$ExceedingLength<T> implements ExceedingLength<T> {
     assert(invalidGradeType != null);
     assert(notInitialized != null);
     assert(termOutOfRange != null);
+    assert(invalidStringInput != null);
     return exceedingLength(failedValue, max);
   }
 
@@ -287,6 +299,7 @@ class _$ExceedingLength<T> implements ExceedingLength<T> {
     Result invalidGradeType(T failedValue),
     Result notInitialized(T failedValue),
     Result termOutOfRange(T failedValue),
+    Result invalidStringInput(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -310,6 +323,7 @@ class _$ExceedingLength<T> implements ExceedingLength<T> {
     @required Result invalidGradeType(InvalidGradeType<T> value),
     @required Result notInitialized(NotInitialized<T> value),
     @required Result termOutOfRange(TermOutOfRange<T> value),
+    @required Result invalidStringInput(_InvalidStringInput<T> value),
   }) {
     assert(exceedingLength != null);
     assert(empty != null);
@@ -322,6 +336,7 @@ class _$ExceedingLength<T> implements ExceedingLength<T> {
     assert(invalidGradeType != null);
     assert(notInitialized != null);
     assert(termOutOfRange != null);
+    assert(invalidStringInput != null);
     return exceedingLength(this);
   }
 
@@ -339,6 +354,7 @@ class _$ExceedingLength<T> implements ExceedingLength<T> {
     Result invalidGradeType(InvalidGradeType<T> value),
     Result notInitialized(NotInitialized<T> value),
     Result termOutOfRange(TermOutOfRange<T> value),
+    Result invalidStringInput(_InvalidStringInput<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -429,6 +445,7 @@ class _$Empty<T> implements Empty<T> {
     @required Result invalidGradeType(T failedValue),
     @required Result notInitialized(T failedValue),
     @required Result termOutOfRange(T failedValue),
+    @required Result invalidStringInput(T failedValue),
   }) {
     assert(exceedingLength != null);
     assert(empty != null);
@@ -441,6 +458,7 @@ class _$Empty<T> implements Empty<T> {
     assert(invalidGradeType != null);
     assert(notInitialized != null);
     assert(termOutOfRange != null);
+    assert(invalidStringInput != null);
     return empty(failedValue);
   }
 
@@ -458,6 +476,7 @@ class _$Empty<T> implements Empty<T> {
     Result invalidGradeType(T failedValue),
     Result notInitialized(T failedValue),
     Result termOutOfRange(T failedValue),
+    Result invalidStringInput(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -481,6 +500,7 @@ class _$Empty<T> implements Empty<T> {
     @required Result invalidGradeType(InvalidGradeType<T> value),
     @required Result notInitialized(NotInitialized<T> value),
     @required Result termOutOfRange(TermOutOfRange<T> value),
+    @required Result invalidStringInput(_InvalidStringInput<T> value),
   }) {
     assert(exceedingLength != null);
     assert(empty != null);
@@ -493,6 +513,7 @@ class _$Empty<T> implements Empty<T> {
     assert(invalidGradeType != null);
     assert(notInitialized != null);
     assert(termOutOfRange != null);
+    assert(invalidStringInput != null);
     return empty(this);
   }
 
@@ -510,6 +531,7 @@ class _$Empty<T> implements Empty<T> {
     Result invalidGradeType(InvalidGradeType<T> value),
     Result notInitialized(NotInitialized<T> value),
     Result termOutOfRange(TermOutOfRange<T> value),
+    Result invalidStringInput(_InvalidStringInput<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -601,6 +623,7 @@ class _$Multiline<T> implements Multiline<T> {
     @required Result invalidGradeType(T failedValue),
     @required Result notInitialized(T failedValue),
     @required Result termOutOfRange(T failedValue),
+    @required Result invalidStringInput(T failedValue),
   }) {
     assert(exceedingLength != null);
     assert(empty != null);
@@ -613,6 +636,7 @@ class _$Multiline<T> implements Multiline<T> {
     assert(invalidGradeType != null);
     assert(notInitialized != null);
     assert(termOutOfRange != null);
+    assert(invalidStringInput != null);
     return multiline(failedValue);
   }
 
@@ -630,6 +654,7 @@ class _$Multiline<T> implements Multiline<T> {
     Result invalidGradeType(T failedValue),
     Result notInitialized(T failedValue),
     Result termOutOfRange(T failedValue),
+    Result invalidStringInput(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -653,6 +678,7 @@ class _$Multiline<T> implements Multiline<T> {
     @required Result invalidGradeType(InvalidGradeType<T> value),
     @required Result notInitialized(NotInitialized<T> value),
     @required Result termOutOfRange(TermOutOfRange<T> value),
+    @required Result invalidStringInput(_InvalidStringInput<T> value),
   }) {
     assert(exceedingLength != null);
     assert(empty != null);
@@ -665,6 +691,7 @@ class _$Multiline<T> implements Multiline<T> {
     assert(invalidGradeType != null);
     assert(notInitialized != null);
     assert(termOutOfRange != null);
+    assert(invalidStringInput != null);
     return multiline(this);
   }
 
@@ -682,6 +709,7 @@ class _$Multiline<T> implements Multiline<T> {
     Result invalidGradeType(InvalidGradeType<T> value),
     Result notInitialized(NotInitialized<T> value),
     Result termOutOfRange(TermOutOfRange<T> value),
+    Result invalidStringInput(_InvalidStringInput<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -783,6 +811,7 @@ class _$ListTooLong<T> implements ListTooLong<T> {
     @required Result invalidGradeType(T failedValue),
     @required Result notInitialized(T failedValue),
     @required Result termOutOfRange(T failedValue),
+    @required Result invalidStringInput(T failedValue),
   }) {
     assert(exceedingLength != null);
     assert(empty != null);
@@ -795,6 +824,7 @@ class _$ListTooLong<T> implements ListTooLong<T> {
     assert(invalidGradeType != null);
     assert(notInitialized != null);
     assert(termOutOfRange != null);
+    assert(invalidStringInput != null);
     return listTooLong(failedValue, max);
   }
 
@@ -812,6 +842,7 @@ class _$ListTooLong<T> implements ListTooLong<T> {
     Result invalidGradeType(T failedValue),
     Result notInitialized(T failedValue),
     Result termOutOfRange(T failedValue),
+    Result invalidStringInput(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -835,6 +866,7 @@ class _$ListTooLong<T> implements ListTooLong<T> {
     @required Result invalidGradeType(InvalidGradeType<T> value),
     @required Result notInitialized(NotInitialized<T> value),
     @required Result termOutOfRange(TermOutOfRange<T> value),
+    @required Result invalidStringInput(_InvalidStringInput<T> value),
   }) {
     assert(exceedingLength != null);
     assert(empty != null);
@@ -847,6 +879,7 @@ class _$ListTooLong<T> implements ListTooLong<T> {
     assert(invalidGradeType != null);
     assert(notInitialized != null);
     assert(termOutOfRange != null);
+    assert(invalidStringInput != null);
     return listTooLong(this);
   }
 
@@ -864,6 +897,7 @@ class _$ListTooLong<T> implements ListTooLong<T> {
     Result invalidGradeType(InvalidGradeType<T> value),
     Result notInitialized(NotInitialized<T> value),
     Result termOutOfRange(TermOutOfRange<T> value),
+    Result invalidStringInput(_InvalidStringInput<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -958,6 +992,7 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
     @required Result invalidGradeType(T failedValue),
     @required Result notInitialized(T failedValue),
     @required Result termOutOfRange(T failedValue),
+    @required Result invalidStringInput(T failedValue),
   }) {
     assert(exceedingLength != null);
     assert(empty != null);
@@ -970,6 +1005,7 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
     assert(invalidGradeType != null);
     assert(notInitialized != null);
     assert(termOutOfRange != null);
+    assert(invalidStringInput != null);
     return invalidEmail(failedValue);
   }
 
@@ -987,6 +1023,7 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
     Result invalidGradeType(T failedValue),
     Result notInitialized(T failedValue),
     Result termOutOfRange(T failedValue),
+    Result invalidStringInput(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1010,6 +1047,7 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
     @required Result invalidGradeType(InvalidGradeType<T> value),
     @required Result notInitialized(NotInitialized<T> value),
     @required Result termOutOfRange(TermOutOfRange<T> value),
+    @required Result invalidStringInput(_InvalidStringInput<T> value),
   }) {
     assert(exceedingLength != null);
     assert(empty != null);
@@ -1022,6 +1060,7 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
     assert(invalidGradeType != null);
     assert(notInitialized != null);
     assert(termOutOfRange != null);
+    assert(invalidStringInput != null);
     return invalidEmail(this);
   }
 
@@ -1039,6 +1078,7 @@ class _$InvalidEmail<T> implements InvalidEmail<T> {
     Result invalidGradeType(InvalidGradeType<T> value),
     Result notInitialized(NotInitialized<T> value),
     Result termOutOfRange(TermOutOfRange<T> value),
+    Result invalidStringInput(_InvalidStringInput<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1131,6 +1171,7 @@ class _$ShortPassword<T> implements ShortPassword<T> {
     @required Result invalidGradeType(T failedValue),
     @required Result notInitialized(T failedValue),
     @required Result termOutOfRange(T failedValue),
+    @required Result invalidStringInput(T failedValue),
   }) {
     assert(exceedingLength != null);
     assert(empty != null);
@@ -1143,6 +1184,7 @@ class _$ShortPassword<T> implements ShortPassword<T> {
     assert(invalidGradeType != null);
     assert(notInitialized != null);
     assert(termOutOfRange != null);
+    assert(invalidStringInput != null);
     return shortPassword(failedValue);
   }
 
@@ -1160,6 +1202,7 @@ class _$ShortPassword<T> implements ShortPassword<T> {
     Result invalidGradeType(T failedValue),
     Result notInitialized(T failedValue),
     Result termOutOfRange(T failedValue),
+    Result invalidStringInput(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1183,6 +1226,7 @@ class _$ShortPassword<T> implements ShortPassword<T> {
     @required Result invalidGradeType(InvalidGradeType<T> value),
     @required Result notInitialized(NotInitialized<T> value),
     @required Result termOutOfRange(TermOutOfRange<T> value),
+    @required Result invalidStringInput(_InvalidStringInput<T> value),
   }) {
     assert(exceedingLength != null);
     assert(empty != null);
@@ -1195,6 +1239,7 @@ class _$ShortPassword<T> implements ShortPassword<T> {
     assert(invalidGradeType != null);
     assert(notInitialized != null);
     assert(termOutOfRange != null);
+    assert(invalidStringInput != null);
     return shortPassword(this);
   }
 
@@ -1212,6 +1257,7 @@ class _$ShortPassword<T> implements ShortPassword<T> {
     Result invalidGradeType(InvalidGradeType<T> value),
     Result notInitialized(NotInitialized<T> value),
     Result termOutOfRange(TermOutOfRange<T> value),
+    Result invalidStringInput(_InvalidStringInput<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1304,6 +1350,7 @@ class _$GradeOutOfRange<T> implements GradeOutOfRange<T> {
     @required Result invalidGradeType(T failedValue),
     @required Result notInitialized(T failedValue),
     @required Result termOutOfRange(T failedValue),
+    @required Result invalidStringInput(T failedValue),
   }) {
     assert(exceedingLength != null);
     assert(empty != null);
@@ -1316,6 +1363,7 @@ class _$GradeOutOfRange<T> implements GradeOutOfRange<T> {
     assert(invalidGradeType != null);
     assert(notInitialized != null);
     assert(termOutOfRange != null);
+    assert(invalidStringInput != null);
     return gradeOutOfRange(failedValue);
   }
 
@@ -1333,6 +1381,7 @@ class _$GradeOutOfRange<T> implements GradeOutOfRange<T> {
     Result invalidGradeType(T failedValue),
     Result notInitialized(T failedValue),
     Result termOutOfRange(T failedValue),
+    Result invalidStringInput(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1356,6 +1405,7 @@ class _$GradeOutOfRange<T> implements GradeOutOfRange<T> {
     @required Result invalidGradeType(InvalidGradeType<T> value),
     @required Result notInitialized(NotInitialized<T> value),
     @required Result termOutOfRange(TermOutOfRange<T> value),
+    @required Result invalidStringInput(_InvalidStringInput<T> value),
   }) {
     assert(exceedingLength != null);
     assert(empty != null);
@@ -1368,6 +1418,7 @@ class _$GradeOutOfRange<T> implements GradeOutOfRange<T> {
     assert(invalidGradeType != null);
     assert(notInitialized != null);
     assert(termOutOfRange != null);
+    assert(invalidStringInput != null);
     return gradeOutOfRange(this);
   }
 
@@ -1385,6 +1436,7 @@ class _$GradeOutOfRange<T> implements GradeOutOfRange<T> {
     Result invalidGradeType(InvalidGradeType<T> value),
     Result notInitialized(NotInitialized<T> value),
     Result termOutOfRange(TermOutOfRange<T> value),
+    Result invalidStringInput(_InvalidStringInput<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1479,6 +1531,7 @@ class _$AverageOutOfRange<T> implements AverageOutOfRange<T> {
     @required Result invalidGradeType(T failedValue),
     @required Result notInitialized(T failedValue),
     @required Result termOutOfRange(T failedValue),
+    @required Result invalidStringInput(T failedValue),
   }) {
     assert(exceedingLength != null);
     assert(empty != null);
@@ -1491,6 +1544,7 @@ class _$AverageOutOfRange<T> implements AverageOutOfRange<T> {
     assert(invalidGradeType != null);
     assert(notInitialized != null);
     assert(termOutOfRange != null);
+    assert(invalidStringInput != null);
     return averageOutOfRange(failedValue);
   }
 
@@ -1508,6 +1562,7 @@ class _$AverageOutOfRange<T> implements AverageOutOfRange<T> {
     Result invalidGradeType(T failedValue),
     Result notInitialized(T failedValue),
     Result termOutOfRange(T failedValue),
+    Result invalidStringInput(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1531,6 +1586,7 @@ class _$AverageOutOfRange<T> implements AverageOutOfRange<T> {
     @required Result invalidGradeType(InvalidGradeType<T> value),
     @required Result notInitialized(NotInitialized<T> value),
     @required Result termOutOfRange(TermOutOfRange<T> value),
+    @required Result invalidStringInput(_InvalidStringInput<T> value),
   }) {
     assert(exceedingLength != null);
     assert(empty != null);
@@ -1543,6 +1599,7 @@ class _$AverageOutOfRange<T> implements AverageOutOfRange<T> {
     assert(invalidGradeType != null);
     assert(notInitialized != null);
     assert(termOutOfRange != null);
+    assert(invalidStringInput != null);
     return averageOutOfRange(this);
   }
 
@@ -1560,6 +1617,7 @@ class _$AverageOutOfRange<T> implements AverageOutOfRange<T> {
     Result invalidGradeType(InvalidGradeType<T> value),
     Result notInitialized(NotInitialized<T> value),
     Result termOutOfRange(TermOutOfRange<T> value),
+    Result invalidStringInput(_InvalidStringInput<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1653,6 +1711,7 @@ class _$InvalidGradeType<T> implements InvalidGradeType<T> {
     @required Result invalidGradeType(T failedValue),
     @required Result notInitialized(T failedValue),
     @required Result termOutOfRange(T failedValue),
+    @required Result invalidStringInput(T failedValue),
   }) {
     assert(exceedingLength != null);
     assert(empty != null);
@@ -1665,6 +1724,7 @@ class _$InvalidGradeType<T> implements InvalidGradeType<T> {
     assert(invalidGradeType != null);
     assert(notInitialized != null);
     assert(termOutOfRange != null);
+    assert(invalidStringInput != null);
     return invalidGradeType(failedValue);
   }
 
@@ -1682,6 +1742,7 @@ class _$InvalidGradeType<T> implements InvalidGradeType<T> {
     Result invalidGradeType(T failedValue),
     Result notInitialized(T failedValue),
     Result termOutOfRange(T failedValue),
+    Result invalidStringInput(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1705,6 +1766,7 @@ class _$InvalidGradeType<T> implements InvalidGradeType<T> {
     @required Result invalidGradeType(InvalidGradeType<T> value),
     @required Result notInitialized(NotInitialized<T> value),
     @required Result termOutOfRange(TermOutOfRange<T> value),
+    @required Result invalidStringInput(_InvalidStringInput<T> value),
   }) {
     assert(exceedingLength != null);
     assert(empty != null);
@@ -1717,6 +1779,7 @@ class _$InvalidGradeType<T> implements InvalidGradeType<T> {
     assert(invalidGradeType != null);
     assert(notInitialized != null);
     assert(termOutOfRange != null);
+    assert(invalidStringInput != null);
     return invalidGradeType(this);
   }
 
@@ -1734,6 +1797,7 @@ class _$InvalidGradeType<T> implements InvalidGradeType<T> {
     Result invalidGradeType(InvalidGradeType<T> value),
     Result notInitialized(NotInitialized<T> value),
     Result termOutOfRange(TermOutOfRange<T> value),
+    Result invalidStringInput(_InvalidStringInput<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1827,6 +1891,7 @@ class _$NotInitialized<T> implements NotInitialized<T> {
     @required Result invalidGradeType(T failedValue),
     @required Result notInitialized(T failedValue),
     @required Result termOutOfRange(T failedValue),
+    @required Result invalidStringInput(T failedValue),
   }) {
     assert(exceedingLength != null);
     assert(empty != null);
@@ -1839,6 +1904,7 @@ class _$NotInitialized<T> implements NotInitialized<T> {
     assert(invalidGradeType != null);
     assert(notInitialized != null);
     assert(termOutOfRange != null);
+    assert(invalidStringInput != null);
     return notInitialized(failedValue);
   }
 
@@ -1856,6 +1922,7 @@ class _$NotInitialized<T> implements NotInitialized<T> {
     Result invalidGradeType(T failedValue),
     Result notInitialized(T failedValue),
     Result termOutOfRange(T failedValue),
+    Result invalidStringInput(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1879,6 +1946,7 @@ class _$NotInitialized<T> implements NotInitialized<T> {
     @required Result invalidGradeType(InvalidGradeType<T> value),
     @required Result notInitialized(NotInitialized<T> value),
     @required Result termOutOfRange(TermOutOfRange<T> value),
+    @required Result invalidStringInput(_InvalidStringInput<T> value),
   }) {
     assert(exceedingLength != null);
     assert(empty != null);
@@ -1891,6 +1959,7 @@ class _$NotInitialized<T> implements NotInitialized<T> {
     assert(invalidGradeType != null);
     assert(notInitialized != null);
     assert(termOutOfRange != null);
+    assert(invalidStringInput != null);
     return notInitialized(this);
   }
 
@@ -1908,6 +1977,7 @@ class _$NotInitialized<T> implements NotInitialized<T> {
     Result invalidGradeType(InvalidGradeType<T> value),
     Result notInitialized(NotInitialized<T> value),
     Result termOutOfRange(TermOutOfRange<T> value),
+    Result invalidStringInput(_InvalidStringInput<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -2000,6 +2070,7 @@ class _$TermOutOfRange<T> implements TermOutOfRange<T> {
     @required Result invalidGradeType(T failedValue),
     @required Result notInitialized(T failedValue),
     @required Result termOutOfRange(T failedValue),
+    @required Result invalidStringInput(T failedValue),
   }) {
     assert(exceedingLength != null);
     assert(empty != null);
@@ -2012,6 +2083,7 @@ class _$TermOutOfRange<T> implements TermOutOfRange<T> {
     assert(invalidGradeType != null);
     assert(notInitialized != null);
     assert(termOutOfRange != null);
+    assert(invalidStringInput != null);
     return termOutOfRange(failedValue);
   }
 
@@ -2029,6 +2101,7 @@ class _$TermOutOfRange<T> implements TermOutOfRange<T> {
     Result invalidGradeType(T failedValue),
     Result notInitialized(T failedValue),
     Result termOutOfRange(T failedValue),
+    Result invalidStringInput(T failedValue),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -2052,6 +2125,7 @@ class _$TermOutOfRange<T> implements TermOutOfRange<T> {
     @required Result invalidGradeType(InvalidGradeType<T> value),
     @required Result notInitialized(NotInitialized<T> value),
     @required Result termOutOfRange(TermOutOfRange<T> value),
+    @required Result invalidStringInput(_InvalidStringInput<T> value),
   }) {
     assert(exceedingLength != null);
     assert(empty != null);
@@ -2064,6 +2138,7 @@ class _$TermOutOfRange<T> implements TermOutOfRange<T> {
     assert(invalidGradeType != null);
     assert(notInitialized != null);
     assert(termOutOfRange != null);
+    assert(invalidStringInput != null);
     return termOutOfRange(this);
   }
 
@@ -2081,6 +2156,7 @@ class _$TermOutOfRange<T> implements TermOutOfRange<T> {
     Result invalidGradeType(InvalidGradeType<T> value),
     Result notInitialized(NotInitialized<T> value),
     Result termOutOfRange(TermOutOfRange<T> value),
+    Result invalidStringInput(_InvalidStringInput<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -2098,4 +2174,185 @@ abstract class TermOutOfRange<T> implements ValueFailure<T> {
   T get failedValue;
   @override
   $TermOutOfRangeCopyWith<T, TermOutOfRange<T>> get copyWith;
+}
+
+abstract class _$InvalidStringInputCopyWith<T, $Res>
+    implements $ValueFailureCopyWith<T, $Res> {
+  factory _$InvalidStringInputCopyWith(_InvalidStringInput<T> value,
+          $Res Function(_InvalidStringInput<T>) then) =
+      __$InvalidStringInputCopyWithImpl<T, $Res>;
+  @override
+  $Res call({T failedValue});
+}
+
+class __$InvalidStringInputCopyWithImpl<T, $Res>
+    extends _$ValueFailureCopyWithImpl<T, $Res>
+    implements _$InvalidStringInputCopyWith<T, $Res> {
+  __$InvalidStringInputCopyWithImpl(_InvalidStringInput<T> _value,
+      $Res Function(_InvalidStringInput<T>) _then)
+      : super(_value, (v) => _then(v as _InvalidStringInput<T>));
+
+  @override
+  _InvalidStringInput<T> get _value => super._value as _InvalidStringInput<T>;
+
+  @override
+  $Res call({
+    Object failedValue = freezed,
+  }) {
+    return _then(_InvalidStringInput<T>(
+      failedValue:
+          failedValue == freezed ? _value.failedValue : failedValue as T,
+    ));
+  }
+}
+
+class _$_InvalidStringInput<T> implements _InvalidStringInput<T> {
+  const _$_InvalidStringInput({@required this.failedValue})
+      : assert(failedValue != null);
+
+  @override
+  final T failedValue;
+
+  @override
+  String toString() {
+    return 'ValueFailure<$T>.invalidStringInput(failedValue: $failedValue)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _InvalidStringInput<T> &&
+            (identical(other.failedValue, failedValue) ||
+                const DeepCollectionEquality()
+                    .equals(other.failedValue, failedValue)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(failedValue);
+
+  @override
+  _$InvalidStringInputCopyWith<T, _InvalidStringInput<T>> get copyWith =>
+      __$InvalidStringInputCopyWithImpl<T, _InvalidStringInput<T>>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result exceedingLength(T failedValue, int max),
+    @required Result empty(T failedValue),
+    @required Result multiline(T failedValue),
+    @required Result listTooLong(T failedValue, int max),
+    @required Result invalidEmail(T failedValue),
+    @required Result shortPassword(T failedValue),
+    @required Result gradeOutOfRange(T failedValue),
+    @required Result averageOutOfRange(T failedValue),
+    @required Result invalidGradeType(T failedValue),
+    @required Result notInitialized(T failedValue),
+    @required Result termOutOfRange(T failedValue),
+    @required Result invalidStringInput(T failedValue),
+  }) {
+    assert(exceedingLength != null);
+    assert(empty != null);
+    assert(multiline != null);
+    assert(listTooLong != null);
+    assert(invalidEmail != null);
+    assert(shortPassword != null);
+    assert(gradeOutOfRange != null);
+    assert(averageOutOfRange != null);
+    assert(invalidGradeType != null);
+    assert(notInitialized != null);
+    assert(termOutOfRange != null);
+    assert(invalidStringInput != null);
+    return invalidStringInput(failedValue);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result exceedingLength(T failedValue, int max),
+    Result empty(T failedValue),
+    Result multiline(T failedValue),
+    Result listTooLong(T failedValue, int max),
+    Result invalidEmail(T failedValue),
+    Result shortPassword(T failedValue),
+    Result gradeOutOfRange(T failedValue),
+    Result averageOutOfRange(T failedValue),
+    Result invalidGradeType(T failedValue),
+    Result notInitialized(T failedValue),
+    Result termOutOfRange(T failedValue),
+    Result invalidStringInput(T failedValue),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (invalidStringInput != null) {
+      return invalidStringInput(failedValue);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result exceedingLength(ExceedingLength<T> value),
+    @required Result empty(Empty<T> value),
+    @required Result multiline(Multiline<T> value),
+    @required Result listTooLong(ListTooLong<T> value),
+    @required Result invalidEmail(InvalidEmail<T> value),
+    @required Result shortPassword(ShortPassword<T> value),
+    @required Result gradeOutOfRange(GradeOutOfRange<T> value),
+    @required Result averageOutOfRange(AverageOutOfRange<T> value),
+    @required Result invalidGradeType(InvalidGradeType<T> value),
+    @required Result notInitialized(NotInitialized<T> value),
+    @required Result termOutOfRange(TermOutOfRange<T> value),
+    @required Result invalidStringInput(_InvalidStringInput<T> value),
+  }) {
+    assert(exceedingLength != null);
+    assert(empty != null);
+    assert(multiline != null);
+    assert(listTooLong != null);
+    assert(invalidEmail != null);
+    assert(shortPassword != null);
+    assert(gradeOutOfRange != null);
+    assert(averageOutOfRange != null);
+    assert(invalidGradeType != null);
+    assert(notInitialized != null);
+    assert(termOutOfRange != null);
+    assert(invalidStringInput != null);
+    return invalidStringInput(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result exceedingLength(ExceedingLength<T> value),
+    Result empty(Empty<T> value),
+    Result multiline(Multiline<T> value),
+    Result listTooLong(ListTooLong<T> value),
+    Result invalidEmail(InvalidEmail<T> value),
+    Result shortPassword(ShortPassword<T> value),
+    Result gradeOutOfRange(GradeOutOfRange<T> value),
+    Result averageOutOfRange(AverageOutOfRange<T> value),
+    Result invalidGradeType(InvalidGradeType<T> value),
+    Result notInitialized(NotInitialized<T> value),
+    Result termOutOfRange(TermOutOfRange<T> value),
+    Result invalidStringInput(_InvalidStringInput<T> value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (invalidStringInput != null) {
+      return invalidStringInput(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _InvalidStringInput<T> implements ValueFailure<T> {
+  const factory _InvalidStringInput({@required T failedValue}) =
+      _$_InvalidStringInput<T>;
+
+  @override
+  T get failedValue;
+  @override
+  _$InvalidStringInputCopyWith<T, _InvalidStringInput<T>> get copyWith;
 }

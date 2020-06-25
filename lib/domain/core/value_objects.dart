@@ -67,6 +67,10 @@ class UniqueId extends ValueObject<String> {
     );
   }
 
+  factory UniqueId.uninitialized() {
+    return UniqueId._(left(const ValueFailure.notInitialized(failedValue: '')));
+  }
+
   ///Benutzt Strings die vertrauenswürdig sind als UUid (z.B. von Datenbanken)
   factory UniqueId.fromUniqueString(String uniqueIdStr) {
     assert(uniqueIdStr != null);

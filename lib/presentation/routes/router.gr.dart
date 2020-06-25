@@ -7,8 +7,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:grades/domain/grades/grade.dart';
 import 'package:grades/domain/subjects/subject.dart';
+import 'package:grades/presentation/screens/dialoges/update_grade/update_grade_page.dart';
 import 'package:grades/presentation/screens/dialoges/update_subject/update_subject_page.dart';
+import 'package:grades/presentation/screens/grades/grades_detail/grades_detail_screen.dart';
 import 'package:grades/presentation/screens/grades/grades_overview/grades_overview_screen.dart';
 import 'package:grades/presentation/screens/sign_in/sign_in_screen.dart';
 import 'package:grades/presentation/screens/splash/splash_screen.dart';
@@ -18,11 +21,15 @@ abstract class Routes {
   static const signInPage = '/sign-in-page';
   static const gradesOverviewScreen = '/grades-overview-screen';
   static const updateSubjectPage = '/update-subject-page';
+  static const updateGradePage = '/update-grade-page';
+  static const gradesDetailScreen = '/grades-detail-screen';
   static const all = {
     splashPage,
     signInPage,
     gradesOverviewScreen,
     updateSubjectPage,
+    updateGradePage,
+    gradesDetailScreen,
   };
 }
 
@@ -68,6 +75,30 @@ class Router extends RouterBase {
           settings: settings,
           fullscreenDialog: true,
         );
+      case Routes.updateGradePage:
+        if (hasInvalidArgs<UpdateGradePageArguments>(args, isRequired: true)) {
+          return misTypedArgsRoute<UpdateGradePageArguments>(args);
+        }
+        final typedArgs = args as UpdateGradePageArguments;
+        return MaterialPageRoute<dynamic>(
+          builder: (context) => UpdateGradePage(
+              key: typedArgs.key,
+              grade: typedArgs.grade,
+              subject: typedArgs.subject),
+          settings: settings,
+          fullscreenDialog: true,
+        );
+      case Routes.gradesDetailScreen:
+        if (hasInvalidArgs<GradesDetailScreenArguments>(args,
+            isRequired: true)) {
+          return misTypedArgsRoute<GradesDetailScreenArguments>(args);
+        }
+        final typedArgs = args as GradesDetailScreenArguments;
+        return MaterialPageRoute<dynamic>(
+          builder: (context) =>
+              GradesDetailScreen(typedArgs.subject).wrappedRoute(context),
+          settings: settings,
+        );
       default:
         return unknownRoutePage(settings.name);
     }
@@ -86,6 +117,20 @@ class UpdateSubjectPageArguments {
   final Subject subject;
   UpdateSubjectPageArguments(
       {this.key, this.title, this.onSubmit, this.subject});
+}
+
+//UpdateGradePage arguments holder class
+class UpdateGradePageArguments {
+  final Key key;
+  final Grade grade;
+  final Subject subject;
+  UpdateGradePageArguments({this.key, this.grade, @required this.subject});
+}
+
+//GradesDetailScreen arguments holder class
+class GradesDetailScreenArguments {
+  final Subject subject;
+  GradesDetailScreenArguments({@required this.subject});
 }
 
 // *************************************************************************
@@ -109,5 +154,24 @@ extension RouterNavigationHelperMethods on ExtendedNavigatorState {
         Routes.updateSubjectPage,
         arguments: UpdateSubjectPageArguments(
             key: key, title: title, onSubmit: onSubmit, subject: subject),
+      );
+
+  Future pushUpdateGradePage({
+    Key key,
+    Grade grade,
+    @required Subject subject,
+  }) =>
+      pushNamed(
+        Routes.updateGradePage,
+        arguments:
+            UpdateGradePageArguments(key: key, grade: grade, subject: subject),
+      );
+
+  Future pushGradesDetailScreen({
+    @required Subject subject,
+  }) =>
+      pushNamed(
+        Routes.gradesDetailScreen,
+        arguments: GradesDetailScreenArguments(subject: subject),
       );
 }

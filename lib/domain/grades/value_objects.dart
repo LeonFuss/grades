@@ -42,6 +42,12 @@ class GradeValue extends ValueObject<int> {
     );
   }
 
+  factory GradeValue.fromString(String input) {
+    assert(input != null);
+    return GradeValue._(validateGradeFromString(input)
+        .flatMap((grade) => validateGradeRange(grade, highestValue)));
+  }
+
   const GradeValue._(this.value);
 }
 
@@ -66,6 +72,7 @@ class GradeType extends ValueObject<String> {
       validateGradeType('Mündlich', gradeTypes),
     );
   }
+
   factory GradeType.schriftlich() {
     return GradeType._(
       validateGradeType('Schriftlich', gradeTypes),

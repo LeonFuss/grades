@@ -10,8 +10,6 @@ part 'subject.freezed.dart';
 ///[Subject] ist eine Entität, die ein Fach beschreibt. Sie beinhaltet nur Wertobjekte die sich selbst validieren.
 @freezed
 abstract class Subject implements _$Subject {
-  const Subject._();
-
   const factory Subject(
       {@required UniqueId id,
       @required SubjectName name,
@@ -20,6 +18,8 @@ abstract class Subject implements _$Subject {
       @required Average writtenAverage,
       @required int position,
       @required Term term}) = _Subject;
+
+  const Subject._();
 
   factory Subject.empty() {
     return Subject(

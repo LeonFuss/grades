@@ -46,7 +46,12 @@ abstract class ValueFailure<T> with _$ValueFailure<T> {
   const factory ValueFailure.notInitialized({
     @required T failedValue,
   }) = NotInitialized<T>;
+
   const factory ValueFailure.termOutOfRange({
     @required T failedValue,
   }) = TermOutOfRange<T>;
+
+  const factory ValueFailure.invalidStringInput({
+    @required T failedValue,
+  }) = _InvalidStringInput<T>;
 }

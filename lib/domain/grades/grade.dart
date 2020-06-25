@@ -3,15 +3,12 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:grades/domain/core/failures.dart';
 import 'package:grades/domain/core/value_objects.dart';
 import 'package:grades/domain/grades/value_objects.dart';
-import 'package:grades/domain/subjects/subject.dart';
 
 part 'grade.freezed.dart';
 
 ///[Grade] ist eine Entität, die eine Note beschreibt. Sie beinhaltet nur Wertobjekte die sich selbst validieren.
 @freezed
 abstract class Grade implements _$Grade {
-  const Grade._();
-
   const factory Grade(
       {@required UniqueId id,
       @required GradeValue value,
@@ -20,14 +17,17 @@ abstract class Grade implements _$Grade {
       @required UniqueId subjectId,
       @required Term term}) = _Grade;
 
-  factory Grade.empty(Subject binding) {
+  const Grade._();
+
+  factory Grade.empty({Term term}) {
     return Grade(
-        id: UniqueId(),
-        value: GradeValue(0),
-        type: GradeType(GradeType.gradeTypes[0]),
-        description: GradeDescription('input'),
-        subjectId: binding.id,
-        term: Term(1));
+      id: UniqueId(),
+      value: GradeValue(0),
+      type: GradeType.muendlich(),
+      description: GradeDescription(''),
+      subjectId: UniqueId.uninitialized(),
+      term: term ?? Term(1),
+    );
   }
 
   ///Verifizierung aller enthaltenen Wertobjekte.
@@ -36,6 +36,7 @@ abstract class Grade implements _$Grade {
         .andThen(type.failureOrUnit)
         .andThen(description.failureOrUnit)
         .andThen(term.failureOrUnit)
+        .andThen(subjectId.failureOrUnit)
         .fold((l) => some(l), (_) => none());
   }
 }
