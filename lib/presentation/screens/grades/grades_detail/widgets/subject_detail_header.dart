@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grades/application/subject/singel_grade_watcher/bloc/subject_watcher_bloc.dart';
 import 'package:grades/domain/subjects/subject.dart';
 import 'package:grades/presentation/core/app_colors.dart';
 import 'package:grades/presentation/screens/grades/grades_detail/widgets/subject_detail_header_painter.dart';
@@ -62,10 +64,16 @@ class SubjectDetailHeader extends SliverPersistentHeaderDelegate {
         Positioned(
           bottom: 20,
           left: 16,
-          child: Text(
-            subject.average.toString(),
-            style: Theme.of(context).textTheme.headline4,
-          ),
+          child:
+              BlocBuilder<SingleSubjectWatcherBloc, SingleSubjectWatcherState>(
+                  builder: (context, state) {
+            return Text(
+              state.maybeWhen(
+                  loadSuccess: (s, t) => s.average.toString(),
+                  orElse: () => '--'),
+              style: Theme.of(context).textTheme.headline4,
+            );
+          }),
         )
       ],
     );

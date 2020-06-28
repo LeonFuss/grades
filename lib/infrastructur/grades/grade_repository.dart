@@ -58,6 +58,7 @@ class GradeRepository implements IGradeRepository {
       final term = grade.term.getOrCrash();
 
       final gradeDto = GradesDTO.fromDomain(grade);
+      final json = gradeDto.toJson();
 
       await userDoc
           .term(term)
@@ -65,7 +66,7 @@ class GradeRepository implements IGradeRepository {
           .document(subjectId)
           .gradesCollection
           .document(gradeDto.id)
-          .setData(gradeDto.toJson());
+          .setData(json);
 
       return right(unit);
     } on PlatformException catch (e) {
@@ -181,12 +182,10 @@ class GradeRepository implements IGradeRepository {
 
         final data = snapshot.documents;
 
-        print(data);
         return right(data
             .map((snapshot) => GradesDTO.fromFirestore(snapshot).toDomain())
             .toImmutableList());
       } on PlatformException catch (e) {
-        print(e);
         if (e.message.contains('PERMISSION_DENIED')) {
           return left(const GradeFailures.insufficientPermissions());
         } else if (e.message.contains('NOT_FOUND')) {
