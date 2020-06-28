@@ -76,10 +76,11 @@ class Router extends RouterBase {
           fullscreenDialog: true,
         );
       case Routes.updateGradePage:
-        if (hasInvalidArgs<UpdateGradePageArguments>(args, isRequired: true)) {
+        if (hasInvalidArgs<UpdateGradePageArguments>(args)) {
           return misTypedArgsRoute<UpdateGradePageArguments>(args);
         }
-        final typedArgs = args as UpdateGradePageArguments;
+        final typedArgs =
+            args as UpdateGradePageArguments ?? UpdateGradePageArguments();
         return MaterialPageRoute<dynamic>(
           builder: (context) => UpdateGradePage(
               key: typedArgs.key,
@@ -124,7 +125,7 @@ class UpdateGradePageArguments {
   final Key key;
   final Grade grade;
   final Subject subject;
-  UpdateGradePageArguments({this.key, this.grade, @required this.subject});
+  UpdateGradePageArguments({this.key, this.grade, this.subject});
 }
 
 //GradesDetailScreen arguments holder class
@@ -159,7 +160,7 @@ extension RouterNavigationHelperMethods on ExtendedNavigatorState {
   Future pushUpdateGradePage({
     Key key,
     Grade grade,
-    @required Subject subject,
+    Subject subject,
   }) =>
       pushNamed(
         Routes.updateGradePage,

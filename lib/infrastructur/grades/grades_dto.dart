@@ -12,6 +12,7 @@ part 'grades_dto.g.dart';
 abstract class GradesDTO implements _$GradesDTO {
   const factory GradesDTO(
       {@JsonKey(ignore: true) String id,
+      @required DateTime creationTime,
       @required int value,
       @required String type,
       @required String description,
@@ -20,6 +21,7 @@ abstract class GradesDTO implements _$GradesDTO {
 
   factory GradesDTO.fromDomain(Grade grade) {
     return GradesDTO(
+      creationTime: grade.creationTime,
       id: grade.id.getOrCrash(),
       value: grade.value.getOrCrash(),
       type: grade.type.getOrCrash(),
@@ -33,6 +35,7 @@ abstract class GradesDTO implements _$GradesDTO {
 
   Grade toDomain() {
     return Grade(
+        creationTime: creationTime,
         id: UniqueId.fromUniqueString(id),
         value: GradeValue(value),
         type: GradeType(type),

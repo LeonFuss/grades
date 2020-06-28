@@ -86,7 +86,6 @@ Either<ValueFailure<String>, String> validateGradeType(
 }
 
 Either<ValueFailure<String>, String> validateSubjectName(String input) {
-  //TODO check if subject already exists
   return validateStringNotEmpty(input);
 }
 

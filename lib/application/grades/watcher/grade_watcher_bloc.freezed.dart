@@ -19,9 +19,10 @@ class _$GradeWatcherEventTearOff {
   }
 
   GradesReceived gradesReceived(
-      Either<GradeFailures, KtList<Grade>> failureOrGrades) {
+      Either<GradeFailures, KtList<Grade>> failureOrGrades, Subject subject) {
     return GradesReceived(
       failureOrGrades,
+      subject,
     );
   }
 
@@ -41,13 +42,15 @@ mixin _$GradeWatcherEvent {
     @required Result watchSubjectGradesStarted(Subject subject),
     @required
         Result gradesReceived(
-            Either<GradeFailures, KtList<Grade>> failureOrGrades),
+            Either<GradeFailures, KtList<Grade>> failureOrGrades,
+            Subject subject),
     @required Result changeTerm(Term term),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result watchSubjectGradesStarted(Subject subject),
-    Result gradesReceived(Either<GradeFailures, KtList<Grade>> failureOrGrades),
+    Result gradesReceived(
+        Either<GradeFailures, KtList<Grade>> failureOrGrades, Subject subject),
     Result changeTerm(Term term),
     @required Result orElse(),
   });
@@ -155,7 +158,8 @@ class _$WatchSubjectGradesStarted implements WatchSubjectGradesStarted {
     @required Result watchSubjectGradesStarted(Subject subject),
     @required
         Result gradesReceived(
-            Either<GradeFailures, KtList<Grade>> failureOrGrades),
+            Either<GradeFailures, KtList<Grade>> failureOrGrades,
+            Subject subject),
     @required Result changeTerm(Term term),
   }) {
     assert(watchSubjectGradesStarted != null);
@@ -168,7 +172,8 @@ class _$WatchSubjectGradesStarted implements WatchSubjectGradesStarted {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result watchSubjectGradesStarted(Subject subject),
-    Result gradesReceived(Either<GradeFailures, KtList<Grade>> failureOrGrades),
+    Result gradesReceived(
+        Either<GradeFailures, KtList<Grade>> failureOrGrades, Subject subject),
     Result changeTerm(Term term),
     @required Result orElse(),
   }) {
@@ -220,7 +225,10 @@ abstract class $GradesReceivedCopyWith<$Res> {
   factory $GradesReceivedCopyWith(
           GradesReceived value, $Res Function(GradesReceived) then) =
       _$GradesReceivedCopyWithImpl<$Res>;
-  $Res call({Either<GradeFailures, KtList<Grade>> failureOrGrades});
+  $Res call(
+      {Either<GradeFailures, KtList<Grade>> failureOrGrades, Subject subject});
+
+  $SubjectCopyWith<$Res> get subject;
 }
 
 class _$GradesReceivedCopyWithImpl<$Res>
@@ -236,25 +244,40 @@ class _$GradesReceivedCopyWithImpl<$Res>
   @override
   $Res call({
     Object failureOrGrades = freezed,
+    Object subject = freezed,
   }) {
     return _then(GradesReceived(
       failureOrGrades == freezed
           ? _value.failureOrGrades
           : failureOrGrades as Either<GradeFailures, KtList<Grade>>,
+      subject == freezed ? _value.subject : subject as Subject,
     ));
+  }
+
+  @override
+  $SubjectCopyWith<$Res> get subject {
+    if (_value.subject == null) {
+      return null;
+    }
+    return $SubjectCopyWith<$Res>(_value.subject, (value) {
+      return _then(_value.copyWith(subject: value));
+    });
   }
 }
 
 class _$GradesReceived implements GradesReceived {
-  const _$GradesReceived(this.failureOrGrades)
-      : assert(failureOrGrades != null);
+  const _$GradesReceived(this.failureOrGrades, this.subject)
+      : assert(failureOrGrades != null),
+        assert(subject != null);
 
   @override
   final Either<GradeFailures, KtList<Grade>> failureOrGrades;
+  @override
+  final Subject subject;
 
   @override
   String toString() {
-    return 'GradeWatcherEvent.gradesReceived(failureOrGrades: $failureOrGrades)';
+    return 'GradeWatcherEvent.gradesReceived(failureOrGrades: $failureOrGrades, subject: $subject)';
   }
 
   @override
@@ -263,13 +286,16 @@ class _$GradesReceived implements GradesReceived {
         (other is GradesReceived &&
             (identical(other.failureOrGrades, failureOrGrades) ||
                 const DeepCollectionEquality()
-                    .equals(other.failureOrGrades, failureOrGrades)));
+                    .equals(other.failureOrGrades, failureOrGrades)) &&
+            (identical(other.subject, subject) ||
+                const DeepCollectionEquality().equals(other.subject, subject)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(failureOrGrades);
+      const DeepCollectionEquality().hash(failureOrGrades) ^
+      const DeepCollectionEquality().hash(subject);
 
   @override
   $GradesReceivedCopyWith<GradesReceived> get copyWith =>
@@ -281,26 +307,28 @@ class _$GradesReceived implements GradesReceived {
     @required Result watchSubjectGradesStarted(Subject subject),
     @required
         Result gradesReceived(
-            Either<GradeFailures, KtList<Grade>> failureOrGrades),
+            Either<GradeFailures, KtList<Grade>> failureOrGrades,
+            Subject subject),
     @required Result changeTerm(Term term),
   }) {
     assert(watchSubjectGradesStarted != null);
     assert(gradesReceived != null);
     assert(changeTerm != null);
-    return gradesReceived(failureOrGrades);
+    return gradesReceived(failureOrGrades, subject);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result watchSubjectGradesStarted(Subject subject),
-    Result gradesReceived(Either<GradeFailures, KtList<Grade>> failureOrGrades),
+    Result gradesReceived(
+        Either<GradeFailures, KtList<Grade>> failureOrGrades, Subject subject),
     Result changeTerm(Term term),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (gradesReceived != null) {
-      return gradesReceived(failureOrGrades);
+      return gradesReceived(failureOrGrades, subject);
     }
     return orElse();
   }
@@ -336,9 +364,11 @@ class _$GradesReceived implements GradesReceived {
 
 abstract class GradesReceived implements GradeWatcherEvent {
   const factory GradesReceived(
-      Either<GradeFailures, KtList<Grade>> failureOrGrades) = _$GradesReceived;
+      Either<GradeFailures, KtList<Grade>> failureOrGrades,
+      Subject subject) = _$GradesReceived;
 
   Either<GradeFailures, KtList<Grade>> get failureOrGrades;
+  Subject get subject;
   $GradesReceivedCopyWith<GradesReceived> get copyWith;
 }
 
@@ -401,7 +431,8 @@ class _$ChangeTerm implements ChangeTerm {
     @required Result watchSubjectGradesStarted(Subject subject),
     @required
         Result gradesReceived(
-            Either<GradeFailures, KtList<Grade>> failureOrGrades),
+            Either<GradeFailures, KtList<Grade>> failureOrGrades,
+            Subject subject),
     @required Result changeTerm(Term term),
   }) {
     assert(watchSubjectGradesStarted != null);
@@ -414,7 +445,8 @@ class _$ChangeTerm implements ChangeTerm {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result watchSubjectGradesStarted(Subject subject),
-    Result gradesReceived(Either<GradeFailures, KtList<Grade>> failureOrGrades),
+    Result gradesReceived(
+        Either<GradeFailures, KtList<Grade>> failureOrGrades, Subject subject),
     Result changeTerm(Term term),
     @required Result orElse(),
   }) {

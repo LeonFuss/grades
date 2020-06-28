@@ -21,7 +21,7 @@ class _SubjectListState extends State<SubjectList> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200,
+      height: MediaQuery.of(context).size.width / 2,
       width: double.infinity,
       child: PageView.builder(
         physics: const BouncingScrollPhysics(),
@@ -47,8 +47,8 @@ class _SubjectListState extends State<SubjectList> {
         return Transform.scale(scale: value, child: child);
       },
       tween: currentPage == index
-          ? Tween(begin: 0.9, end: 1.1)
-          : Tween(begin: 1.1, end: 0.9),
+          ? Tween(begin: 0.8, end: 1.0)
+          : Tween(begin: 1.0, end: 0.8),
       child: child,
     );
   }

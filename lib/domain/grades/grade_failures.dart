@@ -8,6 +8,8 @@ part 'grade_failures.freezed.dart';
 @freezed
 abstract class GradeFailures with _$GradeFailures {
   const factory GradeFailures.unexpected() = _Unexpected;
+  const factory GradeFailures.termNotValid() = TermNotValid;
+
   const factory GradeFailures.insufficientPermissions() =
       _InsufficientPermissions;
   const factory GradeFailures.unableToUpdate() = _UnableToUpdate;

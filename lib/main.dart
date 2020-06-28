@@ -17,7 +17,6 @@ void main() {
   /// [WidgetsFlutterBinding.ensureInitialized()] stellt sicher das das FlutterFramework gestartet wurde.
   /// Dies ist notwendig um die Geräteausrichtung festzulegen
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  SystemChrome.setEnabledSystemUIOverlays([]);
 
   /// Stellt sicher, dass die richtigen Klassen injectiert werden
   configureInjection(Environment.prod);

@@ -13,13 +13,15 @@ class _$GradeTearOff {
   const _$GradeTearOff();
 
   _Grade call(
-      {@required UniqueId id,
+      {@required DateTime creationTime,
+      @required UniqueId id,
       @required GradeValue value,
       @required GradeType type,
       @required GradeDescription description,
       @required UniqueId subjectId,
       @required Term term}) {
     return _Grade(
+      creationTime: creationTime,
       id: id,
       value: value,
       type: type,
@@ -34,6 +36,7 @@ class _$GradeTearOff {
 const $Grade = _$GradeTearOff();
 
 mixin _$Grade {
+  DateTime get creationTime;
   UniqueId get id;
   GradeValue get value;
   GradeType get type;
@@ -48,7 +51,8 @@ abstract class $GradeCopyWith<$Res> {
   factory $GradeCopyWith(Grade value, $Res Function(Grade) then) =
       _$GradeCopyWithImpl<$Res>;
   $Res call(
-      {UniqueId id,
+      {DateTime creationTime,
+      UniqueId id,
       GradeValue value,
       GradeType type,
       GradeDescription description,
@@ -65,6 +69,7 @@ class _$GradeCopyWithImpl<$Res> implements $GradeCopyWith<$Res> {
 
   @override
   $Res call({
+    Object creationTime = freezed,
     Object id = freezed,
     Object value = freezed,
     Object type = freezed,
@@ -73,6 +78,9 @@ class _$GradeCopyWithImpl<$Res> implements $GradeCopyWith<$Res> {
     Object term = freezed,
   }) {
     return _then(_value.copyWith(
+      creationTime: creationTime == freezed
+          ? _value.creationTime
+          : creationTime as DateTime,
       id: id == freezed ? _value.id : id as UniqueId,
       value: value == freezed ? _value.value : value as GradeValue,
       type: type == freezed ? _value.type : type as GradeType,
@@ -91,7 +99,8 @@ abstract class _$GradeCopyWith<$Res> implements $GradeCopyWith<$Res> {
       __$GradeCopyWithImpl<$Res>;
   @override
   $Res call(
-      {UniqueId id,
+      {DateTime creationTime,
+      UniqueId id,
       GradeValue value,
       GradeType type,
       GradeDescription description,
@@ -109,6 +118,7 @@ class __$GradeCopyWithImpl<$Res> extends _$GradeCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object creationTime = freezed,
     Object id = freezed,
     Object value = freezed,
     Object type = freezed,
@@ -117,6 +127,9 @@ class __$GradeCopyWithImpl<$Res> extends _$GradeCopyWithImpl<$Res>
     Object term = freezed,
   }) {
     return _then(_Grade(
+      creationTime: creationTime == freezed
+          ? _value.creationTime
+          : creationTime as DateTime,
       id: id == freezed ? _value.id : id as UniqueId,
       value: value == freezed ? _value.value : value as GradeValue,
       type: type == freezed ? _value.type : type as GradeType,
@@ -132,13 +145,15 @@ class __$GradeCopyWithImpl<$Res> extends _$GradeCopyWithImpl<$Res>
 
 class _$_Grade extends _Grade {
   const _$_Grade(
-      {@required this.id,
+      {@required this.creationTime,
+      @required this.id,
       @required this.value,
       @required this.type,
       @required this.description,
       @required this.subjectId,
       @required this.term})
-      : assert(id != null),
+      : assert(creationTime != null),
+        assert(id != null),
         assert(value != null),
         assert(type != null),
         assert(description != null),
@@ -146,6 +161,8 @@ class _$_Grade extends _Grade {
         assert(term != null),
         super._();
 
+  @override
+  final DateTime creationTime;
   @override
   final UniqueId id;
   @override
@@ -161,13 +178,16 @@ class _$_Grade extends _Grade {
 
   @override
   String toString() {
-    return 'Grade(id: $id, value: $value, type: $type, description: $description, subjectId: $subjectId, term: $term)';
+    return 'Grade(creationTime: $creationTime, id: $id, value: $value, type: $type, description: $description, subjectId: $subjectId, term: $term)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _Grade &&
+            (identical(other.creationTime, creationTime) ||
+                const DeepCollectionEquality()
+                    .equals(other.creationTime, creationTime)) &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.value, value) ||
@@ -187,6 +207,7 @@ class _$_Grade extends _Grade {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(creationTime) ^
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(value) ^
       const DeepCollectionEquality().hash(type) ^
@@ -202,13 +223,16 @@ class _$_Grade extends _Grade {
 abstract class _Grade extends Grade {
   const _Grade._() : super._();
   const factory _Grade(
-      {@required UniqueId id,
+      {@required DateTime creationTime,
+      @required UniqueId id,
       @required GradeValue value,
       @required GradeType type,
       @required GradeDescription description,
       @required UniqueId subjectId,
       @required Term term}) = _$_Grade;
 
+  @override
+  DateTime get creationTime;
   @override
   UniqueId get id;
   @override

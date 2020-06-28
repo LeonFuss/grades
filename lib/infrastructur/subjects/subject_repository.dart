@@ -156,6 +156,7 @@ class SubjectRepository implements ISubjectRepository {
         for (final item in itemsToChange) {
           update(item.copyWith(position: item.position - 1));
         }
+
         await userDoc.term(term).subjectCollection.document(subjectId).delete();
         return right(unit);
       });

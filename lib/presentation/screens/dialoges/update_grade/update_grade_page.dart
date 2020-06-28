@@ -10,6 +10,7 @@ import 'package:grades/presentation/core/app_colors.dart';
 import 'package:grades/presentation/routes/router.gr.dart';
 import 'package:grades/presentation/screens/dialoges/update_grade/widgets/description_field.dart';
 import 'package:grades/presentation/screens/dialoges/update_grade/widgets/grade_dialog_header.dart';
+import 'package:grades/presentation/screens/dialoges/update_grade/widgets/subject_field.dart';
 import 'package:grades/presentation/screens/dialoges/update_grade/widgets/type_field.dart';
 
 import '../../../../injection.dart';
@@ -18,14 +19,13 @@ class UpdateGradePage extends StatelessWidget {
   final Grade grade;
   final Subject subject;
 
-  const UpdateGradePage({Key key, this.grade, @required this.subject})
-      : super(key: key);
+  const UpdateGradePage({Key key, this.grade, this.subject}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => getIt<GradeFormBloc>()
-        ..add(GradeFormEvent.initialized(optionOf(grade), subject)),
+        ..add(GradeFormEvent.initialized(optionOf(grade), optionOf(subject))),
       child: BlocConsumer<GradeFormBloc, GradeFormState>(
         listenWhen: (p, c) =>
             p.saveFailureOrSuccessOption != c.saveFailureOrSuccessOption,
@@ -38,6 +38,8 @@ class UpdateGradePage extends StatelessWidget {
                   FlushbarHelper.createError(
                     duration: const Duration(seconds: 5),
                     message: failure.map(
+                        termNotValid: (_) =>
+                            "Ein interner Fehler ist aufgetreten. Bitte wenden Sie sich umgehend an den Support",
                         // Use localized strings here in your apps
                         insufficientPermissions: (_) =>
                             'Unzureichende Berechtigungen',
@@ -120,69 +122,95 @@ class GradeFormPageScaffold extends StatelessWidget {
     return Container(
       color: AppColors.secondScaffold,
       child: SafeArea(
-        child: Scaffold(
-          floatingActionButton: TweenAnimationBuilder<double>(
-            duration: const Duration(microseconds: 1),
-            tween: showFab ? Tween(begin: 0, end: 1) : Tween(begin: 1, end: 0),
-            builder: (context, value, child) {
-              return AnimatedOpacity(
-                opacity: value,
-                duration: const Duration(microseconds: 1),
-                child: Transform.scale(
-                  scale: value,
-                  child: child,
+        child: GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+          child: Scaffold(
+            floatingActionButton: TweenAnimationBuilder<double>(
+              duration: const Duration(microseconds: 1),
+              tween:
+                  showFab ? Tween(begin: 0, end: 1) : Tween(begin: 1, end: 0),
+              builder: (context, value, child) {
+                return AnimatedOpacity(
+                  opacity: value,
+                  duration: const Duration(microseconds: 1),
+                  child: Transform.scale(
+                    scale: value,
+                    child: child,
+                  ),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: RaisedButton(
+                  color: AppColors.accent,
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(16))),
+                  onPressed: () => context
+                      .bloc<GradeFormBloc>()
+                      .add(const GradeFormEvent.saved()),
+                  child: SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppColors.whiteWithOpacity),
+                            child: Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Icon(
+                                Icons.add,
+                                size: 16,
+                                color: AppColors.bottomBar,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 4,
+                          ),
+                          Text(
+                            "SPEICHERN",
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline6
+                                .copyWith(color: AppColors.bottomBar),
+                          ),
+                        ],
+                      )),
                 ),
-              );
-            },
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: RaisedButton(
-                color: AppColors.accent,
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(32))),
-                onPressed: () => context
-                    .bloc<GradeFormBloc>()
-                    .add(const GradeFormEvent.saved()),
-                child: SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: Center(
-                      child: Text(
-                        "Speichern",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline5
-                            .copyWith(color: AppColors.bottomBar),
-                      ),
-                    )),
               ),
             ),
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerFloat,
-          backgroundColor: AppColors.secondScaffold,
-          body: BlocBuilder<GradeFormBloc, GradeFormState>(
-            condition: (p, c) => p.showErrorMessages != c.showErrorMessages,
-            builder: (context, state) {
-              return Form(
-                autovalidate: state.showErrorMessages,
-                child: CustomScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  slivers: <Widget>[
-                    SliverPersistentHeader(
-                      pinned: true,
-                      delegate: GradeDialogHeader(),
-                    ),
-                    const SliverToBoxAdapter(
-                      child: TypeField(),
-                    ),
-                    const SliverToBoxAdapter(
-                      child: DescriptionField(),
-                    ),
-                  ],
-                ),
-              );
-            },
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+            backgroundColor: AppColors.secondScaffold,
+            body: BlocBuilder<GradeFormBloc, GradeFormState>(
+              condition: (p, c) => p.showErrorMessages != c.showErrorMessages,
+              builder: (context, state) {
+                return Form(
+                  autovalidate: state.showErrorMessages,
+                  child: CustomScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    slivers: <Widget>[
+                      SliverPersistentHeader(
+                        pinned: true,
+                        delegate: GradeDialogHeader(),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: DescriptionField(),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: TypeField(),
+                      ),
+                      const SliverToBoxAdapter(
+                        child: SubjectField(),
+                      )
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
         ),
       ),

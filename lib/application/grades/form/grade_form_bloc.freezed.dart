@@ -12,7 +12,8 @@ T _$identity<T>(T value) => value;
 class _$GradeFormEventTearOff {
   const _$GradeFormEventTearOff();
 
-  _Initialized initialized(Option<Grade> initialGradeOption, Subject subject) {
+  _Initialized initialized(
+      Option<Grade> initialGradeOption, Option<Subject> subject) {
     return _Initialized(
       initialGradeOption,
       subject,
@@ -37,6 +38,12 @@ class _$GradeFormEventTearOff {
     );
   }
 
+  _SubjectChanged subjectChanged(String subjectId) {
+    return _SubjectChanged(
+      subjectId,
+    );
+  }
+
   _Saved saved() {
     return const _Saved();
   }
@@ -49,18 +56,22 @@ mixin _$GradeFormEvent {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required
-        Result initialized(Option<Grade> initialGradeOption, Subject subject),
+        Result initialized(
+            Option<Grade> initialGradeOption, Option<Subject> subject),
     @required Result descriptionChanged(String input),
     @required Result gradeValueChanged(String gradeValue),
     @required Result gradeTypeChanged(String type),
+    @required Result subjectChanged(String subjectId),
     @required Result saved(),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result initialized(Option<Grade> initialGradeOption, Subject subject),
+    Result initialized(
+        Option<Grade> initialGradeOption, Option<Subject> subject),
     Result descriptionChanged(String input),
     Result gradeValueChanged(String gradeValue),
     Result gradeTypeChanged(String type),
+    Result subjectChanged(String subjectId),
     Result saved(),
     @required Result orElse(),
   });
@@ -70,6 +81,7 @@ mixin _$GradeFormEvent {
     @required Result descriptionChanged(_DescriptionChanged value),
     @required Result gradeValueChanged(_GradeValueChanged value),
     @required Result gradeTypeChanged(_GradeTypeChanged value),
+    @required Result subjectChanged(_SubjectChanged value),
     @required Result saved(_Saved value),
   });
   @optionalTypeArgs
@@ -78,6 +90,7 @@ mixin _$GradeFormEvent {
     Result descriptionChanged(_DescriptionChanged value),
     Result gradeValueChanged(_GradeValueChanged value),
     Result gradeTypeChanged(_GradeTypeChanged value),
+    Result subjectChanged(_SubjectChanged value),
     Result saved(_Saved value),
     @required Result orElse(),
   });
@@ -102,9 +115,7 @@ abstract class _$InitializedCopyWith<$Res> {
   factory _$InitializedCopyWith(
           _Initialized value, $Res Function(_Initialized) then) =
       __$InitializedCopyWithImpl<$Res>;
-  $Res call({Option<Grade> initialGradeOption, Subject subject});
-
-  $SubjectCopyWith<$Res> get subject;
+  $Res call({Option<Grade> initialGradeOption, Option<Subject> subject});
 }
 
 class __$InitializedCopyWithImpl<$Res>
@@ -126,22 +137,12 @@ class __$InitializedCopyWithImpl<$Res>
       initialGradeOption == freezed
           ? _value.initialGradeOption
           : initialGradeOption as Option<Grade>,
-      subject == freezed ? _value.subject : subject as Subject,
+      subject == freezed ? _value.subject : subject as Option<Subject>,
     ));
-  }
-
-  @override
-  $SubjectCopyWith<$Res> get subject {
-    if (_value.subject == null) {
-      return null;
-    }
-    return $SubjectCopyWith<$Res>(_value.subject, (value) {
-      return _then(_value.copyWith(subject: value));
-    });
   }
 }
 
-class _$_Initialized implements _Initialized {
+class _$_Initialized with DiagnosticableTreeMixin implements _Initialized {
   const _$_Initialized(this.initialGradeOption, this.subject)
       : assert(initialGradeOption != null),
         assert(subject != null);
@@ -149,11 +150,20 @@ class _$_Initialized implements _Initialized {
   @override
   final Option<Grade> initialGradeOption;
   @override
-  final Subject subject;
+  final Option<Subject> subject;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'GradeFormEvent.initialized(initialGradeOption: $initialGradeOption, subject: $subject)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'GradeFormEvent.initialized'))
+      ..add(DiagnosticsProperty('initialGradeOption', initialGradeOption))
+      ..add(DiagnosticsProperty('subject', subject));
   }
 
   @override
@@ -181,16 +191,19 @@ class _$_Initialized implements _Initialized {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required
-        Result initialized(Option<Grade> initialGradeOption, Subject subject),
+        Result initialized(
+            Option<Grade> initialGradeOption, Option<Subject> subject),
     @required Result descriptionChanged(String input),
     @required Result gradeValueChanged(String gradeValue),
     @required Result gradeTypeChanged(String type),
+    @required Result subjectChanged(String subjectId),
     @required Result saved(),
   }) {
     assert(initialized != null);
     assert(descriptionChanged != null);
     assert(gradeValueChanged != null);
     assert(gradeTypeChanged != null);
+    assert(subjectChanged != null);
     assert(saved != null);
     return initialized(initialGradeOption, subject);
   }
@@ -198,10 +211,12 @@ class _$_Initialized implements _Initialized {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result initialized(Option<Grade> initialGradeOption, Subject subject),
+    Result initialized(
+        Option<Grade> initialGradeOption, Option<Subject> subject),
     Result descriptionChanged(String input),
     Result gradeValueChanged(String gradeValue),
     Result gradeTypeChanged(String type),
+    Result subjectChanged(String subjectId),
     Result saved(),
     @required Result orElse(),
   }) {
@@ -219,12 +234,14 @@ class _$_Initialized implements _Initialized {
     @required Result descriptionChanged(_DescriptionChanged value),
     @required Result gradeValueChanged(_GradeValueChanged value),
     @required Result gradeTypeChanged(_GradeTypeChanged value),
+    @required Result subjectChanged(_SubjectChanged value),
     @required Result saved(_Saved value),
   }) {
     assert(initialized != null);
     assert(descriptionChanged != null);
     assert(gradeValueChanged != null);
     assert(gradeTypeChanged != null);
+    assert(subjectChanged != null);
     assert(saved != null);
     return initialized(this);
   }
@@ -236,6 +253,7 @@ class _$_Initialized implements _Initialized {
     Result descriptionChanged(_DescriptionChanged value),
     Result gradeValueChanged(_GradeValueChanged value),
     Result gradeTypeChanged(_GradeTypeChanged value),
+    Result subjectChanged(_SubjectChanged value),
     Result saved(_Saved value),
     @required Result orElse(),
   }) {
@@ -249,10 +267,11 @@ class _$_Initialized implements _Initialized {
 
 abstract class _Initialized implements GradeFormEvent {
   const factory _Initialized(
-      Option<Grade> initialGradeOption, Subject subject) = _$_Initialized;
+          Option<Grade> initialGradeOption, Option<Subject> subject) =
+      _$_Initialized;
 
   Option<Grade> get initialGradeOption;
-  Subject get subject;
+  Option<Subject> get subject;
   _$InitializedCopyWith<_Initialized> get copyWith;
 }
 
@@ -283,15 +302,25 @@ class __$DescriptionChangedCopyWithImpl<$Res>
   }
 }
 
-class _$_DescriptionChanged implements _DescriptionChanged {
+class _$_DescriptionChanged
+    with DiagnosticableTreeMixin
+    implements _DescriptionChanged {
   const _$_DescriptionChanged(this.input) : assert(input != null);
 
   @override
   final String input;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'GradeFormEvent.descriptionChanged(input: $input)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'GradeFormEvent.descriptionChanged'))
+      ..add(DiagnosticsProperty('input', input));
   }
 
   @override
@@ -314,16 +343,19 @@ class _$_DescriptionChanged implements _DescriptionChanged {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required
-        Result initialized(Option<Grade> initialGradeOption, Subject subject),
+        Result initialized(
+            Option<Grade> initialGradeOption, Option<Subject> subject),
     @required Result descriptionChanged(String input),
     @required Result gradeValueChanged(String gradeValue),
     @required Result gradeTypeChanged(String type),
+    @required Result subjectChanged(String subjectId),
     @required Result saved(),
   }) {
     assert(initialized != null);
     assert(descriptionChanged != null);
     assert(gradeValueChanged != null);
     assert(gradeTypeChanged != null);
+    assert(subjectChanged != null);
     assert(saved != null);
     return descriptionChanged(input);
   }
@@ -331,10 +363,12 @@ class _$_DescriptionChanged implements _DescriptionChanged {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result initialized(Option<Grade> initialGradeOption, Subject subject),
+    Result initialized(
+        Option<Grade> initialGradeOption, Option<Subject> subject),
     Result descriptionChanged(String input),
     Result gradeValueChanged(String gradeValue),
     Result gradeTypeChanged(String type),
+    Result subjectChanged(String subjectId),
     Result saved(),
     @required Result orElse(),
   }) {
@@ -352,12 +386,14 @@ class _$_DescriptionChanged implements _DescriptionChanged {
     @required Result descriptionChanged(_DescriptionChanged value),
     @required Result gradeValueChanged(_GradeValueChanged value),
     @required Result gradeTypeChanged(_GradeTypeChanged value),
+    @required Result subjectChanged(_SubjectChanged value),
     @required Result saved(_Saved value),
   }) {
     assert(initialized != null);
     assert(descriptionChanged != null);
     assert(gradeValueChanged != null);
     assert(gradeTypeChanged != null);
+    assert(subjectChanged != null);
     assert(saved != null);
     return descriptionChanged(this);
   }
@@ -369,6 +405,7 @@ class _$_DescriptionChanged implements _DescriptionChanged {
     Result descriptionChanged(_DescriptionChanged value),
     Result gradeValueChanged(_GradeValueChanged value),
     Result gradeTypeChanged(_GradeTypeChanged value),
+    Result subjectChanged(_SubjectChanged value),
     Result saved(_Saved value),
     @required Result orElse(),
   }) {
@@ -414,15 +451,25 @@ class __$GradeValueChangedCopyWithImpl<$Res>
   }
 }
 
-class _$_GradeValueChanged implements _GradeValueChanged {
+class _$_GradeValueChanged
+    with DiagnosticableTreeMixin
+    implements _GradeValueChanged {
   const _$_GradeValueChanged(this.gradeValue) : assert(gradeValue != null);
 
   @override
   final String gradeValue;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'GradeFormEvent.gradeValueChanged(gradeValue: $gradeValue)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'GradeFormEvent.gradeValueChanged'))
+      ..add(DiagnosticsProperty('gradeValue', gradeValue));
   }
 
   @override
@@ -446,16 +493,19 @@ class _$_GradeValueChanged implements _GradeValueChanged {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required
-        Result initialized(Option<Grade> initialGradeOption, Subject subject),
+        Result initialized(
+            Option<Grade> initialGradeOption, Option<Subject> subject),
     @required Result descriptionChanged(String input),
     @required Result gradeValueChanged(String gradeValue),
     @required Result gradeTypeChanged(String type),
+    @required Result subjectChanged(String subjectId),
     @required Result saved(),
   }) {
     assert(initialized != null);
     assert(descriptionChanged != null);
     assert(gradeValueChanged != null);
     assert(gradeTypeChanged != null);
+    assert(subjectChanged != null);
     assert(saved != null);
     return gradeValueChanged(gradeValue);
   }
@@ -463,10 +513,12 @@ class _$_GradeValueChanged implements _GradeValueChanged {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result initialized(Option<Grade> initialGradeOption, Subject subject),
+    Result initialized(
+        Option<Grade> initialGradeOption, Option<Subject> subject),
     Result descriptionChanged(String input),
     Result gradeValueChanged(String gradeValue),
     Result gradeTypeChanged(String type),
+    Result subjectChanged(String subjectId),
     Result saved(),
     @required Result orElse(),
   }) {
@@ -484,12 +536,14 @@ class _$_GradeValueChanged implements _GradeValueChanged {
     @required Result descriptionChanged(_DescriptionChanged value),
     @required Result gradeValueChanged(_GradeValueChanged value),
     @required Result gradeTypeChanged(_GradeTypeChanged value),
+    @required Result subjectChanged(_SubjectChanged value),
     @required Result saved(_Saved value),
   }) {
     assert(initialized != null);
     assert(descriptionChanged != null);
     assert(gradeValueChanged != null);
     assert(gradeTypeChanged != null);
+    assert(subjectChanged != null);
     assert(saved != null);
     return gradeValueChanged(this);
   }
@@ -501,6 +555,7 @@ class _$_GradeValueChanged implements _GradeValueChanged {
     Result descriptionChanged(_DescriptionChanged value),
     Result gradeValueChanged(_GradeValueChanged value),
     Result gradeTypeChanged(_GradeTypeChanged value),
+    Result subjectChanged(_SubjectChanged value),
     Result saved(_Saved value),
     @required Result orElse(),
   }) {
@@ -546,15 +601,25 @@ class __$GradeTypeChangedCopyWithImpl<$Res>
   }
 }
 
-class _$_GradeTypeChanged implements _GradeTypeChanged {
+class _$_GradeTypeChanged
+    with DiagnosticableTreeMixin
+    implements _GradeTypeChanged {
   const _$_GradeTypeChanged(this.type) : assert(type != null);
 
   @override
   final String type;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'GradeFormEvent.gradeTypeChanged(type: $type)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'GradeFormEvent.gradeTypeChanged'))
+      ..add(DiagnosticsProperty('type', type));
   }
 
   @override
@@ -577,16 +642,19 @@ class _$_GradeTypeChanged implements _GradeTypeChanged {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required
-        Result initialized(Option<Grade> initialGradeOption, Subject subject),
+        Result initialized(
+            Option<Grade> initialGradeOption, Option<Subject> subject),
     @required Result descriptionChanged(String input),
     @required Result gradeValueChanged(String gradeValue),
     @required Result gradeTypeChanged(String type),
+    @required Result subjectChanged(String subjectId),
     @required Result saved(),
   }) {
     assert(initialized != null);
     assert(descriptionChanged != null);
     assert(gradeValueChanged != null);
     assert(gradeTypeChanged != null);
+    assert(subjectChanged != null);
     assert(saved != null);
     return gradeTypeChanged(type);
   }
@@ -594,10 +662,12 @@ class _$_GradeTypeChanged implements _GradeTypeChanged {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result initialized(Option<Grade> initialGradeOption, Subject subject),
+    Result initialized(
+        Option<Grade> initialGradeOption, Option<Subject> subject),
     Result descriptionChanged(String input),
     Result gradeValueChanged(String gradeValue),
     Result gradeTypeChanged(String type),
+    Result subjectChanged(String subjectId),
     Result saved(),
     @required Result orElse(),
   }) {
@@ -615,12 +685,14 @@ class _$_GradeTypeChanged implements _GradeTypeChanged {
     @required Result descriptionChanged(_DescriptionChanged value),
     @required Result gradeValueChanged(_GradeValueChanged value),
     @required Result gradeTypeChanged(_GradeTypeChanged value),
+    @required Result subjectChanged(_SubjectChanged value),
     @required Result saved(_Saved value),
   }) {
     assert(initialized != null);
     assert(descriptionChanged != null);
     assert(gradeValueChanged != null);
     assert(gradeTypeChanged != null);
+    assert(subjectChanged != null);
     assert(saved != null);
     return gradeTypeChanged(this);
   }
@@ -632,6 +704,7 @@ class _$_GradeTypeChanged implements _GradeTypeChanged {
     Result descriptionChanged(_DescriptionChanged value),
     Result gradeValueChanged(_GradeValueChanged value),
     Result gradeTypeChanged(_GradeTypeChanged value),
+    Result subjectChanged(_SubjectChanged value),
     Result saved(_Saved value),
     @required Result orElse(),
   }) {
@@ -650,6 +723,156 @@ abstract class _GradeTypeChanged implements GradeFormEvent {
   _$GradeTypeChangedCopyWith<_GradeTypeChanged> get copyWith;
 }
 
+abstract class _$SubjectChangedCopyWith<$Res> {
+  factory _$SubjectChangedCopyWith(
+          _SubjectChanged value, $Res Function(_SubjectChanged) then) =
+      __$SubjectChangedCopyWithImpl<$Res>;
+  $Res call({String subjectId});
+}
+
+class __$SubjectChangedCopyWithImpl<$Res>
+    extends _$GradeFormEventCopyWithImpl<$Res>
+    implements _$SubjectChangedCopyWith<$Res> {
+  __$SubjectChangedCopyWithImpl(
+      _SubjectChanged _value, $Res Function(_SubjectChanged) _then)
+      : super(_value, (v) => _then(v as _SubjectChanged));
+
+  @override
+  _SubjectChanged get _value => super._value as _SubjectChanged;
+
+  @override
+  $Res call({
+    Object subjectId = freezed,
+  }) {
+    return _then(_SubjectChanged(
+      subjectId == freezed ? _value.subjectId : subjectId as String,
+    ));
+  }
+}
+
+class _$_SubjectChanged
+    with DiagnosticableTreeMixin
+    implements _SubjectChanged {
+  const _$_SubjectChanged(this.subjectId) : assert(subjectId != null);
+
+  @override
+  final String subjectId;
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'GradeFormEvent.subjectChanged(subjectId: $subjectId)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'GradeFormEvent.subjectChanged'))
+      ..add(DiagnosticsProperty('subjectId', subjectId));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is _SubjectChanged &&
+            (identical(other.subjectId, subjectId) ||
+                const DeepCollectionEquality()
+                    .equals(other.subjectId, subjectId)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(subjectId);
+
+  @override
+  _$SubjectChangedCopyWith<_SubjectChanged> get copyWith =>
+      __$SubjectChangedCopyWithImpl<_SubjectChanged>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required
+        Result initialized(
+            Option<Grade> initialGradeOption, Option<Subject> subject),
+    @required Result descriptionChanged(String input),
+    @required Result gradeValueChanged(String gradeValue),
+    @required Result gradeTypeChanged(String type),
+    @required Result subjectChanged(String subjectId),
+    @required Result saved(),
+  }) {
+    assert(initialized != null);
+    assert(descriptionChanged != null);
+    assert(gradeValueChanged != null);
+    assert(gradeTypeChanged != null);
+    assert(subjectChanged != null);
+    assert(saved != null);
+    return subjectChanged(subjectId);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result initialized(
+        Option<Grade> initialGradeOption, Option<Subject> subject),
+    Result descriptionChanged(String input),
+    Result gradeValueChanged(String gradeValue),
+    Result gradeTypeChanged(String type),
+    Result subjectChanged(String subjectId),
+    Result saved(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (subjectChanged != null) {
+      return subjectChanged(subjectId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result initialized(_Initialized value),
+    @required Result descriptionChanged(_DescriptionChanged value),
+    @required Result gradeValueChanged(_GradeValueChanged value),
+    @required Result gradeTypeChanged(_GradeTypeChanged value),
+    @required Result subjectChanged(_SubjectChanged value),
+    @required Result saved(_Saved value),
+  }) {
+    assert(initialized != null);
+    assert(descriptionChanged != null);
+    assert(gradeValueChanged != null);
+    assert(gradeTypeChanged != null);
+    assert(subjectChanged != null);
+    assert(saved != null);
+    return subjectChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result initialized(_Initialized value),
+    Result descriptionChanged(_DescriptionChanged value),
+    Result gradeValueChanged(_GradeValueChanged value),
+    Result gradeTypeChanged(_GradeTypeChanged value),
+    Result subjectChanged(_SubjectChanged value),
+    Result saved(_Saved value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (subjectChanged != null) {
+      return subjectChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SubjectChanged implements GradeFormEvent {
+  const factory _SubjectChanged(String subjectId) = _$_SubjectChanged;
+
+  String get subjectId;
+  _$SubjectChangedCopyWith<_SubjectChanged> get copyWith;
+}
+
 abstract class _$SavedCopyWith<$Res> {
   factory _$SavedCopyWith(_Saved value, $Res Function(_Saved) then) =
       __$SavedCopyWithImpl<$Res>;
@@ -664,12 +887,18 @@ class __$SavedCopyWithImpl<$Res> extends _$GradeFormEventCopyWithImpl<$Res>
   _Saved get _value => super._value as _Saved;
 }
 
-class _$_Saved implements _Saved {
+class _$_Saved with DiagnosticableTreeMixin implements _Saved {
   const _$_Saved();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'GradeFormEvent.saved()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties..add(DiagnosticsProperty('type', 'GradeFormEvent.saved'));
   }
 
   @override
@@ -684,16 +913,19 @@ class _$_Saved implements _Saved {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required
-        Result initialized(Option<Grade> initialGradeOption, Subject subject),
+        Result initialized(
+            Option<Grade> initialGradeOption, Option<Subject> subject),
     @required Result descriptionChanged(String input),
     @required Result gradeValueChanged(String gradeValue),
     @required Result gradeTypeChanged(String type),
+    @required Result subjectChanged(String subjectId),
     @required Result saved(),
   }) {
     assert(initialized != null);
     assert(descriptionChanged != null);
     assert(gradeValueChanged != null);
     assert(gradeTypeChanged != null);
+    assert(subjectChanged != null);
     assert(saved != null);
     return saved();
   }
@@ -701,10 +933,12 @@ class _$_Saved implements _Saved {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result initialized(Option<Grade> initialGradeOption, Subject subject),
+    Result initialized(
+        Option<Grade> initialGradeOption, Option<Subject> subject),
     Result descriptionChanged(String input),
     Result gradeValueChanged(String gradeValue),
     Result gradeTypeChanged(String type),
+    Result subjectChanged(String subjectId),
     Result saved(),
     @required Result orElse(),
   }) {
@@ -722,12 +956,14 @@ class _$_Saved implements _Saved {
     @required Result descriptionChanged(_DescriptionChanged value),
     @required Result gradeValueChanged(_GradeValueChanged value),
     @required Result gradeTypeChanged(_GradeTypeChanged value),
+    @required Result subjectChanged(_SubjectChanged value),
     @required Result saved(_Saved value),
   }) {
     assert(initialized != null);
     assert(descriptionChanged != null);
     assert(gradeValueChanged != null);
     assert(gradeTypeChanged != null);
+    assert(subjectChanged != null);
     assert(saved != null);
     return saved(this);
   }
@@ -739,6 +975,7 @@ class _$_Saved implements _Saved {
     Result descriptionChanged(_DescriptionChanged value),
     Result gradeValueChanged(_GradeValueChanged value),
     Result gradeTypeChanged(_GradeTypeChanged value),
+    Result subjectChanged(_SubjectChanged value),
     Result saved(_Saved value),
     @required Result orElse(),
   }) {
@@ -759,6 +996,8 @@ class _$GradeFormStateTearOff {
 
   _GradeFormState call(
       {@required
+          KtList<Subject> subjects,
+      @required
           Grade grade,
       @required
           bool showErrorMessages,
@@ -769,6 +1008,7 @@ class _$GradeFormStateTearOff {
       @required
           Option<Either<GradeFailures, Unit>> saveFailureOrSuccessOption}) {
     return _GradeFormState(
+      subjects: subjects,
       grade: grade,
       showErrorMessages: showErrorMessages,
       isEditing: isEditing,
@@ -782,6 +1022,7 @@ class _$GradeFormStateTearOff {
 const $GradeFormState = _$GradeFormStateTearOff();
 
 mixin _$GradeFormState {
+  KtList<Subject> get subjects;
   Grade get grade;
   bool get showErrorMessages;
   bool get isEditing;
@@ -796,7 +1037,8 @@ abstract class $GradeFormStateCopyWith<$Res> {
           GradeFormState value, $Res Function(GradeFormState) then) =
       _$GradeFormStateCopyWithImpl<$Res>;
   $Res call(
-      {Grade grade,
+      {KtList<Subject> subjects,
+      Grade grade,
       bool showErrorMessages,
       bool isEditing,
       bool isSaving,
@@ -815,6 +1057,7 @@ class _$GradeFormStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object subjects = freezed,
     Object grade = freezed,
     Object showErrorMessages = freezed,
     Object isEditing = freezed,
@@ -822,6 +1065,8 @@ class _$GradeFormStateCopyWithImpl<$Res>
     Object saveFailureOrSuccessOption = freezed,
   }) {
     return _then(_value.copyWith(
+      subjects:
+          subjects == freezed ? _value.subjects : subjects as KtList<Subject>,
       grade: grade == freezed ? _value.grade : grade as Grade,
       showErrorMessages: showErrorMessages == freezed
           ? _value.showErrorMessages
@@ -852,7 +1097,8 @@ abstract class _$GradeFormStateCopyWith<$Res>
       __$GradeFormStateCopyWithImpl<$Res>;
   @override
   $Res call(
-      {Grade grade,
+      {KtList<Subject> subjects,
+      Grade grade,
       bool showErrorMessages,
       bool isEditing,
       bool isSaving,
@@ -874,6 +1120,7 @@ class __$GradeFormStateCopyWithImpl<$Res>
 
   @override
   $Res call({
+    Object subjects = freezed,
     Object grade = freezed,
     Object showErrorMessages = freezed,
     Object isEditing = freezed,
@@ -881,6 +1128,8 @@ class __$GradeFormStateCopyWithImpl<$Res>
     Object saveFailureOrSuccessOption = freezed,
   }) {
     return _then(_GradeFormState(
+      subjects:
+          subjects == freezed ? _value.subjects : subjects as KtList<Subject>,
       grade: grade == freezed ? _value.grade : grade as Grade,
       showErrorMessages: showErrorMessages == freezed
           ? _value.showErrorMessages
@@ -894,19 +1143,25 @@ class __$GradeFormStateCopyWithImpl<$Res>
   }
 }
 
-class _$_GradeFormState implements _GradeFormState {
+class _$_GradeFormState
+    with DiagnosticableTreeMixin
+    implements _GradeFormState {
   const _$_GradeFormState(
-      {@required this.grade,
+      {@required this.subjects,
+      @required this.grade,
       @required this.showErrorMessages,
       @required this.isEditing,
       @required this.isSaving,
       @required this.saveFailureOrSuccessOption})
-      : assert(grade != null),
+      : assert(subjects != null),
+        assert(grade != null),
         assert(showErrorMessages != null),
         assert(isEditing != null),
         assert(isSaving != null),
         assert(saveFailureOrSuccessOption != null);
 
+  @override
+  final KtList<Subject> subjects;
   @override
   final Grade grade;
   @override
@@ -919,14 +1174,31 @@ class _$_GradeFormState implements _GradeFormState {
   final Option<Either<GradeFailures, Unit>> saveFailureOrSuccessOption;
 
   @override
-  String toString() {
-    return 'GradeFormState(grade: $grade, showErrorMessages: $showErrorMessages, isEditing: $isEditing, isSaving: $isSaving, saveFailureOrSuccessOption: $saveFailureOrSuccessOption)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'GradeFormState(subjects: $subjects, grade: $grade, showErrorMessages: $showErrorMessages, isEditing: $isEditing, isSaving: $isSaving, saveFailureOrSuccessOption: $saveFailureOrSuccessOption)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'GradeFormState'))
+      ..add(DiagnosticsProperty('subjects', subjects))
+      ..add(DiagnosticsProperty('grade', grade))
+      ..add(DiagnosticsProperty('showErrorMessages', showErrorMessages))
+      ..add(DiagnosticsProperty('isEditing', isEditing))
+      ..add(DiagnosticsProperty('isSaving', isSaving))
+      ..add(DiagnosticsProperty(
+          'saveFailureOrSuccessOption', saveFailureOrSuccessOption));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _GradeFormState &&
+            (identical(other.subjects, subjects) ||
+                const DeepCollectionEquality()
+                    .equals(other.subjects, subjects)) &&
             (identical(other.grade, grade) ||
                 const DeepCollectionEquality().equals(other.grade, grade)) &&
             (identical(other.showErrorMessages, showErrorMessages) ||
@@ -948,6 +1220,7 @@ class _$_GradeFormState implements _GradeFormState {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(subjects) ^
       const DeepCollectionEquality().hash(grade) ^
       const DeepCollectionEquality().hash(showErrorMessages) ^
       const DeepCollectionEquality().hash(isEditing) ^
@@ -962,6 +1235,8 @@ class _$_GradeFormState implements _GradeFormState {
 abstract class _GradeFormState implements GradeFormState {
   const factory _GradeFormState(
           {@required
+              KtList<Subject> subjects,
+          @required
               Grade grade,
           @required
               bool showErrorMessages,
@@ -973,6 +1248,8 @@ abstract class _GradeFormState implements GradeFormState {
               Option<Either<GradeFailures, Unit>> saveFailureOrSuccessOption}) =
       _$_GradeFormState;
 
+  @override
+  KtList<Subject> get subjects;
   @override
   Grade get grade;
   @override

@@ -22,7 +22,8 @@ class GradeDescription extends ValueObject<String> {
   factory GradeDescription(String input) {
     return GradeDescription._(
       validateMaxStringLength(emptyIfNull(input), maxLength)
-          .flatMap(validateSingleLine),
+          .flatMap(validateSingleLine)
+          .flatMap(validateStringNotEmpty),
     );
   }
 

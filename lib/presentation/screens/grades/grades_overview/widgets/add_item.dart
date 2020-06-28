@@ -19,7 +19,7 @@ class AddItem extends StatelessWidget {
             width: constraints.maxWidth,
             height: constraints.maxWidth,
             child: Container(
-              margin: const EdgeInsets.all(12.0),
+              margin: EdgeInsets.all(MediaQuery.of(context).size.width * 0.03),
               decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(32.0)),
                   color: AppColors.accentWithOpacity),

@@ -17,6 +17,7 @@ class _$GradesDTOTearOff {
 
   _GradesDTO call(
       {@JsonKey(ignore: true) String id,
+      @required DateTime creationTime,
       @required int value,
       @required String type,
       @required String description,
@@ -24,6 +25,7 @@ class _$GradesDTOTearOff {
       @required int term}) {
     return _GradesDTO(
       id: id,
+      creationTime: creationTime,
       value: value,
       type: type,
       description: description,
@@ -39,6 +41,7 @@ const $GradesDTO = _$GradesDTOTearOff();
 mixin _$GradesDTO {
   @JsonKey(ignore: true)
   String get id;
+  DateTime get creationTime;
   int get value;
   String get type;
   String get description;
@@ -54,6 +57,7 @@ abstract class $GradesDTOCopyWith<$Res> {
       _$GradesDTOCopyWithImpl<$Res>;
   $Res call(
       {@JsonKey(ignore: true) String id,
+      DateTime creationTime,
       int value,
       String type,
       String description,
@@ -71,6 +75,7 @@ class _$GradesDTOCopyWithImpl<$Res> implements $GradesDTOCopyWith<$Res> {
   @override
   $Res call({
     Object id = freezed,
+    Object creationTime = freezed,
     Object value = freezed,
     Object type = freezed,
     Object description = freezed,
@@ -79,6 +84,9 @@ class _$GradesDTOCopyWithImpl<$Res> implements $GradesDTOCopyWith<$Res> {
   }) {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as String,
+      creationTime: creationTime == freezed
+          ? _value.creationTime
+          : creationTime as DateTime,
       value: value == freezed ? _value.value : value as int,
       type: type == freezed ? _value.type : type as String,
       description:
@@ -96,6 +104,7 @@ abstract class _$GradesDTOCopyWith<$Res> implements $GradesDTOCopyWith<$Res> {
   @override
   $Res call(
       {@JsonKey(ignore: true) String id,
+      DateTime creationTime,
       int value,
       String type,
       String description,
@@ -114,6 +123,7 @@ class __$GradesDTOCopyWithImpl<$Res> extends _$GradesDTOCopyWithImpl<$Res>
   @override
   $Res call({
     Object id = freezed,
+    Object creationTime = freezed,
     Object value = freezed,
     Object type = freezed,
     Object description = freezed,
@@ -122,6 +132,9 @@ class __$GradesDTOCopyWithImpl<$Res> extends _$GradesDTOCopyWithImpl<$Res>
   }) {
     return _then(_GradesDTO(
       id: id == freezed ? _value.id : id as String,
+      creationTime: creationTime == freezed
+          ? _value.creationTime
+          : creationTime as DateTime,
       value: value == freezed ? _value.value : value as int,
       type: type == freezed ? _value.type : type as String,
       description:
@@ -136,12 +149,14 @@ class __$GradesDTOCopyWithImpl<$Res> extends _$GradesDTOCopyWithImpl<$Res>
 class _$_GradesDTO extends _GradesDTO {
   const _$_GradesDTO(
       {@JsonKey(ignore: true) this.id,
+      @required this.creationTime,
       @required this.value,
       @required this.type,
       @required this.description,
       @required this.subjectId,
       @required this.term})
-      : assert(value != null),
+      : assert(creationTime != null),
+        assert(value != null),
         assert(type != null),
         assert(description != null),
         assert(subjectId != null),
@@ -155,6 +170,8 @@ class _$_GradesDTO extends _GradesDTO {
   @JsonKey(ignore: true)
   final String id;
   @override
+  final DateTime creationTime;
+  @override
   final int value;
   @override
   final String type;
@@ -167,7 +184,7 @@ class _$_GradesDTO extends _GradesDTO {
 
   @override
   String toString() {
-    return 'GradesDTO(id: $id, value: $value, type: $type, description: $description, subjectId: $subjectId, term: $term)';
+    return 'GradesDTO(id: $id, creationTime: $creationTime, value: $value, type: $type, description: $description, subjectId: $subjectId, term: $term)';
   }
 
   @override
@@ -176,6 +193,9 @@ class _$_GradesDTO extends _GradesDTO {
         (other is _GradesDTO &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.creationTime, creationTime) ||
+                const DeepCollectionEquality()
+                    .equals(other.creationTime, creationTime)) &&
             (identical(other.value, value) ||
                 const DeepCollectionEquality().equals(other.value, value)) &&
             (identical(other.type, type) ||
@@ -194,6 +214,7 @@ class _$_GradesDTO extends _GradesDTO {
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(creationTime) ^
       const DeepCollectionEquality().hash(value) ^
       const DeepCollectionEquality().hash(type) ^
       const DeepCollectionEquality().hash(description) ^
@@ -214,6 +235,7 @@ abstract class _GradesDTO extends GradesDTO {
   const _GradesDTO._() : super._();
   const factory _GradesDTO(
       {@JsonKey(ignore: true) String id,
+      @required DateTime creationTime,
       @required int value,
       @required String type,
       @required String description,
@@ -226,6 +248,8 @@ abstract class _GradesDTO extends GradesDTO {
   @override
   @JsonKey(ignore: true)
   String get id;
+  @override
+  DateTime get creationTime;
   @override
   int get value;
   @override

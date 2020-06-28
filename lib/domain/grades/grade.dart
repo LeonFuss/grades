@@ -10,7 +10,8 @@ part 'grade.freezed.dart';
 @freezed
 abstract class Grade implements _$Grade {
   const factory Grade(
-      {@required UniqueId id,
+      {@required DateTime creationTime,
+      @required UniqueId id,
       @required GradeValue value,
       @required GradeType type,
       @required GradeDescription description,
@@ -21,6 +22,7 @@ abstract class Grade implements _$Grade {
 
   factory Grade.empty({Term term}) {
     return Grade(
+      creationTime: DateTime.now().toUtc(),
       id: UniqueId(),
       value: GradeValue(0),
       type: GradeType.muendlich(),

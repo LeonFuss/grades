@@ -3,11 +3,13 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:grades/application/subject/actor/bloc/subject_actor_bloc.dart';
 import 'package:grades/domain/grades/grade.dart';
 import 'package:grades/domain/grades/grade_failures.dart';
 import 'package:grades/domain/grades/i_grade_repository.dart';
 import 'package:grades/domain/grades/value_objects.dart';
 import 'package:grades/domain/subjects/subject.dart';
+import 'package:grades/domain/subjects/value_objects.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
 
@@ -20,8 +22,9 @@ part 'grade_watcher_state.dart';
 @injectable
 class GradeWatcherBloc extends Bloc<GradeWatcherEvent, GradeWatcherState> {
   final IGradeRepository _gradeRepository;
+  final SubjectActorBloc _actorBloc;
 
-  GradeWatcherBloc(this._gradeRepository);
+  GradeWatcherBloc(this._gradeRepository, this._actorBloc);
 
   StreamSubscription<Either<GradeFailures, KtList<Grade>>>
       _gradeStreamSubscription;
@@ -45,7 +48,8 @@ class GradeWatcherBloc extends Bloc<GradeWatcherEvent, GradeWatcherState> {
         await _gradeStreamSubscription?.cancel();
         _gradeStreamSubscription = _gradeRepository
             .watchSubjectGrades(e.subject)
-            .listen((grades) => add(GradeWatcherEvent.gradesReceived(grades)));
+            .listen((grades) =>
+                add(GradeWatcherEvent.gradesReceived(grades, e.subject)));
       },
 
       ///[GradeWatcherEvent.gradesReceived] wurde ausgelöst.
@@ -53,6 +57,7 @@ class GradeWatcherBloc extends Bloc<GradeWatcherEvent, GradeWatcherState> {
         ///Bei den empfangen Daten wird geprüft ob diese gültig sind.
         ///Sollten sie Fehler enthalten wird der Zustand auf [GradeWatcherState.loadFailure] gesetzt.
         ///Ansonsten wird der Zustand auf  GradeWatcherState.loadSuccess gesetzt.
+
         yield e.failureOrGrades.fold(
             (f) => GradeWatcherState.loadFailure(gradeFailures: f, term: term),
             (grades) {
@@ -60,11 +65,26 @@ class GradeWatcherBloc extends Bloc<GradeWatcherEvent, GradeWatcherState> {
               grades.filter((grade) => grade.type.getOrCrash() == "Mündlich");
           final writtenGrades = grades
               .filter((grade) => grade.type.getOrCrash() == "Schriftlich");
+
+          final oralAverage = Average.fromGrades(oralGrades.asList());
+          final writtenAverage = Average.fromGrades(writtenGrades.asList());
+          final average =
+              Average.fromOralAndWrittenAverage(oralAverage, writtenAverage);
+          _actorBloc.add(
+            SubjectActorEvent.update(
+              e.subject.copyWith(
+                average: average,
+                writtenAverage: writtenAverage,
+                oralAverage: oralAverage,
+              ),
+            ),
+          );
           return GradeWatcherState.loadSuccess(
-              grades: grades,
-              oralGrades: oralGrades,
-              writtenGrades: writtenGrades,
-              term: term);
+            grades: grades,
+            oralGrades: oralGrades,
+            writtenGrades: writtenGrades,
+            term: term,
+          );
         });
       },
 

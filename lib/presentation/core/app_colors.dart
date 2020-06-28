@@ -18,6 +18,8 @@ class AppColors {
 
   static Color get accentWithOpacity => accent.withOpacity(0.2);
 
+  static Color get whiteWithOpacity => Colors.white12;
+
   static Color get red => cardColors[0];
   static Color get redWithOpacity => red.withOpacity(0.2);
 

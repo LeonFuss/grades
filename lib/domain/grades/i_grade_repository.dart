@@ -9,6 +9,8 @@ abstract class IGradeRepository {
   Stream<Either<GradeFailures, KtList<Grade>>> watchSubjectGrades(
       Subject subject);
 
+  Future<Either<GradeFailures, KtList<Grade>>> getSubjectGrade(Subject subject);
+
   Stream<Either<GradeFailures, Grade>> watchGrade(Grade grade);
 
   Future<Either<GradeFailures, Unit>> create(Grade grade);

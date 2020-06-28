@@ -21,29 +21,30 @@ class TypeField extends HookWidget {
           padding:
               const EdgeInsets.only(top: 24, bottom: 12, left: 16, right: 16),
           child: DropdownButtonFormField<String>(
-              value: state.grade.type.getOrCrash(),
-              decoration: const InputDecoration(
-                labelText: 'Type / Name',
-                counterText: '',
-              ),
-              onChanged: (value) => context
-                  .bloc<GradeFormBloc>()
-                  .add(GradeFormEvent.gradeTypeChanged(value)),
-              validator: (_) =>
-                  context.bloc<GradeFormBloc>().state.grade.type.value.fold(
-                        (f) => f.maybeMap(
-                          orElse: () => null,
-                        ),
-                        (_) => null,
+            value: state.grade.type.getOrCrash(),
+            decoration: const InputDecoration(
+              labelText: 'Type / Name',
+              counterText: '',
+            ),
+            onChanged: (value) => context
+                .bloc<GradeFormBloc>()
+                .add(GradeFormEvent.gradeTypeChanged(value)),
+            validator: (_) =>
+                context.bloc<GradeFormBloc>().state.grade.type.value.fold(
+                      (f) => f.maybeMap(
+                        orElse: () => null,
                       ),
-              items: GradeType.gradeTypes
-                  .map(
-                    (e) => DropdownMenuItem(
-                      value: e,
-                      child: Text(e),
+                      (_) => null,
                     ),
-                  )
-                  .toList()),
+            items: GradeType.gradeTypes
+                .map(
+                  (e) => DropdownMenuItem(
+                    value: e,
+                    child: Text(e),
+                  ),
+                )
+                .toList(),
+          ),
         );
       },
     );

@@ -47,7 +47,7 @@ void $initGetIt(GetIt g, {String environment}) {
   g.registerFactory<GradeFormBloc>(
       () => GradeFormBloc(g<IGradeRepository>(), g<ISubjectRepository>()));
   g.registerFactory<GradeWatcherBloc>(
-      () => GradeWatcherBloc(g<IGradeRepository>()));
+      () => GradeWatcherBloc(g<IGradeRepository>(), g<SubjectActorBloc>()));
 
   //Register prod Dependencies --------
   if (environment == 'prod') {

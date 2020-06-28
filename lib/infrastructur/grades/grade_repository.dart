@@ -161,4 +161,40 @@ class GradeRepository implements IGradeRepository {
       }
     });
   }
+
+  @override
+  Future<Either<GradeFailures, KtList<Grade>>> getSubjectGrade(
+      s.Subject subject) async {
+    final term = subject.term;
+    return term.value.fold((l) => left(const GradeFailures.termNotValid()),
+        (term) async {
+      try {
+        final userDoc = await _firestore.userDocument();
+        final subjectId = subject.id.getOrCrash();
+
+        final snapshot = await userDoc
+            .term(term)
+            .subjectCollection
+            .document(subjectId)
+            .gradesCollection
+            .getDocuments();
+
+        final data = snapshot.documents;
+
+        print(data);
+        return right(data
+            .map((snapshot) => GradesDTO.fromFirestore(snapshot).toDomain())
+            .toImmutableList());
+      } on PlatformException catch (e) {
+        print(e);
+        if (e.message.contains('PERMISSION_DENIED')) {
+          return left(const GradeFailures.insufficientPermissions());
+        } else if (e.message.contains('NOT_FOUND')) {
+          return left(const GradeFailures.unableToUpdate());
+        } else {
+          return left(const GradeFailures.unexpected());
+        }
+      }
+    });
+  }
 }

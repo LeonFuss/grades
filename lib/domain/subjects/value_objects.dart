@@ -77,6 +77,18 @@ class Average extends ValueObject<double> {
     return Average(sum / grades.length);
   }
 
+  factory Average.fromOralAndWrittenAverage(Average oral, Average written) {
+    if (oral.isValid() && written.isValid()) {
+      return Average((oral.getOrCrash() + written.getOrCrash()) / 2);
+    } else if (oral.isValid() && !written.isValid()) {
+      return oral;
+    } else if (!oral.isValid() && written.isValid()) {
+      return written;
+    } else {
+      return Average.empty();
+    }
+  }
+
   //Stellt sicher, dass "noch nicht initialisiert" nicht als ungültig gewertet wird
   @override
   Either<ValueFailure<dynamic>, Unit> get failureOrUnit {

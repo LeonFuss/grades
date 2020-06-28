@@ -10,7 +10,8 @@ abstract class GradeWatcherEvent with _$GradeWatcherEvent {
   ///Daten wurden erfolgreich empfangen.
   ///Validierung der Daten gefordert.
   const factory GradeWatcherEvent.gradesReceived(
-      Either<GradeFailures, KtList<Grade>> failureOrGrades) = GradesReceived;
+      Either<GradeFailures, KtList<Grade>> failureOrGrades,
+      Subject subject) = GradesReceived;
 
   ///Wechseln des aktuellen Halbjahres gefordert.
   const factory GradeWatcherEvent.changeTerm(Term term) = ChangeTerm;
