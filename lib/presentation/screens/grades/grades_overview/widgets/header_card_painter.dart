@@ -63,7 +63,7 @@ class HeaderCardPainter extends CustomPainter {
     canvas.drawPath(path, paint);
 
     for (int i = 0; i < gradeOffsets.length; i++) {
-      if (i == gradeOffsets.length) return;
+      if (i == gradeOffsets.length - 1) break;
       final offset1 = gradeOffsets[i];
       final offset2 = gradeOffsets[i + 1];
       canvas.drawLine(offset1, offset2, paint);

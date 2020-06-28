@@ -23,28 +23,28 @@ class AppWidget extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         builder: ExtendedNavigator(router: Router()),
         theme: ThemeData(
-          primaryColor: AppColors.inputBg,
-          accentColor: AppColors.accentColor,
+          primaryColor: AppColors.scaffold,
+          accentColor: AppColors.accent,
           textTheme: GoogleFonts.montserratTextTheme(const TextTheme().apply(
-              bodyColor: AppColors.inputBg,
-              displayColor: AppColors.inputBg,
-              decorationColor: AppColors.inputBg,
+              bodyColor: AppColors.fontColor,
+              displayColor: AppColors.fontColor,
+              decorationColor: AppColors.fontColor,
               fontSizeDelta: 50)),
           inputDecorationTheme: InputDecorationTheme(
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.inputBg),
+              borderSide: BorderSide(color: AppColors.fontColor),
               borderRadius: BorderRadius.circular(8),
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8),
             ),
           ),
-          scaffoldBackgroundColor: AppColors.primaryColor,
+          scaffoldBackgroundColor: AppColors.scaffold,
           appBarTheme: AppBarTheme(
-            color: AppColors.primaryColor,
+            color: AppColors.scaffold,
             elevation: 0,
             actionsIconTheme:
-                IconThemeData(size: 32, color: AppColors.accentColor),
+                IconThemeData(size: 32, color: AppColors.accent),
           ),
           floatingActionButtonTheme:
               FloatingActionButtonThemeData(backgroundColor: AppColors.accent),

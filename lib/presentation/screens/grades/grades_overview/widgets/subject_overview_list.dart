@@ -30,7 +30,7 @@ class SubjectOverviewList extends StatelessWidget {
             title: Center(
                 child: Icon(
               Icons.add,
-              color: AppColors.accentColor,
+              color: AppColors.accent,
               size: 28,
             )),
           );
@@ -95,7 +95,7 @@ class SubjectOverviewList extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Divider(
                 height: 1,
-                color: AppColors.inputBg,
+                color: AppColors.fontColor,
                 thickness: 0.25,
               ),
             )

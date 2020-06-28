@@ -132,7 +132,7 @@ class SignInForm extends StatelessWidget {
                             .bloc<LoginBloc>()
                             .add(const LoginEvent.signInWithGooglePressed());
                       },
-                      color: AppColors.inputBg.withOpacity(0.8),
+                      color: AppColors.fontColor.withOpacity(0.8),
                       child: const Text(
                         'MIT GOOGLE ANMELDEN',
                         style: TextStyle(

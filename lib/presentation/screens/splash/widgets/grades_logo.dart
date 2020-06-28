@@ -32,7 +32,7 @@ class LogoPainter extends CustomPainter {
         center: Offset(size.width * 0.3, size.height * 0.5),
         radius: size.height * 0.5));
 
-    paint.color = AppColors.accentColor;
+    paint.color = AppColors.accent;
     canvas.drawPath(path, paint);
 
     path = Path();
@@ -40,7 +40,7 @@ class LogoPainter extends CustomPainter {
         center: Offset(size.width * 0.3, size.height * 0.5),
         radius: size.height * 0.32));
 
-    paint.color = AppColors.primaryColor;
+    paint.color = AppColors.scaffold;
     canvas.drawPath(path, paint);
 
     path = Path();
@@ -69,7 +69,7 @@ class LogoPainter extends CustomPainter {
           radius: size.height * 0.32),
     );
 
-    paint.color = AppColors.accentColor;
+    paint.color = AppColors.accent;
     canvas.drawPath(path, paint);
 
     path = Path();
@@ -78,7 +78,7 @@ class LogoPainter extends CustomPainter {
           center: Offset(size.width * 0.85, size.height * 0.32),
           radius: size.height * 0.15),
     );
-    paint.color = AppColors.primaryColor;
+    paint.color = AppColors.scaffold;
     canvas.drawPath(path, paint);
   }
 

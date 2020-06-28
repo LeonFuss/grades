@@ -11,7 +11,7 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: AppColors.primaryColor,
+        color: AppColors.scaffold,
         child: SafeArea(
           child: BlocProvider(
             create: (context) => getIt<LoginBloc>(),

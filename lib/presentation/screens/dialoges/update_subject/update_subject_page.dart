@@ -115,7 +115,7 @@ class NoteFormPageScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: AppColors.inputBg),
+        iconTheme: IconThemeData(color: AppColors.accent),
         title: BlocBuilder<SubjectFormBloc, SubjectFormState>(
           condition: (p, c) => p.isEditing != c.isEditing,
           builder: (context, state) => Text(
