@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:grades/domain/grades/grade.dart';
 import 'package:grades/domain/grades/value_objects.dart';
 import 'package:grades/domain/subjects/subject.dart';
 import 'package:grades/domain/subjects/subject_failures.dart';
@@ -11,6 +12,8 @@ abstract class ISubjectRepository {
   Future<Either<SubjectFailures, KtList<Subject>>> getAll(Term term);
 
   Stream<Either<SubjectFailures, KtList<Subject>>> watchAll(Term term);
+
+  Stream<Either<SubjectFailures, KtList<Grade>>> watchAllGrades(Term term);
 
   Future<Either<SubjectFailures, Unit>> create(Subject subject);
 

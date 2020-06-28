@@ -46,8 +46,8 @@ class AppWidget extends StatelessWidget {
             actionsIconTheme:
                 IconThemeData(size: 32, color: AppColors.accentColor),
           ),
-          floatingActionButtonTheme: FloatingActionButtonThemeData(
-              backgroundColor: AppColors.accentColor),
+          floatingActionButtonTheme:
+              FloatingActionButtonThemeData(backgroundColor: AppColors.accent),
         ),
       ),
     );

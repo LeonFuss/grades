@@ -1,9 +1,15 @@
+import 'dart:async';
+
+import 'package:async/async.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/services.dart';
+import 'package:grades/domain/grades/grade.dart';
+import 'package:grades/domain/grades/grade_failures.dart';
 import 'package:grades/domain/grades/value_objects.dart';
 import 'package:grades/domain/subjects/subject.dart' as s;
 import 'package:grades/domain/subjects/subject_failures.dart';
 import 'package:grades/infrastructur/core/firestore_helpers.dart';
+import 'package:grades/infrastructur/grades/grades_dto.dart';
 import 'package:grades/infrastructur/subjects/subjects_dto.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
@@ -210,5 +216,95 @@ class SubjectRepository implements ISubjectRepository {
     } catch (e) {
       return left(const SubjectFailures.unexpected());
     }
+  }
+
+  @override
+  Stream<Either<SubjectFailures, KtList<Grade>>> watchAllGrades(
+      Term term) async* {
+    final userDoc = await _firestore.userDocument();
+    final Either<SubjectFailures, KtList<s.Subject>> subjects =
+        await getAll(term);
+    yield* subjects.fold((l) => Stream.fromFuture(Future.value(left(l))), (r) {
+      final List<Stream<Either<GradeFailures, KtList<Grade>>>> grades =
+          r.asList().map((e) {
+        final subjectId = e.id.getOrCrash();
+        final term = e.term.getOrCrash();
+
+        return userDoc
+            .term(term)
+            .subjectCollection
+            .document(subjectId)
+            .gradesCollection
+            .snapshots()
+            .map((snapshot) {
+          return right<GradeFailures, KtList<Grade>>(
+            snapshot.documents
+                .map((doc) => GradesDTO.fromFirestore(doc).toDomain())
+                .toImmutableList(),
+          );
+        }).onErrorReturnWith((e) {
+          if (e is PlatformException &&
+              e.message.contains('PERMISSION_DENIED')) {
+            return left(const GradeFailures.insufficientPermissions());
+          } else {
+            return left(const GradeFailures.unexpected());
+          }
+        });
+      }).toList();
+      final StreamZip<Either<GradeFailures, KtList<Grade>>> streamZip =
+          StreamZip<Either<GradeFailures, KtList<Grade>>>(grades);
+
+      return streamZip.transform(
+        StreamTransformer.fromHandlers(
+          handleData: (data, sink) {
+            bool failure = false;
+            // ignore: avoid_function_literals_in_foreach_calls
+            data.forEach((element) {
+              element.fold((l) => failure = true, (r) {});
+            });
+            if (failure) {
+              sink.add(left(const SubjectFailures.unexpected()));
+            } else {
+              final List<List<Grade>> gradesLists = data
+                  .map(
+                    (e) => e.fold(
+                      (l) {},
+                      (r) => r.asList(),
+                    ),
+                  )
+                  .toList();
+              final List<Grade> grades =
+                  gradesLists.fold([], (previousValue, element) {
+                final List<Grade> list = previousValue;
+                list.addAll(element);
+                return list;
+              });
+
+              sink.add(right(grades.toImmutableList()));
+            }
+          },
+        ),
+      );
+    });
+  }
+
+  Either<SubjectFailures, KtList<Grade>> _convertStreamList(
+      List<Either<GradeFailures, KtList<Grade>>> streamList) {
+    bool failure = false;
+    // ignore: avoid_function_literals_in_foreach_calls
+    streamList.forEach((element) {
+      element.fold((l) => failure = true, (r) {});
+    });
+    if (failure) return left(const SubjectFailures.unexpected());
+
+    final List<List<Grade>> gradesLists =
+        streamList.map((e) => e.fold((l) {}, (r) => r.asList())).toList();
+    final List<Grade> grades = gradesLists.fold([], (previousValue, element) {
+      final List<Grade> list = previousValue;
+      list.addAll(element);
+      return list;
+    });
+
+    return right(grades.toImmutableList());
   }
 }

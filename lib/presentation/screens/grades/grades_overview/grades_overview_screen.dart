@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:grades/application/auth/bloc/auth_bloc.dart';
 import 'package:grades/application/grades/actor/grade_actor_bloc.dart';
+import 'package:grades/application/grades/watch_all/bloc/grade_watch_all_bloc.dart';
 import 'package:grades/application/subject/actor/bloc/subject_actor_bloc.dart';
 import 'package:grades/application/subject/watcher/bloc/subject_watcher_bloc.dart';
 import 'package:grades/injection.dart';
@@ -30,7 +31,11 @@ class GradesOverviewScreen extends HookWidget implements AutoRouteWrapper {
         ),
         BlocProvider<GradeActorBloc>(
           create: (context) => getIt<GradeActorBloc>(),
-        )
+        ),
+        BlocProvider<GradeWatchAllBloc>(
+          create: (context) => getIt<GradeWatchAllBloc>()
+            ..add(GradeWatchAllEvent.watchAllStarted()),
+        ),
       ],
       child: this,
     );
