@@ -11,6 +11,8 @@ import '../../injection.dart';
 class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final textScalingFactor = WidgetsBinding.instance.window.textScaleFactor;
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -29,13 +31,22 @@ class AppWidget extends StatelessWidget {
               bodyColor: AppColors.fontColor,
               displayColor: AppColors.fontColor,
               decorationColor: AppColors.fontColor,
-              fontSizeDelta: 50)),
+              fontSizeDelta: 50,
+              fontSizeFactor: textScalingFactor)),
           inputDecorationTheme: InputDecorationTheme(
+            focusColor: AppColors.secondFontColor,
+            labelStyle: TextStyle(color: AppColors.secondFontColor),
+            focusedBorder: OutlineInputBorder(
+              borderSide:
+                  BorderSide(color: AppColors.secondFontColor, width: 1.5),
+              borderRadius: BorderRadius.circular(8),
+            ),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: AppColors.fontColor),
               borderRadius: BorderRadius.circular(8),
             ),
             border: OutlineInputBorder(
+              borderSide: BorderSide(color: AppColors.fontColor),
               borderRadius: BorderRadius.circular(8),
             ),
           ),
@@ -43,8 +54,7 @@ class AppWidget extends StatelessWidget {
           appBarTheme: AppBarTheme(
             color: AppColors.scaffold,
             elevation: 0,
-            actionsIconTheme:
-                IconThemeData(size: 32, color: AppColors.accent),
+            actionsIconTheme: IconThemeData(size: 32, color: AppColors.accent),
           ),
           floatingActionButtonTheme:
               FloatingActionButtonThemeData(backgroundColor: AppColors.accent),

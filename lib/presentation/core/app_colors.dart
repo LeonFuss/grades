@@ -28,8 +28,5 @@ class AppColors {
 
   static Color get pintWithOpacity => pink.withOpacity(0.2);
 
-
   static const Color trashCanColor = Colors.red;
-
-
 }

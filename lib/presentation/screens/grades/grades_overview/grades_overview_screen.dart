@@ -34,7 +34,7 @@ class GradesOverviewScreen extends HookWidget implements AutoRouteWrapper {
         ),
         BlocProvider<GradeWatchAllBloc>(
           create: (context) => getIt<GradeWatchAllBloc>()
-            ..add(GradeWatchAllEvent.watchAllStarted()),
+            ..add(const GradeWatchAllEvent.watchAllStarted()),
         ),
       ],
       child: this,
@@ -52,35 +52,22 @@ class GradesOverviewScreen extends HookWidget implements AutoRouteWrapper {
           orElse: () {},
         );
       },
-
-      //TODO
-      /*BlocListener<NoteActorBloc, NoteActorState>(
-          listener: (context, state) {
-            state.maybeMap(
-              deleteFailure: (state) {
-                FlushbarHelper.createError(
-                  duration: const Duration(seconds: 5),
-                  message: state.noteFailure.map(
-                      // Use localized strings here in your apps
-                      insufficientPermissions: (_) =>
-                          'Insufficient permissions ❌',
-                      unableToUpdate: (_) => 'Impossible error',
-                      unexpected: (_) =>
-                          'Unexpected error occured while deleting, please contact support.'),
-                ).show(context);
-              },
-              orElse: () {},
-            );
-          },
-        )*/
       child: BlocBuilder<SubjectWatcherBloc, SubjectWatcherState>(
         builder: (context, state) => Scaffold(
           backgroundColor: AppColors.scaffold,
-          body: ListView(
-            children: <Widget>[
-              HeaderCard(),
-              GradesOverviewBody(),
-            ],
+          body: RefreshIndicator(
+            onRefresh: () {
+              context
+                  .bloc<GradeWatchAllBloc>()
+                  .add(const GradeWatchAllEvent.watchAllStarted());
+              return Future.delayed(const Duration(milliseconds: 2));
+            },
+            child: ListView(
+              children: <Widget>[
+                HeaderCard(),
+                GradesOverviewBody(),
+              ],
+            ),
           ),
           floatingActionButton: FloatingActionButton(
             onPressed: () {

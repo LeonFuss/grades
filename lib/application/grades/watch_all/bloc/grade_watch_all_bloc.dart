@@ -7,7 +7,6 @@ import 'package:grades/domain/grades/grade.dart';
 import 'package:grades/domain/grades/value_objects.dart';
 import 'package:grades/domain/subjects/i_subject_repository.dart';
 import 'package:grades/domain/subjects/subject_failures.dart';
-import 'package:grades/domain/subjects/value_objects.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
 
@@ -67,9 +66,6 @@ class GradeWatchAllBloc extends Bloc<GradeWatchAllEvent, GradeWatchAllState> {
           final writtenGrades = sortedGrades
               .where((grade) => grade.type.getOrCrash() == "Schriftlich")
               .toList();
-
-          final oralAverage = Average.fromGrades(oralGrades);
-          final writtenAverage = Average.fromGrades(writtenGrades);
 
           return GradeWatchAllState.loadSuccess(
             grades: sortedGrades.toImmutableList(),

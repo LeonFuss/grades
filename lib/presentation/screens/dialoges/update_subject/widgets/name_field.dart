@@ -22,7 +22,7 @@ class NameField extends HookWidget {
       buildWhen: (p, c) => p.subject.name != c.subject.name,
       builder: (context, state) {
         return Padding(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(16),
           child: TextFormField(
             controller: textEditingController,
             decoration: const InputDecoration(

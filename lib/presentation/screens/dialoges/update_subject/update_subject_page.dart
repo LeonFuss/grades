@@ -114,7 +114,9 @@ class NoteFormPageScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.secondScaffold,
       appBar: AppBar(
+        backgroundColor: AppColors.secondScaffold,
         iconTheme: IconThemeData(color: AppColors.accent),
         title: BlocBuilder<SubjectFormBloc, SubjectFormState>(
           condition: (p, c) => p.isEditing != c.isEditing,

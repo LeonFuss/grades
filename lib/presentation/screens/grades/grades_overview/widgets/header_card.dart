@@ -98,8 +98,10 @@ class _HeaderCardState extends State<HeaderCard> {
                 ),
                 loadSuccess: (grades, oralGrades, writtenGrades, term) =>
                     CustomPaint(
+                  willChange: true,
                   painter: HeaderCardPainter(
-                      _getGrades(grades, oralGrades, writtenGrades)),
+                    _getGrades(grades, oralGrades, writtenGrades),
+                  ),
                   child: SizedBox(
                     height: size.height / 3.5 - 100,
                     width: size.width - 96,
