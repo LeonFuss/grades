@@ -39,21 +39,21 @@ void $initGetIt(GetIt g, {String environment}) {
       () => SingleGradeWatcherBloc(g<IGradeRepository>()));
   g.registerFactory<SingleSubjectWatcherBloc>(
       () => SingleSubjectWatcherBloc(g<ISubjectRepository>()));
+  g.registerFactory<SubjectActorBloc>(
+      () => SubjectActorBloc(g<ISubjectRepository>()));
   g.registerFactory<SubjectFormBloc>(
       () => SubjectFormBloc(g<ISubjectRepository>()));
   g.registerFactory<SubjectWatcherBloc>(
       () => SubjectWatcherBloc(g<ISubjectRepository>()));
   g.registerFactory<AuthBloc>(() => AuthBloc(g<IAuthFacade>()));
-  g.registerFactory<GradeActorBloc>(
-      () => GradeActorBloc(g<IGradeRepository>()));
   g.registerFactory<GradeFormBloc>(
       () => GradeFormBloc(g<IGradeRepository>(), g<ISubjectRepository>()));
   g.registerFactory<GradeWatchAllBloc>(
       () => GradeWatchAllBloc(g<ISubjectRepository>()));
-  g.registerFactory<SubjectActorBloc>(
-      () => SubjectActorBloc(g<ISubjectRepository>(), g<GradeWatchAllBloc>()));
   g.registerFactory<GradeWatcherBloc>(
       () => GradeWatcherBloc(g<IGradeRepository>(), g<SubjectActorBloc>()));
+  g.registerFactory<GradeActorBloc>(
+      () => GradeActorBloc(g<IGradeRepository>(), g<GradeWatchAllBloc>()));
 
   //Register prod Dependencies --------
   if (environment == 'prod') {

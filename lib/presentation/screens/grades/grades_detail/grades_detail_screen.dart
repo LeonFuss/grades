@@ -119,6 +119,9 @@ class GradesDetailScreen extends HookWidget implements AutoRouteWrapper {
                                 (grades, oralGrades, writtenGrads, term) =>
                                     oralGrades.size,
                             orElse: () => 1)),
+                  ),
+                  const SliverPadding(
+                    padding: EdgeInsets.all(60),
                   )
                 ],
               ),

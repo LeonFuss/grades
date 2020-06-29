@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:grades/application/grades/watch_all/bloc/grade_watch_all_bloc.dart';
 import 'package:grades/domain/grades/grade.dart';
 import 'package:grades/domain/grades/grade_failures.dart';
 import 'package:grades/domain/grades/i_grade_repository.dart';
@@ -14,8 +15,9 @@ part 'grade_actor_state.dart';
 @injectable
 class GradeActorBloc extends Bloc<GradeActorEvent, GradeActorState> {
   final IGradeRepository _gradeRepository;
+  final GradeWatchAllBloc _gradeWatchAllBloc;
 
-  GradeActorBloc(this._gradeRepository);
+  GradeActorBloc(this._gradeRepository, this._gradeWatchAllBloc);
 
   @override
   GradeActorState get initialState => const GradeActorState.initial();
@@ -30,6 +32,8 @@ class GradeActorBloc extends Bloc<GradeActorEvent, GradeActorState> {
       create: (grade) => _gradeRepository.create(event.grade),
       update: (grade) => _gradeRepository.update(event.grade),
     );
+
+    _gradeWatchAllBloc.add(const GradeWatchAllEvent.watchAllStarted());
 
     yield possibleFailure.fold(
       (f) => GradeActorState.failure(f),
