@@ -251,6 +251,10 @@ class SubjectRepository implements ISubjectRepository {
           }
         });
       }).toList();
+
+      if (grades.isEmpty) {
+        return Stream.fromFuture(Future.value(right(KtList.empty())));
+      }
       final StreamZip<Either<GradeFailures, KtList<Grade>>> streamZip =
           StreamZip<Either<GradeFailures, KtList<Grade>>>(grades);
 

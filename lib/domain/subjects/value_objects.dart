@@ -61,7 +61,7 @@ class Average extends ValueObject<double> {
     if (double == -1) {
       return '--';
     } else {
-      return double.roundToDouble().toString();
+      return double.toString();
     }
   }
 

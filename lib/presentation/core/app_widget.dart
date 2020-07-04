@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grades/application/auth/bloc/auth_bloc.dart';
+import 'package:grades/application/grades/statistic/statistic_bloc.dart';
 import 'package:grades/presentation/core/app_colors.dart';
 import 'package:grades/presentation/routes/router.gr.dart';
 
@@ -18,6 +19,11 @@ class AppWidget extends StatelessWidget {
         BlocProvider(
           create: (context) =>
               getIt<AuthBloc>()..add(const AuthEvent.authCheckRequested()),
+        ),
+        BlocProvider(
+          lazy: true,
+          create: (context) => getIt<StatisticBloc>()
+            ..add(const StatisticEvent.statisticStarted()),
         )
       ],
       child: MaterialApp(
