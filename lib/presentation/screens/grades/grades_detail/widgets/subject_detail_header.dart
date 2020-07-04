@@ -39,7 +39,7 @@ class SubjectDetailHeader extends SliverPersistentHeaderDelegate {
         ),
         Positioned(
           left: 16,
-          top: 70,
+          top: 66,
           right: 100,
           child: Text(
             subject.name.getOrCrash(),
@@ -62,7 +62,7 @@ class SubjectDetailHeader extends SliverPersistentHeaderDelegate {
           ),
         ),
         Positioned(
-          bottom: 20,
+          bottom: 8,
           left: 16,
           child:
               BlocBuilder<SingleSubjectWatcherBloc, SingleSubjectWatcherState>(

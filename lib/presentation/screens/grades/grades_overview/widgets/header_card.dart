@@ -36,13 +36,13 @@ class _HeaderCardState extends State<HeaderCard> {
             'Letzte Noten',
             style: Theme.of(context)
                 .textTheme
-                .headline5
+                .headline6
                 .copyWith(color: AppColors.scaffold),
           ),
         ),
         Positioned(
           right: 32,
-          top: 20,
+          top: 24,
           child: DropdownButton<int>(
               icon: Icon(
                 Icons.arrow_drop_down,
@@ -50,7 +50,7 @@ class _HeaderCardState extends State<HeaderCard> {
               ),
               underline: const SizedBox(),
               dropdownColor: AppColors.accent,
-              style: Theme.of(context).textTheme.headline6.copyWith(
+              style: Theme.of(context).textTheme.bodyText1.copyWith(
                     color: AppColors.scaffold,
                   ),
               value: gradeValue,
@@ -82,8 +82,8 @@ class _HeaderCardState extends State<HeaderCard> {
         ),
         Positioned(
           bottom: 48,
-          left: 48,
-          right: 48,
+          left: 40,
+          right: 40,
           child: BlocBuilder<GradeWatchAllBloc, GradeWatchAllState>(
             builder: (context, state) {
               return state.maybeWhen(
@@ -104,7 +104,7 @@ class _HeaderCardState extends State<HeaderCard> {
                   ),
                   child: SizedBox(
                     height: size.height / 3.5 - 100,
-                    width: size.width - 96,
+                    width: size.width - 80,
                   ),
                 ),
               );

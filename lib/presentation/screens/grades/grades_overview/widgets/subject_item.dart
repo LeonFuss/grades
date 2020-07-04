@@ -78,7 +78,7 @@ class SubjectItem extends StatelessWidget {
                   child: Center(
                       child: Text(
                     subject.average.toString(),
-                    style: Theme.of(context).textTheme.headline3.copyWith(
+                    style: Theme.of(context).textTheme.headline5.copyWith(
                         fontWeight: FontWeight.w700,
                         letterSpacing: 1,
                         color: AppColors.fontColor),
@@ -93,8 +93,8 @@ class SubjectItem extends StatelessWidget {
                     .headline6
                     .copyWith(fontWeight: FontWeight.w500, letterSpacing: 1),
               ),
-              const SizedBox(
-                height: 20,
+              const Spacer(
+                flex: 6,
               )
             ],
           );

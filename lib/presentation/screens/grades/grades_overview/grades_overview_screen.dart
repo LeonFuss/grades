@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +11,7 @@ import 'package:grades/application/subject/watcher/bloc/subject_watcher_bloc.dar
 import 'package:grades/injection.dart';
 import 'package:grades/presentation/core/app_colors.dart';
 import 'package:grades/presentation/routes/router.gr.dart';
+import 'package:grades/presentation/screens/dialoges/update_grade/update_grade_page.dart';
 import 'package:grades/presentation/screens/grades/grades_overview/widgets/grades_overview_body.dart';
 
 import 'widgets/header_card.dart';
@@ -43,6 +45,7 @@ class GradesOverviewScreen extends HookWidget implements AutoRouteWrapper {
 
   @override
   Widget build(BuildContext context) {
+    final c = context;
     return BlocListener<AuthBloc, AuthState>(
       bloc: BlocProvider.of<AuthBloc>(context),
       listener: (context, state) {
@@ -69,20 +72,42 @@ class GradesOverviewScreen extends HookWidget implements AutoRouteWrapper {
               ],
             ),
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              context.bloc<SubjectWatcherBloc>().state.maybeMap(
-                  loadSuccess: (e) {
-                    if (e.subjects.asList().isNotEmpty) {
-                      ExtendedNavigator.of(context).pushNamed(
-                          Routes.updateGradePage,
-                          arguments: UpdateGradePageArguments(
-                              subject: e.subjects.asList().first));
-                    }
-                  },
-                  orElse: () {});
+          floatingActionButton: OpenContainer(
+            transitionType: ContainerTransitionType.fade,
+            closedElevation: 4,
+            closedColor: Colors.transparent,
+            closedShape: const CircleBorder(),
+            closedBuilder: (BuildContext context, void Function() action) {
+              return FloatingActionButton(
+                elevation: 0,
+                onPressed: () {
+                  context.bloc<SubjectWatcherBloc>().state.maybeMap(
+                        loadSuccess: (e) {
+                          if (e.subjects.asList().isNotEmpty) {
+                            action();
+                          }
+                          return false;
+                        },
+                        orElse: () => false,
+                      );
+                },
+                child: Icon(Icons.add),
+              );
             },
-            child: Icon(Icons.add),
+            tappable: false,
+            openBuilder: (BuildContext context,
+                void Function({Object returnValue}) action) {
+              return c.bloc<SubjectWatcherBloc>().state.maybeMap(
+                    loadSuccess: (e) {
+                      if (e.subjects.asList().isNotEmpty) {
+                        return UpdateGradePage(
+                            subject: e.subjects.asList().first);
+                      }
+                      return Container();
+                    },
+                    orElse: () => Container(),
+                  );
+            },
           ),
         ),
       ),

@@ -26,8 +26,8 @@ class SubjectDetailHeaderPainter extends CustomPainter {
     canvas.drawRRect(
         RRect.fromRectAndCorners(
           Rect.fromPoints(
-            Offset(width - 20, 90),
-            Offset(size.width / 7, size.height / 2.5),
+            Offset(width - 20, 100),
+            Offset(size.width / 9, size.height / 2.5),
           ),
           bottomLeft: const Radius.circular(8),
           bottomRight: const Radius.circular(8),
@@ -41,7 +41,7 @@ class SubjectDetailHeaderPainter extends CustomPainter {
     canvas.drawRRect(
         RRect.fromRectAndCorners(
           Rect.fromPoints(
-            const Offset(40, 20),
+            const Offset(30, 20),
             Offset(width / 5, height / 1.5),
           ),
           bottomLeft: const Radius.circular(8),

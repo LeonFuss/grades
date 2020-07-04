@@ -16,7 +16,7 @@ class HeaderCardPainter extends CustomPainter {
     final Paint paint = Paint()
       ..color = AppColors.scaffold
       ..strokeWidth = 0.2;
-    final int gradeCount = ((size.width - 60) / 70).ceil();
+    final int gradeCount = ((size.width - 40) / 40).ceil();
 
     const gradeValueOverview = [0, 5, 10, 15];
 
@@ -47,7 +47,7 @@ class HeaderCardPainter extends CustomPainter {
       final offset =
           Offset(0, size.height - (gradeValue * valueHeight).toDouble() - 10);
       textPainter.paint(canvas, offset);
-      canvas.drawLine(Offset(50, offset.dy + 10),
+      canvas.drawLine(Offset(40, offset.dy + 10),
           Offset(size.width, offset.dy + 10), paint);
     }
     final Path path = Path();
@@ -77,13 +77,12 @@ class HeaderCardPainter extends CustomPainter {
 
   List<Offset> _getOffsetList(int gradeCount, int maxGradeCount,
       int valueHeight, int valueWidth, Size size) {
-    final visibleGrades =
-        grades.asList().sublist(grades.size - maxGradeCount + 1);
-    List<Offset> offsets = [];
+    final visibleGrades = grades.asList().sublist(grades.size - maxGradeCount);
+    final List<Offset> offsets = [];
 
     for (int i = 0; i < visibleGrades.length; i++) {
       final value = visibleGrades[i].value.getOrCrash();
-      final offset = Offset((i * valueWidth + 50).toDouble(),
+      final offset = Offset((i * valueWidth + 40).toDouble(),
           size.height - (value * valueHeight).toDouble());
       offsets.add(offset);
     }
