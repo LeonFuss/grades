@@ -6,7 +6,6 @@ import 'package:grades/domain/grades/grade.dart';
 import 'package:grades/presentation/core/style/app_colors.dart';
 import 'package:kt_dart/collection.dart';
 
-
 class HeaderCardPainter extends CustomPainter {
   final KtList<Grade> grades;
 

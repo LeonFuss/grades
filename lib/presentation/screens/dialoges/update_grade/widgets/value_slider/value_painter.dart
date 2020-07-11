@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-import 'value_slider.dart';
+import '../update_grade_widgets.dart';
 
 class ValuePainter extends CustomPainter {
   final double sliderPosition;

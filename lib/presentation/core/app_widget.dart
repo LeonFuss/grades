@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grades/application/auth/bloc/auth_bloc.dart';
@@ -10,7 +11,7 @@ import 'style/app_colors.dart';
 class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final textScalingFactor = WidgetsBinding.instance.window.textScaleFactor;
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
     return MultiBlocProvider(
       providers: [
@@ -31,11 +32,11 @@ class AppWidget extends StatelessWidget {
           primaryColor: AppColors.scaffold,
           accentColor: AppColors.accent,
           textTheme: GoogleFonts.montserratTextTheme(const TextTheme().apply(
-              bodyColor: AppColors.fontColor,
-              displayColor: AppColors.fontColor,
-              decorationColor: AppColors.fontColor,
-              fontSizeDelta: 50,
-              fontSizeFactor: textScalingFactor)),
+            bodyColor: AppColors.fontColor,
+            displayColor: AppColors.fontColor,
+            decorationColor: AppColors.fontColor,
+            fontSizeDelta: 50,
+          )),
           inputDecorationTheme: InputDecorationTheme(
             focusColor: AppColors.secondFontColor,
             labelStyle: TextStyle(color: AppColors.secondFontColor),

@@ -6,7 +6,6 @@ import 'package:grades/presentation/core/style/app_colors.dart';
 import 'package:grades/presentation/screens/grades/grades_statistic/widgets/header_card.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-
 class GradeStatisticScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

@@ -8,7 +8,6 @@ import 'package:grades/presentation/screens/grades/grades_overview/widgets/heade
 import 'package:grades/presentation/screens/grades/grades_statistic/grade_statistic_screen.dart';
 import 'package:kt_dart/collection.dart';
 
-
 class HeaderCard extends StatefulWidget {
   @override
   _HeaderCardState createState() => _HeaderCardState();

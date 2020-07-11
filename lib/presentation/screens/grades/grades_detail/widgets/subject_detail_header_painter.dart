@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:grades/presentation/core/style/app_colors.dart';
 
-
 class SubjectDetailHeaderPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {

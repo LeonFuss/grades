@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grades/presentation/core/style/app_colors.dart';
 
-
 class GradesLogo extends StatelessWidget {
   final double size;
 

@@ -4,7 +4,6 @@ import 'package:grades/application/subject/watcher/bloc/subject_watcher_bloc.dar
 import 'package:grades/presentation/core/style/app_colors.dart';
 import 'package:grades/presentation/screens/grades/grades_overview/widgets/subject_list.dart';
 
-
 class GradesOverviewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

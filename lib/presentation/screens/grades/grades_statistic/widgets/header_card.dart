@@ -6,7 +6,6 @@ import 'package:grades/presentation/core/style/app_colors.dart';
 import 'package:grades/presentation/screens/grades/grades_overview/widgets/header_card_painter.dart';
 import 'package:kt_dart/collection.dart';
 
-
 class HeaderCard extends StatefulWidget {
   @override
   _HeaderCardState createState() => _HeaderCardState();

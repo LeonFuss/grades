@@ -16,17 +16,17 @@ class FontSizes {
 }
 
 class TextStyles {
-  static TextStyle get bodyFont => GoogleFonts.montserrat();
+  static TextStyle get _bodyFont => GoogleFonts.montserrat();
 
-  static TextStyle get titleFont => GoogleFonts.montserrat();
+  static TextStyle get _titleFont => GoogleFonts.montserrat();
 
-  static TextStyle get headline => titleFont.size(FontSizes.headline);
+  static TextStyle get headline => _titleFont.size(FontSizes.headline);
 
-  static TextStyle get title => titleFont.size(FontSizes.title);
+  static TextStyle get title => _titleFont.size(FontSizes.title);
 
   static TextStyle get titleLight => title.light;
 
-  static TextStyle get body => bodyFont.size(FontSizes.body).light;
+  static TextStyle get body => _bodyFont.size(FontSizes.body).light;
 
   static TextStyle get bodySm => body.size(FontSizes.bodySm);
 }

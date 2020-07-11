@@ -3,14 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grades/application/grades/form/grade_form_bloc.dart';
 import 'package:grades/presentation/core/style/app_colors.dart';
 import 'package:grades/presentation/core/style/app_design.dart';
+import 'package:grades/presentation/core/style/text_style.dart';
 
 class UpdateGradeFloatingActionButton extends StatelessWidget {
-  const UpdateGradeFloatingActionButton({
-    Key key,
-    @required this.showFab,
-  }) : super(key: key);
-
   final bool showFab;
+
+  const UpdateGradeFloatingActionButton({@required this.showFab});
 
   @override
   Widget build(BuildContext context) {
@@ -58,10 +56,7 @@ class UpdateGradeFloatingActionButton extends StatelessWidget {
                 const SizedBox(width: 4),
                 Text(
                   "SPEICHERN",
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline6
-                      .copyWith(color: AppColors.bottomBar),
+                  style: TextStyles.body,
                 ),
               ],
             )),
