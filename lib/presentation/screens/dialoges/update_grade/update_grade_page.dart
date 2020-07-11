@@ -42,16 +42,16 @@ class UpdateGradePage extends StatelessWidget {
 
   void buildErrorMessages(BuildContext context, GradeFormState state) {
     return errorBar<GradeFailures>(
-          context,
-          state.saveFailureOrSuccessOption,
-          (failure) => failure.map(
-              termNotValid: (_) =>
-                  "Ein interner Fehler ist aufgetreten. Bitte wenden Sie sich umgehend an den Support",
-              insufficientPermissions: (_) => 'Unzureichende Berechtigungen',
-              unableToUpdate: (_) =>
-                  "Die Note konnte nicht bearbeitet werde. Sicher, dass es nicht von einem anderen Gerät gelöscht wurde?",
-              unexpected: (_) =>
-                  'Ein unerwarteter Fehler ist aufgetreten. Bitte wenden Sie sich umgehend an den Support'),
-        );
+      context,
+      state.saveFailureOrSuccessOption,
+      (failure) => failure.map(
+          termNotValid: (_) =>
+              "Ein interner Fehler ist aufgetreten. Bitte wenden Sie sich umgehend an den Support",
+          insufficientPermissions: (_) => 'Unzureichende Berechtigungen',
+          unableToUpdate: (_) =>
+              "Die Note konnte nicht bearbeitet werde. Sicher, dass es nicht von einem anderen Gerät gelöscht wurde?",
+          unexpected: (_) =>
+              'Ein unerwarteter Fehler ist aufgetreten. Bitte wenden Sie sich umgehend an den Support'),
+    );
   }
 }

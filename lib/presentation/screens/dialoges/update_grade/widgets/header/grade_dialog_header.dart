@@ -66,17 +66,15 @@ class GradeDialogHeader extends SliverPersistentHeaderDelegate {
 
   BlocBuilder<GradeFormBloc, GradeFormState> buildSubjectName() {
     return BlocBuilder<GradeFormBloc, GradeFormState>(
-          buildWhen: (p, c) => p.isEditing != c.isEditing,
-          builder: (context, state) {
-            return Text(
-              state.isEditing
-                  ? 'Bearbeite \neine Note'
-                  : 'Erstelle \neine Note',
-              style: TextStyles.title,
-              softWrap: true,
-            );
-          },
+      buildWhen: (p, c) => p.isEditing != c.isEditing,
+      builder: (context, state) {
+        return Text(
+          state.isEditing ? 'Bearbeite \neine Note' : 'Erstelle \neine Note',
+          style: TextStyles.title,
+          softWrap: true,
         );
+      },
+    );
   }
 
   BlocBuilder<GradeFormBloc, GradeFormState> buildGradesText() {
