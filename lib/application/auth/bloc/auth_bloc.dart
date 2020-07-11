@@ -17,12 +17,7 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final IAuthFacade _authFacade;
 
-  AuthBloc(this._authFacade);
-
-  ///Anfangszustand der der Präsentationsebene übergeben wird,
-  ///damit keine null Fehler durch verzögerte Antwort des Authentifizierungsproviders auftreten
-  @override
-  AuthState get initialState => const AuthState.initial();
+  AuthBloc(this._authFacade) : super(const AuthState.initial());
 
   @override
 

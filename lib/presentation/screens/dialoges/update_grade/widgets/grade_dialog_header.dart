@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grades/application/grades/form/grade_form_bloc.dart';
-import 'package:grades/presentation/core/app_colors.dart';
+import 'package:grades/presentation/core/style/app_colors.dart';
 import 'package:grades/presentation/screens/dialoges/update_grade/widgets/grade_dialog_header_painter.dart';
 
 import 'value_slider.dart';
@@ -16,11 +16,7 @@ class GradeDialogHeader extends SliverPersistentHeaderDelegate {
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Stack(
       children: <Widget>[
-        Positioned(
-          left: 0,
-          right: 0,
-          top: 0,
-          bottom: 0,
+        Positioned.fill(
           child: Container(
             color: AppColors.secondScaffold,
           ),
@@ -41,7 +37,7 @@ class GradeDialogHeader extends SliverPersistentHeaderDelegate {
           top: 70,
           right: 100,
           child: BlocBuilder<GradeFormBloc, GradeFormState>(
-            condition: (p, c) => p.isEditing != c.isEditing,
+            buildWhen: (p, c) => p.isEditing != c.isEditing,
             builder: (context, state) {
               return Text(
                 state.isEditing
@@ -88,7 +84,7 @@ class GradeDialogHeader extends SliverPersistentHeaderDelegate {
           bottom: 60,
           left: MediaQuery.of(context).size.width / 2 - 10,
           child: BlocBuilder<GradeFormBloc, GradeFormState>(
-              condition: (p, c) => p.grade.value != c.grade.value,
+              buildWhen: (p, c) => p.grade.value != c.grade.value,
               builder: (context, state) {
                 return Text(
                   state.grade.value.getOrCrash().toString(),

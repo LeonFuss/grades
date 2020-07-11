@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grades/application/auth/bloc/auth_bloc.dart';
 import 'package:grades/application/grades/statistic/statistic_bloc.dart';
-import 'package:grades/presentation/core/app_colors.dart';
 import 'package:grades/presentation/routes/router.gr.dart';
 
 import '../../injection.dart';
+import 'style/app_colors.dart';
 
 class AppWidget extends StatelessWidget {
   @override

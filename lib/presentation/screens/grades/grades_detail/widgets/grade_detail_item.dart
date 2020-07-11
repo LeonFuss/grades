@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grades/application/grades/actor/grade_actor_bloc.dart';
 import 'package:grades/domain/grades/grade.dart';
-import 'package:grades/presentation/core/app_colors.dart';
 import 'package:grades/presentation/routes/router.gr.dart';
+
+import 'file:///C:/Development/grades/app/grades/lib/presentation/core/style/app_colors.dart';
 
 class GradeDetailItem extends StatelessWidget {
   final Grade grade;

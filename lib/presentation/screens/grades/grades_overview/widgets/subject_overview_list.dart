@@ -4,9 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grades/application/subject/actor/bloc/subject_actor_bloc.dart';
 import 'package:grades/domain/core/extension_helper.dart';
 import 'package:grades/domain/subjects/subject.dart';
-import 'package:grades/presentation/core/app_colors.dart';
 import 'package:grades/presentation/routes/router.gr.dart';
 import 'package:kt_dart/kt.dart';
+
+import 'file:///C:/Development/grades/app/grades/lib/presentation/core/style/app_colors.dart';
 
 class SubjectOverviewList extends StatelessWidget {
   final KtList<Subject> subjects;

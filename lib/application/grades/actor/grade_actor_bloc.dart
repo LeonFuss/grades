@@ -17,10 +17,8 @@ class GradeActorBloc extends Bloc<GradeActorEvent, GradeActorState> {
   final IGradeRepository _gradeRepository;
   final GradeWatchAllBloc _gradeWatchAllBloc;
 
-  GradeActorBloc(this._gradeRepository, this._gradeWatchAllBloc);
-
-  @override
-  GradeActorState get initialState => const GradeActorState.initial();
+  GradeActorBloc(this._gradeRepository, this._gradeWatchAllBloc)
+      : super(const GradeActorState.initial());
 
   @override
   Stream<GradeActorState> mapEventToState(

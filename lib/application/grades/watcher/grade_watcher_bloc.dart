@@ -24,14 +24,11 @@ class GradeWatcherBloc extends Bloc<GradeWatcherEvent, GradeWatcherState> {
   final IGradeRepository _gradeRepository;
   final SubjectActorBloc _actorBloc;
 
-  GradeWatcherBloc(this._gradeRepository, this._actorBloc);
+  GradeWatcherBloc(this._gradeRepository, this._actorBloc)
+      : super(GradeWatcherState.initial(term: Term(1)));
 
   StreamSubscription<Either<GradeFailures, KtList<Grade>>>
       _gradeStreamSubscription;
-
-  @override
-  GradeWatcherState get initialState =>
-      GradeWatcherState.initial(term: Term(1));
 
   @override
   Stream<GradeWatcherState> mapEventToState(

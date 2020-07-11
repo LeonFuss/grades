@@ -18,10 +18,7 @@ part 'subject_form_state.dart';
 class SubjectFormBloc extends Bloc<SubjectFormEvent, SubjectFormState> {
   final ISubjectRepository _subjectRepository;
 
-  SubjectFormBloc(this._subjectRepository);
-
-  @override
-  SubjectFormState get initialState => SubjectFormState.initial();
+  SubjectFormBloc(this._subjectRepository) : super(SubjectFormState.initial());
 
   @override
   Stream<SubjectFormState> mapEventToState(

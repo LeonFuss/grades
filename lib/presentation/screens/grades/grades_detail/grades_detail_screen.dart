@@ -10,7 +10,7 @@ import 'package:grades/application/subject/singel_grade_watcher/bloc/subject_wat
 import 'package:grades/domain/grades/value_objects.dart';
 import 'package:grades/domain/subjects/subject.dart';
 import 'package:grades/injection.dart';
-import 'package:grades/presentation/core/app_colors.dart';
+import 'package:grades/presentation/core/style/app_colors.dart';
 import 'package:grades/presentation/routes/router.gr.dart';
 
 import 'widgets/grade_detail_item.dart';

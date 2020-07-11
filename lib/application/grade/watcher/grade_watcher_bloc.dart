@@ -20,13 +20,10 @@ class SingleGradeWatcherBloc
     extends Bloc<SingleGradeWatcherEvent, SingleGradeWatcherState> {
   final IGradeRepository _gradeRepository;
 
-  SingleGradeWatcherBloc(this._gradeRepository);
+  SingleGradeWatcherBloc(this._gradeRepository)
+      : super(SingleGradeWatcherState.initial(term: Term(1)));
 
   StreamSubscription<Either<GradeFailures, Grade>> _gradeStreamSubscription;
-
-  @override
-  SingleGradeWatcherState get initialState =>
-      SingleGradeWatcherState.initial(term: Term(1));
 
   @override
   Stream<SingleGradeWatcherState> mapEventToState(

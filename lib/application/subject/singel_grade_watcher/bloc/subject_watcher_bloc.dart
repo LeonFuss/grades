@@ -20,14 +20,11 @@ class SingleSubjectWatcherBloc
     extends Bloc<SingleSubjectWatcherEvent, SingleSubjectWatcherState> {
   final ISubjectRepository _subjectRepository;
 
-  SingleSubjectWatcherBloc(this._subjectRepository);
+  SingleSubjectWatcherBloc(this._subjectRepository)
+      : super(SingleSubjectWatcherState.initial(term: Term(1)));
 
   StreamSubscription<Either<SubjectFailures, Subject>>
       _subjectStreamSubscription;
-
-  @override
-  SingleSubjectWatcherState get initialState =>
-      SingleSubjectWatcherState.initial(term: Term(1));
 
   @override
   Stream<SingleSubjectWatcherState> mapEventToState(

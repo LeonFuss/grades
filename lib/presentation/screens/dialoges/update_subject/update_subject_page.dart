@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grades/application/subject/form/bloc/subject_form_bloc.dart';
 import 'package:grades/domain/subjects/subject.dart';
-import 'package:grades/presentation/core/app_colors.dart';
 import 'package:grades/presentation/routes/router.gr.dart';
+
+import 'file:///C:/Development/grades/app/grades/lib/presentation/core/style/app_colors.dart';
 
 import '../../../../injection.dart';
 import 'widgets/name_field.dart';
@@ -119,7 +120,7 @@ class NoteFormPageScaffold extends StatelessWidget {
         backgroundColor: AppColors.secondScaffold,
         iconTheme: IconThemeData(color: AppColors.accent),
         title: BlocBuilder<SubjectFormBloc, SubjectFormState>(
-          condition: (p, c) => p.isEditing != c.isEditing,
+          buildWhen: (p, c) => p.isEditing != c.isEditing,
           builder: (context, state) => Text(
             state.isEditing ? 'Bearbeite ein Fach' : 'Erstelle ein Fach',
             style: Theme.of(context).textTheme.headline6,
@@ -142,7 +143,7 @@ class NoteFormPageScaffold extends StatelessWidget {
         ],
       ),
       body: BlocBuilder<SubjectFormBloc, SubjectFormState>(
-        condition: (p, c) => p.showErrorMessages != c.showErrorMessages,
+        buildWhen: (p, c) => p.showErrorMessages != c.showErrorMessages,
         builder: (context, state) {
           return Form(
             autovalidate: state.showErrorMessages,

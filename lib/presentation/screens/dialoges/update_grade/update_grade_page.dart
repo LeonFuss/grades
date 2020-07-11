@@ -1,19 +1,20 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grades/application/grades/form/grade_form_bloc.dart';
 import 'package:grades/domain/grades/grade.dart';
+import 'package:grades/domain/grades/grade_failures.dart';
 import 'package:grades/domain/subjects/subject.dart';
-import 'package:grades/presentation/core/app_colors.dart';
-import 'package:grades/presentation/routes/router.gr.dart';
-import 'package:grades/presentation/screens/dialoges/update_grade/widgets/description_field.dart';
-import 'package:grades/presentation/screens/dialoges/update_grade/widgets/grade_dialog_header.dart';
+import 'package:grades/presentation/core/helpers/error_handling.dart';
 import 'package:grades/presentation/screens/dialoges/update_grade/widgets/subject_field.dart';
 import 'package:grades/presentation/screens/dialoges/update_grade/widgets/type_field.dart';
 
+import 'file:///C:/Development/grades/app/grades/lib/presentation/core/style/app_colors.dart';
+
 import '../../../../injection.dart';
+import 'widgets/description_field.dart';
+import 'widgets/floating_action_button/update_grade_floating_action_button.dart';
+import 'widgets/grade_dialog_header.dart';
 
 class UpdateGradePage extends StatelessWidget {
   final Grade grade;
@@ -30,32 +31,17 @@ class UpdateGradePage extends StatelessWidget {
         listenWhen: (p, c) =>
             p.saveFailureOrSuccessOption != c.saveFailureOrSuccessOption,
         listener: (context, state) {
-          state.saveFailureOrSuccessOption.fold(
-            () {},
-            (either) {
-              either.fold(
-                (failure) {
-                  FlushbarHelper.createError(
-                    duration: const Duration(seconds: 5),
-                    message: failure.map(
-                        termNotValid: (_) =>
-                            "Ein interner Fehler ist aufgetreten. Bitte wenden Sie sich umgehend an den Support",
-                        // Use localized strings here in your apps
-                        insufficientPermissions: (_) =>
-                            'Unzureichende Berechtigungen',
-                        unableToUpdate: (_) =>
-                            "Die Note konnte nicht bearbeitet werde. Sicher, dass es nicht von einem anderen Gerät gelöscht wurde?",
-                        unexpected: (_) =>
-                            'Ein unerwarteter Fehler ist aufgetreten. Bitte wenden Sie sich umgehend an den Support'),
-                  ).show(context);
-                },
-                (_) {
-                  ExtendedNavigator.of(context).popUntil((route) =>
-                      route.settings.name == Routes.gradesOverviewScreen ||
-                      route.settings.name == Routes.gradesDetailScreen);
-                },
-              );
-            },
+          errorBar<GradeFailures>(
+            context,
+            state.saveFailureOrSuccessOption,
+            (failure) => failure.map(
+                termNotValid: (_) =>
+                    "Ein interner Fehler ist aufgetreten. Bitte wenden Sie sich umgehend an den Support",
+                insufficientPermissions: (_) => 'Unzureichende Berechtigungen',
+                unableToUpdate: (_) =>
+                    "Die Note konnte nicht bearbeitet werde. Sicher, dass es nicht von einem anderen Gerät gelöscht wurde?",
+                unexpected: (_) =>
+                    'Ein unerwarteter Fehler ist aufgetreten. Bitte wenden Sie sich umgehend an den Support'),
           );
         },
         buildWhen: (p, c) => p.isSaving != c.isSaving,
@@ -82,13 +68,14 @@ class SavingInProgressOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return IgnorePointer(
       ignoring: !isSaving,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 150),
         color: isSaving ? Colors.black.withOpacity(0.6) : Colors.transparent,
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
+        width: size.width,
+        height: size.height,
         child: Visibility(
           visible: isSaving,
           child: Column(
@@ -125,68 +112,13 @@ class GradeFormPageScaffold extends StatelessWidget {
         child: GestureDetector(
           onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
           child: Scaffold(
-            floatingActionButton: TweenAnimationBuilder<double>(
-              duration: const Duration(microseconds: 1),
-              tween:
-                  showFab ? Tween(begin: 0, end: 1) : Tween(begin: 1, end: 0),
-              builder: (context, value, child) {
-                return AnimatedOpacity(
-                  opacity: value,
-                  duration: const Duration(microseconds: 1),
-                  child: Transform.scale(
-                    scale: value,
-                    child: child,
-                  ),
-                );
-              },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: RaisedButton(
-                  color: AppColors.accent,
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(16))),
-                  onPressed: () => context
-                      .bloc<GradeFormBloc>()
-                      .add(const GradeFormEvent.saved()),
-                  child: SizedBox(
-                      width: double.infinity,
-                      height: 50,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Container(
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: AppColors.whiteWithOpacity),
-                            child: Padding(
-                              padding: const EdgeInsets.all(2.0),
-                              child: Icon(
-                                Icons.add,
-                                size: 16,
-                                color: AppColors.bottomBar,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            "SPEICHERN",
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline6
-                                .copyWith(color: AppColors.bottomBar),
-                          ),
-                        ],
-                      )),
-                ),
-              ),
-            ),
+            floatingActionButton:
+                UpdateGradeFloatingActionButton(showFab: showFab),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerFloat,
             backgroundColor: AppColors.secondScaffold,
             body: BlocBuilder<GradeFormBloc, GradeFormState>(
-              condition: (p, c) => p.showErrorMessages != c.showErrorMessages,
+              buildWhen: (p, c) => p.showErrorMessages != c.showErrorMessages,
               builder: (context, state) {
                 return Form(
                   autovalidate: state.showErrorMessages,

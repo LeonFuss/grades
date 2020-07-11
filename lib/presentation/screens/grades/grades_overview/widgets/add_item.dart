@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:grades/presentation/core/app_colors.dart';
+import 'file:///C:/Development/grades/app/grades/lib/presentation/core/style/app_colors.dart';
 import 'package:grades/presentation/routes/router.gr.dart';
 
 class AddItem extends StatelessWidget {

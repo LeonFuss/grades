@@ -25,10 +25,8 @@ class GradeFormBloc extends Bloc<GradeFormEvent, GradeFormState> {
   final IGradeRepository _gradeRepository;
   final ISubjectRepository _subjectRepository;
 
-  GradeFormBloc(this._gradeRepository, this._subjectRepository);
-
-  @override
-  GradeFormState get initialState => GradeFormState.initial();
+  GradeFormBloc(this._gradeRepository, this._subjectRepository)
+      : super(GradeFormState.initial());
 
   @override
   Stream<GradeFormState> mapEventToState(

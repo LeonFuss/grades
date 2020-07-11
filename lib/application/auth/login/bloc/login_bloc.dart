@@ -19,17 +19,13 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final IAuthFacade _authFacade;
 
-  LoginBloc(this._authFacade);
-
-  @override
-  LoginState get initialState => LoginState.initial();
+  LoginBloc(this._authFacade) : super(LoginState.initial());
 
   @override
   Stream<LoginState> mapEventToState(
     LoginEvent event,
   ) async* {
     yield* event.map(
-
       ///Event [LoginEvent.emailChanged] wurde ausgelöst.
       emailChanged: (e) async* {
         ///Der Zustand wird mit der neuen [EmailAddress] aktualisiert.

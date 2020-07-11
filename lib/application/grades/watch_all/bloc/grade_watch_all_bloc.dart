@@ -20,14 +20,11 @@ part 'grade_watch_all_state.dart';
 class GradeWatchAllBloc extends Bloc<GradeWatchAllEvent, GradeWatchAllState> {
   final ISubjectRepository _subjectRepository;
 
-  GradeWatchAllBloc(this._subjectRepository);
+  GradeWatchAllBloc(this._subjectRepository)
+      : super(GradeWatchAllState.initial(term: Term(1)));
 
   StreamSubscription<Either<SubjectFailures, KtList<Grade>>>
       _gradesStreamSubscription;
-
-  @override
-  GradeWatchAllState get initialState =>
-      GradeWatchAllState.initial(term: Term(1));
 
   @override
   Stream<GradeWatchAllState> mapEventToState(

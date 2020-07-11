@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grades/application/subject/actor/bloc/subject_actor_bloc.dart';
 import 'package:grades/domain/subjects/subject.dart';
-import 'package:grades/presentation/core/app_colors.dart';
+import 'package:grades/presentation/core/style/app_colors.dart';
 import 'package:grades/presentation/routes/router.gr.dart';
 
 class SubjectItem extends StatelessWidget {

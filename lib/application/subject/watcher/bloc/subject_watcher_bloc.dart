@@ -21,14 +21,11 @@ class SubjectWatcherBloc
     extends Bloc<SubjectWatcherEvent, SubjectWatcherState> {
   final ISubjectRepository _subjectRepository;
 
-  SubjectWatcherBloc(this._subjectRepository);
+  SubjectWatcherBloc(this._subjectRepository)
+      : super(SubjectWatcherState.initial(term: Term(1)));
 
   StreamSubscription<Either<SubjectFailures, KtList<Subject>>>
       _subjectStreamSubscription;
-
-  @override
-  SubjectWatcherState get initialState =>
-      SubjectWatcherState.initial(term: Term(1));
 
   @override
   Stream<SubjectWatcherState> mapEventToState(

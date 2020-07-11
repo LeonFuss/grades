@@ -2,7 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:grades/presentation/core/app_colors.dart';
+
+import 'file:///C:/Development/grades/app/grades/lib/presentation/core/style/app_colors.dart';
 
 class GradeDialogHeaderPainter extends CustomPainter {
   @override

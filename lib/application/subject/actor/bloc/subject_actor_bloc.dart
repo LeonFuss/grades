@@ -18,10 +18,7 @@ class SubjectActorBloc extends Bloc<SubjectActorEvent, SubjectActorState> {
 
   SubjectActorBloc(
     this._subjectRepository,
-  );
-
-  @override
-  SubjectActorState get initialState => const SubjectActorState.initial();
+  ) : super(const SubjectActorState.initial());
 
   @override
   Stream<SubjectActorState> mapEventToState(

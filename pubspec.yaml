@@ -12,15 +12,21 @@ dependencies:
   flutter:
     sdk: flutter
 
+  styled_widget: ^0.2.1+2
+
+  percent_indicator: ^2.1.5
+
   animations: ^1.1.1
 
   firebase_core: ^0.4.5
 
   firebase_auth: ^0.16.1
 
+  firebase_analytics: ^5.0.16
+
   cloud_firestore: ^0.13.7
 
-  flutter_bloc: ^4.0.1
+  flutter_bloc: ^5.0.1
 
   freezed_annotation: ^0.11.0
 
@@ -28,7 +34,7 @@ dependencies:
 
   kt_dart: ^0.7.0+1
 
-  uuid: ^2.1.0
+  uuid: ^2.2.0
 
   injectable: ^0.4.0+1
 
@@ -40,7 +46,7 @@ dependencies:
 
   auto_route: ^0.5.0
 
-  flutter_hooks: ^0.10.0
+  flutter_hooks: ^0.11.0
 
   flushbar: ^1.10.4
 
@@ -48,7 +54,7 @@ dependencies:
 
   cupertino_icons: ^0.1.3
 
-  provider: ^4.1.3
+  provider: ^4.3.1
 
   google_fonts: ^1.1.0
 
@@ -72,6 +78,10 @@ dev_dependencies:
   flutter_automation: ^1.3.3
 
   flutter_launcher_icons: ^0.7.5
+
+  #Testing packages
+
+
 
 
 

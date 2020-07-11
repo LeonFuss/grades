@@ -22,13 +22,11 @@ part 'statistic_state.dart';
 class StatisticBloc extends Bloc<StatisticEvent, StatisticState> {
   final ISubjectRepository _subjectRepository;
 
-  StatisticBloc(this._subjectRepository);
+  StatisticBloc(this._subjectRepository)
+      : super(StatisticState.initial(term: Term(1)));
 
   StreamSubscription<Either<SubjectFailures, KtList<Grade>>>
       _gradesStreamSubscription;
-
-  @override
-  StatisticState get initialState => StatisticState.initial(term: Term(1));
 
   @override
   Stream<StatisticState> mapEventToState(
@@ -76,7 +74,7 @@ class StatisticBloc extends Bloc<StatisticEvent, StatisticState> {
               term: term,
               worseSubjectAverage: '--',
               bestSubject: some(Subject.empty()),
-              bestSubjectAverage: '--',
+              bestSubjectAverage: '14',
               bestSubjectName: 'Deutsch',
               worseSubject: none(),
               worseSubjectName: '--');

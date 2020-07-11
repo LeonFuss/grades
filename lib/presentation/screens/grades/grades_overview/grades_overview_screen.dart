@@ -9,7 +9,7 @@ import 'package:grades/application/grades/watch_all/bloc/grade_watch_all_bloc.da
 import 'package:grades/application/subject/actor/bloc/subject_actor_bloc.dart';
 import 'package:grades/application/subject/watcher/bloc/subject_watcher_bloc.dart';
 import 'package:grades/injection.dart';
-import 'package:grades/presentation/core/app_colors.dart';
+import 'package:grades/presentation/core/style/app_colors.dart';
 import 'package:grades/presentation/routes/router.gr.dart';
 import 'package:grades/presentation/screens/dialoges/update_grade/update_grade_page.dart';
 import 'package:grades/presentation/screens/grades/grades_overview/widgets/grades_overview_body.dart';
@@ -73,6 +73,7 @@ class GradesOverviewScreen extends HookWidget implements AutoRouteWrapper {
             ),
           ),
           floatingActionButton: OpenContainer(
+            transitionDuration: const Duration(milliseconds: 500),
             transitionType: ContainerTransitionType.fade,
             closedElevation: 4,
             closedColor: Colors.transparent,
