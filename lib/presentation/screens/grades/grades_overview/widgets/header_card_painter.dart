@@ -3,9 +3,9 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grades/domain/grades/grade.dart';
+import 'package:grades/presentation/core/style/app_colors.dart';
 import 'package:kt_dart/collection.dart';
 
-import 'file:///C:/Development/grades/app/grades/lib/presentation/core/style/app_colors.dart';
 
 class HeaderCardPainter extends CustomPainter {
   final KtList<Grade> grades;

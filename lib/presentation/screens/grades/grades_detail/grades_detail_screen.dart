@@ -1,5 +1,3 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -10,20 +8,20 @@ import 'package:grades/application/subject/singel_grade_watcher/bloc/subject_wat
 import 'package:grades/domain/grades/value_objects.dart';
 import 'package:grades/domain/subjects/subject.dart';
 import 'package:grades/injection.dart';
+import 'package:grades/presentation/core/page_routes.dart';
 import 'package:grades/presentation/core/style/app_colors.dart';
-import 'package:grades/presentation/routes/router.gr.dart';
+import 'package:grades/presentation/screens/dialoges/update_grade/update_grade_page.dart';
 
 import 'widgets/grade_detail_item.dart';
 import 'widgets/grade_type_overview.dart';
 import 'widgets/subject_detail_header.dart';
 
-class GradesDetailScreen extends HookWidget implements AutoRouteWrapper {
+class GradesDetailScreen extends HookWidget {
   final Subject subject;
 
   const GradesDetailScreen(this.subject);
 
-  @override
-  Widget wrappedRoute(BuildContext context) {
+  Widget wrappedRoute(BuildContext context, Widget child) {
     return MultiBlocProvider(
       providers: [
         BlocProvider<GradeWatcherBloc>(
@@ -41,101 +39,110 @@ class GradesDetailScreen extends HookWidget implements AutoRouteWrapper {
             ..add(SingleSubjectWatcherEvent.watchSubjectStarted(subject)),
         ),
       ],
-      child: this,
+      child: child,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SingleSubjectWatcherBloc, SingleSubjectWatcherState>(
-        builder: (context, subjectState) {
-      return BlocBuilder<GradeWatcherBloc, GradeWatcherState>(
-        builder: (context, state) => Scaffold(
-          body: Container(
-            color: AppColors.scaffold,
-            child: SafeArea(
-              child: CustomScrollView(
-                slivers: <Widget>[
-                  SliverPersistentHeader(
-                      delegate: SubjectDetailHeader(context, subject: subject)),
-                  SliverToBoxAdapter(
-                    child: GradeTypeOverview(
-                      type: GradeType.schriftlich(),
-                      subject: subjectState.maybeWhen(
-                        loadSuccess: (s, t) => s,
-                        orElse: () => Subject.empty(),
+    return wrappedRoute(
+      context,
+      BlocBuilder<SingleSubjectWatcherBloc, SingleSubjectWatcherState>(
+          builder: (context, subjectState) {
+        return BlocBuilder<GradeWatcherBloc, GradeWatcherState>(
+          builder: (context, state) => Scaffold(
+            body: Container(
+              color: AppColors.scaffold,
+              child: SafeArea(
+                child: CustomScrollView(
+                  slivers: <Widget>[
+                    SliverPersistentHeader(
+                        delegate:
+                            SubjectDetailHeader(context, subject: subject)),
+                    SliverToBoxAdapter(
+                      child: GradeTypeOverview(
+                        type: GradeType.schriftlich(),
+                        subject: subjectState.maybeWhen(
+                          loadSuccess: (s, t) => s,
+                          orElse: () => Subject.empty(),
+                        ),
                       ),
                     ),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate((context, index) {
-                      return state.maybeMap(
-                          loadSuccess: (s) => Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: GradeDetailItem(
-                                  grade: s.writtenGrades[index],
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        return state.maybeMap(
+                            loadSuccess: (s) => Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: GradeDetailItem(
+                                    grade: s.writtenGrades[index],
+                                  ),
                                 ),
-                              ),
-                          loadFailure: (value) => Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Text(value.gradeFailures.toString()),
-                              ),
-                          orElse: () =>
-                              const Center(child: CircularProgressIndicator()));
-                    },
-                        childCount: state.maybeWhen(
-                            loadSuccess:
-                                (grades, oralGrades, writtenGrads, term) =>
-                                    writtenGrads.size,
-                            orElse: () => 1)),
-                  ),
-                  SliverToBoxAdapter(
-                    child: GradeTypeOverview(
-                      type: GradeType.muendlich(),
-                      subject: subjectState.maybeWhen(
-                        loadSuccess: (s, t) => s,
-                        orElse: () => Subject.empty(),
+                            loadFailure: (value) => Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Text(value.gradeFailures.toString()),
+                                ),
+                            orElse: () => const Center(
+                                child: CircularProgressIndicator()));
+                      },
+                          childCount: state.maybeWhen(
+                              loadSuccess:
+                                  (grades, oralGrades, writtenGrads, term) =>
+                                      writtenGrads.size,
+                              orElse: () => 1)),
+                    ),
+                    SliverToBoxAdapter(
+                      child: GradeTypeOverview(
+                        type: GradeType.muendlich(),
+                        subject: subjectState.maybeWhen(
+                          loadSuccess: (s, t) => s,
+                          orElse: () => Subject.empty(),
+                        ),
                       ),
                     ),
-                  ),
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate((context, index) {
-                      return state.maybeMap(
-                          loadSuccess: (s) => Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: GradeDetailItem(
-                                  grade: s.oralGrades[index],
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        return state.maybeMap(
+                            loadSuccess: (s) => Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: GradeDetailItem(
+                                    grade: s.oralGrades[index],
+                                  ),
                                 ),
-                              ),
-                          loadFailure: (value) => Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Text(value.gradeFailures.toString()),
-                              ),
-                          orElse: () =>
-                              const Center(child: CircularProgressIndicator()));
-                    },
-                        childCount: state.maybeWhen(
-                            loadSuccess:
-                                (grades, oralGrades, writtenGrads, term) =>
-                                    oralGrades.size,
-                            orElse: () => 1)),
-                  ),
-                  const SliverPadding(
-                    padding: EdgeInsets.all(60),
-                  )
-                ],
+                            loadFailure: (value) => Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Text(value.gradeFailures.toString()),
+                                ),
+                            orElse: () => const Center(
+                                child: CircularProgressIndicator()));
+                      },
+                          childCount: state.maybeWhen(
+                              loadSuccess:
+                                  (grades, oralGrades, writtenGrads, term) =>
+                                      oralGrades.size,
+                              orElse: () => 1)),
+                    ),
+                    const SliverPadding(
+                      padding: EdgeInsets.all(60),
+                    )
+                  ],
+                ),
               ),
             ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  PageRoutes.fadeThrough(
+                    () => UpdateGradePage(
+                      subject: subject,
+                    ),
+                  ),
+                );
+              },
+              child: Icon(Icons.add),
+            ),
           ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              ExtendedNavigator.of(context).pushNamed(Routes.updateGradePage,
-                  arguments: UpdateGradePageArguments(subject: subject));
-            },
-            child: Icon(Icons.add),
-          ),
-        ),
-      );
-    });
+        );
+      }),
+    );
   }
 }

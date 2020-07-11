@@ -1,10 +1,10 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grades/application/subject/actor/bloc/subject_actor_bloc.dart';
 import 'package:grades/domain/subjects/subject.dart';
+import 'package:grades/presentation/core/page_routes.dart';
 import 'package:grades/presentation/core/style/app_colors.dart';
-import 'package:grades/presentation/routes/router.gr.dart';
+import 'package:grades/presentation/screens/grades/grades_detail/grades_detail_screen.dart';
 
 class SubjectItem extends StatelessWidget {
   const SubjectItem({
@@ -23,9 +23,8 @@ class SubjectItem extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(16.0))),
       child: InkWell(
         borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-        onTap: () => ExtendedNavigator.of(context).pushNamed(
-            Routes.gradesDetailScreen,
-            arguments: GradesDetailScreenArguments(subject: subject)),
+        onTap: () => Navigator.of(context)
+            .push(PageRoutes.sharedAxis(() => GradesDetailScreen(subject))),
         onLongPress: () {
           final gradeActorBloc = context.bloc<SubjectActorBloc>();
           showDialog(

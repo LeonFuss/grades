@@ -1,10 +1,9 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grades/application/subject/singel_grade_watcher/bloc/subject_watcher_bloc.dart';
 import 'package:grades/domain/subjects/subject.dart';
-import 'file:///C:/Development/grades/app/grades/lib/presentation/core/style/app_colors.dart';
+import 'package:grades/presentation/core/style/app_colors.dart';
 import 'package:grades/presentation/screens/grades/grades_detail/widgets/subject_detail_header_painter.dart';
 
 class SubjectDetailHeader extends SliverPersistentHeaderDelegate {
@@ -34,7 +33,7 @@ class SubjectDetailHeader extends SliverPersistentHeaderDelegate {
               Icons.arrow_back_ios,
               color: AppColors.fontColor,
             ),
-            onPressed: () => ExtendedNavigator.of(context).pop(),
+            onPressed: () => Navigator.of(context).pop(),
           ),
         ),
         Positioned(

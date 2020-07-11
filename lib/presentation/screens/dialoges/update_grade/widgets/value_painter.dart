@@ -56,36 +56,36 @@ class ValuePainter extends CustomPainter {
     }
   }
 
-  _paintAnchors(Canvas canvas, Size size) {
+  void _paintAnchors(Canvas canvas, Size size) {
     canvas.drawCircle(Offset(0.0, size.height / 2), 5.0, fillPainter);
     canvas.drawCircle(Offset(size.width, size.height / 2), 5.0, fillPainter);
   }
 
-  _paintRestingWave(Canvas canvas, Size size) {
-    Path path = Path();
+  void _paintRestingWave(Canvas canvas, Size size) {
+    final Path path = Path();
     path.moveTo(0.0, size.height / 2);
     path.lineTo(size.width, size.height / 2);
     canvas.drawPath(path, wavePainter);
   }
 
-  _paintStartupWave(Canvas canvas, Size size) {
-    WaveCurveDefinitions line = _calculateWaveLineDefinitions(size);
+  void _paintStartupWave(Canvas canvas, Size size) {
+    final WaveCurveDefinitions line = _calculateWaveLineDefinitions(size);
 
-    double waveHeight = lerpDouble(size.height / 2, line.controlHeight,
+    final double waveHeight = lerpDouble(size.height / 2, line.controlHeight,
         Curves.elasticOut.transform(animationProgress));
     line.controlHeight = waveHeight;
     _paintWaveLine(canvas, size, line);
   }
 
-  _paintSlidingWave(Canvas canvas, Size size) {
-    WaveCurveDefinitions line = _calculateWaveLineDefinitions(size);
+  void _paintSlidingWave(Canvas canvas, Size size) {
+    final WaveCurveDefinitions line = _calculateWaveLineDefinitions(size);
     _paintWaveLine(canvas, size, line);
   }
 
-  _paintStoppingWave(Canvas canvas, Size size) {
-    WaveCurveDefinitions line = _calculateWaveLineDefinitions(size);
+  void _paintStoppingWave(Canvas canvas, Size size) {
+    final WaveCurveDefinitions line = _calculateWaveLineDefinitions(size);
 
-    double waveHeight = lerpDouble(line.controlHeight, size.height / 2,
+    final double waveHeight = lerpDouble(line.controlHeight, size.height / 2,
         Curves.elasticOut.transform(animationProgress));
 
     line.controlHeight = waveHeight;
@@ -93,8 +93,9 @@ class ValuePainter extends CustomPainter {
     _paintWaveLine(canvas, size, line);
   }
 
-  _paintWaveLine(Canvas canvas, Size size, WaveCurveDefinitions waveCurve) {
-    Path path = Path();
+  void _paintWaveLine(
+      Canvas canvas, Size size, WaveCurveDefinitions waveCurve) {
+    final Path path = Path();
     path.moveTo(0.0, size.height / 2);
     path.lineTo(waveCurve.startOfBezier, size.height / 2);
     path.cubicTo(
@@ -117,14 +118,14 @@ class ValuePainter extends CustomPainter {
   }
 
   WaveCurveDefinitions _calculateWaveLineDefinitions(Size size) {
-    double minWaveHeight = size.height / 2 * 0.2;
-    double maxWaveHeight = size.height / 2 * 0.8;
+    final double minWaveHeight = size.height / 2 * 0.2;
+    final double maxWaveHeight = size.height / 2 * 0.8;
 
-    double controlHeight =
+    final double controlHeight =
         (size.height / 2 - minWaveHeight) - (maxWaveHeight * dragPercentage);
 
-    double bendWidth = 20 + 20 * dragPercentage;
-    double bezierWidth = 20 + 20 * dragPercentage;
+    final double bendWidth = 20 + 20 * dragPercentage;
+    final double bezierWidth = 20 + 20 * dragPercentage;
 
     double centerPoint = sliderPosition;
     centerPoint = (centerPoint > size.width) ? size.width : centerPoint;
@@ -144,8 +145,8 @@ class ValuePainter extends CustomPainter {
     double rightBendControlPoint1 = endOfBend;
     double rightBendControlPoint2 = endOfBend;
 
-    double bendability = 25.0;
-    double maxSlideDifference = 30.0;
+    const double bendability = 25.0;
+    const double maxSlideDifference = 30.0;
     double slideDifference = (sliderPosition - _previousSliderPosition).abs();
 
     slideDifference = (slideDifference > maxSlideDifference)
@@ -154,7 +155,7 @@ class ValuePainter extends CustomPainter {
 
     double bend =
         lerpDouble(0.0, bendability, slideDifference / maxSlideDifference);
-    bool moveLeft = sliderPosition < _previousSliderPosition;
+    final bool moveLeft = sliderPosition < _previousSliderPosition;
     bend = moveLeft ? -bend : bend;
 
     leftBendControlPoint1 = leftBendControlPoint1 + bend;
@@ -164,7 +165,7 @@ class ValuePainter extends CustomPainter {
 
     centerPoint = centerPoint - bend;
 
-    WaveCurveDefinitions waveCurveDefinitions = WaveCurveDefinitions(
+    final WaveCurveDefinitions waveCurveDefinitions = WaveCurveDefinitions(
       controlHeight: controlHeight,
       startOfBezier: startOfBezier,
       endOfBezier: endOfBezier,
@@ -180,7 +181,7 @@ class ValuePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(ValuePainter oldDelegate) {
-    double diff = _previousSliderPosition - oldDelegate.sliderPosition;
+    final double diff = _previousSliderPosition - oldDelegate.sliderPosition;
     if (diff.abs() > 20) {
       _previousSliderPosition = sliderPosition;
     } else {

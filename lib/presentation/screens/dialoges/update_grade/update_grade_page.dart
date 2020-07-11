@@ -6,10 +6,9 @@ import 'package:grades/domain/grades/grade.dart';
 import 'package:grades/domain/grades/grade_failures.dart';
 import 'package:grades/domain/subjects/subject.dart';
 import 'package:grades/presentation/core/helpers/error_handling.dart';
+import 'package:grades/presentation/core/style/app_colors.dart';
 import 'package:grades/presentation/screens/dialoges/update_grade/widgets/subject_field.dart';
 import 'package:grades/presentation/screens/dialoges/update_grade/widgets/type_field.dart';
-
-import 'file:///C:/Development/grades/app/grades/lib/presentation/core/style/app_colors.dart';
 
 import '../../../../injection.dart';
 import 'widgets/description_field.dart';

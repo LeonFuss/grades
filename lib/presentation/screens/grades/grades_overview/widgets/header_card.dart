@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grades/application/grades/watch_all/bloc/grade_watch_all_bloc.dart';
 import 'package:grades/domain/grades/grade.dart';
+import 'package:grades/presentation/core/style/app_colors.dart';
 import 'package:grades/presentation/screens/grades/grades_overview/widgets/header_card_painter.dart';
 import 'package:grades/presentation/screens/grades/grades_statistic/grade_statistic_screen.dart';
 import 'package:kt_dart/collection.dart';
 
-import 'file:///C:/Development/grades/app/grades/lib/presentation/core/style/app_colors.dart';
 
 class HeaderCard extends StatefulWidget {
   @override

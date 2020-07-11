@@ -11,6 +11,8 @@ class FontSizes {
   static double get bodySm => 12 * scale;
 
   static double get title => 16 * scale;
+
+  static double get headline => 24 * scale;
 }
 
 class TextStyles {
@@ -18,23 +20,27 @@ class TextStyles {
 
   static TextStyle get titleFont => GoogleFonts.montserrat();
 
-  static TextStyle get title => titleFont.copyWith(fontSize: FontSizes.title);
+  static TextStyle get headline => titleFont.size(FontSizes.headline);
 
-  static TextStyle get titleLight =>
-      title.copyWith(fontWeight: FontWeight.w300);
+  static TextStyle get title => titleFont.size(FontSizes.title);
 
-  static TextStyle get body =>
-      bodyFont.copyWith(fontSize: FontSizes.body, fontWeight: FontWeight.w300);
+  static TextStyle get titleLight => title.light;
 
-  static TextStyle get bodySm => body.copyWith(fontSize: FontSizes.bodySm);
+  static TextStyle get body => bodyFont.size(FontSizes.body).light;
+
+  static TextStyle get bodySm => body.size(FontSizes.bodySm);
 }
 
 extension TextStyleHelpers on TextStyle {
   TextStyle get bold => copyWith(fontWeight: FontWeight.w600);
+
+  TextStyle get light => copyWith(fontWeight: FontWeight.w300);
 
   TextStyle get italic => copyWith(fontStyle: FontStyle.italic);
 
   TextStyle c(Color color) => copyWith(color: color);
 
   TextStyle letterSpace(double value) => copyWith(letterSpacing: value);
+
+  TextStyle size(double size) => copyWith(fontSize: size);
 }

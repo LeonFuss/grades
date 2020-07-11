@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grades/application/grades/statistic/statistic_bloc.dart';
 import 'package:grades/domain/grades/value_objects.dart';
+import 'package:grades/presentation/core/style/app_colors.dart';
 import 'package:grades/presentation/screens/grades/grades_statistic/widgets/header_card.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-import 'file:///C:/Development/grades/app/grades/lib/presentation/core/style/app_colors.dart';
 
 class GradeStatisticScreen extends StatelessWidget {
   @override

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:grades/presentation/core/style/app_colors.dart';
 
-import 'file:///C:/Development/grades/app/grades/lib/presentation/core/style/app_colors.dart';
 
 class SubjectDetailHeaderPainter extends CustomPainter {
   @override

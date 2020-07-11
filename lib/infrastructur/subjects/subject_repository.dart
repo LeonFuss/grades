@@ -291,24 +291,4 @@ class SubjectRepository implements ISubjectRepository {
       );
     });
   }
-
-  Either<SubjectFailures, KtList<Grade>> _convertStreamList(
-      List<Either<GradeFailures, KtList<Grade>>> streamList) {
-    bool failure = false;
-    // ignore: avoid_function_literals_in_foreach_calls
-    streamList.forEach((element) {
-      element.fold((l) => failure = true, (r) {});
-    });
-    if (failure) return left(const SubjectFailures.unexpected());
-
-    final List<List<Grade>> gradesLists =
-        streamList.map((e) => e.fold((l) {}, (r) => r.asList())).toList();
-    final List<Grade> grades = gradesLists.fold([], (previousValue, element) {
-      final List<Grade> list = previousValue;
-      list.addAll(element);
-      return list;
-    });
-
-    return right(grades.toImmutableList());
-  }
 }

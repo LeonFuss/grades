@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flushbar/flushbar_helper.dart';
 import 'package:flutter/widgets.dart';
@@ -13,7 +12,7 @@ void errorBar<T>(
         duration: const Duration(seconds: 5),
         message: message(failure),
       ).show(context),
-      (r) => ExtendedNavigator.of(context).pop(),
+      (r) => Navigator.of(context).pop(),
     );
   });
 }

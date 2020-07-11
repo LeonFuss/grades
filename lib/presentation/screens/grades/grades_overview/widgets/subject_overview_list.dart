@@ -1,13 +1,12 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grades/application/subject/actor/bloc/subject_actor_bloc.dart';
 import 'package:grades/domain/core/extension_helper.dart';
 import 'package:grades/domain/subjects/subject.dart';
-import 'package:grades/presentation/routes/router.gr.dart';
+import 'package:grades/presentation/core/page_routes.dart';
+import 'package:grades/presentation/core/style/app_colors.dart';
+import 'package:grades/presentation/screens/dialoges/update_subject/update_subject_page.dart';
 import 'package:kt_dart/kt.dart';
-
-import 'file:///C:/Development/grades/app/grades/lib/presentation/core/style/app_colors.dart';
 
 class SubjectOverviewList extends StatelessWidget {
   final KtList<Subject> subjects;
@@ -26,7 +25,8 @@ class SubjectOverviewList extends StatelessWidget {
         if (index == subjects.length) {
           return ListTile(
             onTap: () {
-              ExtendedNavigator.of(context).pushNamed(Routes.updateSubjectPage);
+              Navigator.of(context)
+                  .push(PageRoutes.sharedAxis(() => const UpdateSubjectPage()));
             },
             title: Center(
                 child: Icon(

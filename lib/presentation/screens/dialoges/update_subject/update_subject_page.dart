@@ -1,13 +1,10 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grades/application/subject/form/bloc/subject_form_bloc.dart';
 import 'package:grades/domain/subjects/subject.dart';
-import 'package:grades/presentation/routes/router.gr.dart';
-
-import 'file:///C:/Development/grades/app/grades/lib/presentation/core/style/app_colors.dart';
+import 'package:grades/presentation/core/style/app_colors.dart';
 
 import '../../../../injection.dart';
 import 'widgets/name_field.dart';
@@ -47,8 +44,7 @@ class UpdateSubjectPage extends StatelessWidget {
                   ).show(context);
                 },
                 (_) {
-                  ExtendedNavigator.of(context).popUntil((route) =>
-                      route.settings.name == Routes.gradesOverviewScreen);
+                  Navigator.of(context).pop();
                 },
               );
             },

@@ -1,14 +1,14 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'file:///C:/Development/grades/app/grades/lib/presentation/core/style/app_colors.dart';
-import 'package:grades/presentation/routes/router.gr.dart';
+import 'package:grades/presentation/core/page_routes.dart';
+import 'package:grades/presentation/core/style/app_colors.dart';
+import 'package:grades/presentation/screens/dialoges/update_subject/update_subject_page.dart';
 
 class AddItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () =>
-          ExtendedNavigator.of(context).pushNamed(Routes.updateSubjectPage),
+      onTap: () => Navigator.of(context)
+          .push(PageRoutes.fadeThrough(() => const UpdateSubjectPage())),
       child: Container(
         margin: const EdgeInsets.all(12),
         decoration: BoxDecoration(
