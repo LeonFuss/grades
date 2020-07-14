@@ -1,14 +1,19 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:grades/application/subject/actor/bloc/subject_actor_bloc.dart';
 import 'package:grades/domain/core/extension_helper.dart';
 import 'package:grades/domain/subjects/subject.dart';
 import 'package:grades/presentation/core/page_routes.dart';
+import 'package:grades/presentation/core/providers.dart';
 import 'package:grades/presentation/core/style/app_colors.dart';
+import 'package:grades/presentation/core/style/app_design.dart';
+import 'package:grades/presentation/core/style/text_style.dart';
 import 'package:grades/presentation/screens/dialoges/update_subject/update_subject_page.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:kt_dart/kt.dart';
 
-class SubjectOverviewList extends StatelessWidget {
+class SubjectOverviewList extends HookWidget {
   final KtList<Subject> subjects;
 
   const SubjectOverviewList({Key key, @required this.subjects})
@@ -16,12 +21,13 @@ class SubjectOverviewList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final subjectActorBloc = useProvider(subjectActorBlocProvider);
+
     return ListView.builder(
       physics: const BouncingScrollPhysics(),
       itemCount: subjects.length + 1,
       itemBuilder: (BuildContext context, int index) {
-        final style =
-            Theme.of(context).textTheme.headline6.copyWith(fontSize: 18);
+        final style = TextStyles.title;
         if (index == subjects.length) {
           return ListTile(
             onTap: () {
@@ -42,53 +48,41 @@ class SubjectOverviewList extends StatelessWidget {
             ListTile(
               onTap: () {},
               onLongPress: () {
-                final noteActorBloc = context.bloc<SubjectActorBloc>();
-                showDialog(
+                showModal(
                   context: context,
                   builder: (context) {
-                    return BlocProvider.value(
-                      value: noteActorBloc,
-                      child: AlertDialog(
-                        shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(8))),
-                        title: const Text('Fach löschen'),
-                        content: Text(
-                          "Nach dem Löschen ist das Fach ${subject.name.getOrCrash().trim()} nicht mehr wiederherstellbar",
-                        ),
-                        actions: <Widget>[
-                          FlatButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: const Text('ABRECHEN'),
-                          ),
-                          FlatButton(
-                            onPressed: () {
-                              noteActorBloc
-                                  .add(SubjectActorEvent.deleted(subject));
-                              Navigator.pop(context);
-                            },
-                            child: const Text(
-                              'LÖSCHEN',
-                              style: TextStyle(color: AppColors.trashCanColor),
-                            ),
-                          ),
-                        ],
+                    return AlertDialog(
+                      shape: AppDesign.roundedBorder,
+                      title: const Text('Fach löschen'),
+                      content: Text(
+                        "Nach dem Löschen ist das Fach ${subject.name.getOrCrash().trim()} nicht mehr wiederherstellbar",
                       ),
+                      actions: <Widget>[
+                        FlatButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text('ABRECHEN'),
+                        ),
+                        FlatButton(
+                          onPressed: () {
+                            subjectActorBloc
+                                .add(SubjectActorEvent.deleted(subject));
+                            Navigator.pop(context);
+                          },
+                          child: const Text(
+                            'LÖSCHEN',
+                            style: TextStyle(color: AppColors.trashCanColor),
+                          ),
+                        ),
+                      ],
                     );
                   },
                 );
               },
               title: Row(
                 children: <Widget>[
-                  Text(
-                    subject.name.getOrCrash(),
-                    style: style.copyWith(
-                        fontWeight: FontWeight.w100, letterSpacing: 2),
-                  ),
+                  Text(subject.name.getOrCrash(), style: style.light),
                   const Spacer(),
-                  Text(
-                    subject.average.toString(),
-                    style: style.copyWith(fontWeight: FontWeight.w600),
-                  ),
+                  Text(subject.average.toString(), style: style.bold),
                 ],
               ),
             ),

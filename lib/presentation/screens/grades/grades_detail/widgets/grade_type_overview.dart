@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grades/domain/grades/value_objects.dart';
 import 'package:grades/domain/subjects/subject.dart';
+import 'package:grades/presentation/core/style/text_style.dart';
 
 class GradeTypeOverview extends StatelessWidget {
   final GradeType type;
@@ -12,7 +13,6 @@ class GradeTypeOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final style = Theme.of(context).textTheme.headline5;
     return Padding(
       padding:
           const EdgeInsets.only(left: 16.0, right: 32, top: 16, bottom: 16),
@@ -20,14 +20,14 @@ class GradeTypeOverview extends StatelessWidget {
         children: <Widget>[
           Text(
             type.getOrCrash(),
-            style: style,
+            style: TextStyles.title,
           ),
           const Spacer(),
           Text(
             type == GradeType.muendlich()
                 ? subject.oralAverage.toString()
                 : subject.writtenAverage.toString(),
-            style: style.copyWith(fontWeight: FontWeight.w600),
+            style: TextStyles.title,
           )
         ],
       ),

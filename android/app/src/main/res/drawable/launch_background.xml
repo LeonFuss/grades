@@ -4,10 +4,4 @@
     <item android:drawable="@android:color/white" />
 
 
-
-    <item>
-        <bimap
-            android:gravity="center"
-            android:src="@mipmap/launcher_icon" />
-    </item>
 </layer-list>

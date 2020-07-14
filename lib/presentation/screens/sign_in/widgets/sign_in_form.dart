@@ -2,19 +2,24 @@ import 'package:animations/animations.dart';
 import 'package:flushbar/flushbar_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:grades/application/auth/login/bloc/login_bloc.dart';
 import 'package:grades/presentation/core/page_routes.dart';
+import 'package:grades/presentation/core/providers.dart';
 import 'package:grades/presentation/core/style/app_colors.dart';
 import 'package:grades/presentation/screens/grades/grades_overview/grades_overview_screen.dart';
 import 'package:grades/presentation/screens/splash/widgets/grades_logo.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class SignInForm extends StatelessWidget {
-  final FocusNode focusNode = FocusNode();
-
+class SignInForm extends HookWidget {
   @override
   Widget build(BuildContext context) {
+    final LoginBloc loginBloc = useProvider(loginBlocProvider);
+    final FocusNode focusNode = useFocusNode();
+
     final Size size = MediaQuery.of(context).size;
     return BlocConsumer<LoginBloc, LoginState>(
+      bloc: loginBloc,
       listener: (context, state) {
         state.authFailureOrSuccessOption.fold(
           () {},
@@ -63,21 +68,15 @@ class SignInForm extends StatelessWidget {
                       autocorrect: false,
                       onFieldSubmitted: (_) => focusNode.requestFocus(),
                       keyboardType: TextInputType.emailAddress,
-                      onChanged: (value) => context
-                          .bloc<LoginBloc>()
-                          .add(LoginEvent.emailChanged(value)),
-                      validator: (_) => context
-                          .bloc<LoginBloc>()
-                          .state
-                          .emailAddress
-                          .value
-                          .fold(
-                            (f) => f.maybeMap(
-                              invalidEmail: (_) => 'Ungültige Emailadresse',
-                              orElse: () => null,
-                            ),
-                            (_) => null,
-                          ),
+                      onChanged: (value) =>
+                          loginBloc.add(LoginEvent.emailChanged(value)),
+                      validator: (_) => loginBloc.state.emailAddress.value.fold(
+                        (f) => f.maybeMap(
+                          invalidEmail: (_) => 'Ungültige Emailadresse',
+                          orElse: () => null,
+                        ),
+                        (_) => null,
+                      ),
                     ),
                     const SizedBox(height: 8),
                     TextFormField(
@@ -88,17 +87,15 @@ class SignInForm extends StatelessWidget {
                       focusNode: focusNode,
                       autocorrect: false,
                       obscureText: true,
-                      onChanged: (value) => context
-                          .bloc<LoginBloc>()
-                          .add(LoginEvent.passwordChanged(value)),
-                      validator: (_) =>
-                          context.bloc<LoginBloc>().state.password.value.fold(
-                                (f) => f.maybeMap(
-                                  shortPassword: (_) => 'Zu kurzes Passwort',
-                                  orElse: () => null,
-                                ),
-                                (_) => null,
-                              ),
+                      onChanged: (value) =>
+                          loginBloc.add(LoginEvent.passwordChanged(value)),
+                      validator: (_) => loginBloc.state.password.value.fold(
+                        (f) => f.maybeMap(
+                          shortPassword: (_) => 'Zu kurzes Passwort',
+                          orElse: () => null,
+                        ),
+                        (_) => null,
+                      ),
                     ),
                     const SizedBox(height: 8),
                     Row(
@@ -106,10 +103,10 @@ class SignInForm extends StatelessWidget {
                         Expanded(
                           child: FlatButton(
                             onPressed: () {
-                              context.bloc<LoginBloc>().add(
-                                    const LoginEvent
-                                        .signInWithEmailAndPasswordPressed(),
-                                  );
+                              loginBloc.add(
+                                const LoginEvent
+                                    .signInWithEmailAndPasswordPressed(),
+                              );
                             },
                             child: const Text('EINLOGGEN'),
                           ),
@@ -117,10 +114,10 @@ class SignInForm extends StatelessWidget {
                         Expanded(
                           child: FlatButton(
                             onPressed: () {
-                              context.bloc<LoginBloc>().add(
-                                    const LoginEvent
-                                        .registerWithEmailAndPasswordPressed(),
-                                  );
+                              loginBloc.add(
+                                const LoginEvent
+                                    .registerWithEmailAndPasswordPressed(),
+                              );
                             },
                             child: const Text('REGISTRIEREN'),
                           ),
@@ -131,8 +128,7 @@ class SignInForm extends StatelessWidget {
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(8))),
                       onPressed: () {
-                        context
-                            .bloc<LoginBloc>()
+                        loginBloc
                             .add(const LoginEvent.signInWithGooglePressed());
                       },
                       color: AppColors.fontColor.withOpacity(0.8),

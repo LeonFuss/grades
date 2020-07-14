@@ -1,16 +1,18 @@
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:grades/application/grades/form/grade_form_bloc.dart';
 import 'package:grades/domain/grades/grade.dart';
 import 'package:grades/domain/grades/grade_failures.dart';
 import 'package:grades/domain/subjects/subject.dart';
-import 'package:grades/injection.dart';
 import 'package:grades/presentation/core/helpers/error_handling.dart';
+import 'package:grades/presentation/core/providers.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'widgets/update_grade_widgets.dart';
 
-class UpdateGradePage extends StatelessWidget {
+class UpdateGradePage extends HookWidget {
   final Grade grade;
   final Subject subject;
 
@@ -18,25 +20,27 @@ class UpdateGradePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<GradeFormBloc>()
-        ..add(GradeFormEvent.initialized(optionOf(grade), optionOf(subject))),
-      child: BlocConsumer<GradeFormBloc, GradeFormState>(
-        listenWhen: (p, c) =>
-            p.saveFailureOrSuccessOption != c.saveFailureOrSuccessOption,
-        listener: (context, state) {
-          buildErrorMessages(context, state);
-        },
-        buildWhen: (p, c) => p.isSaving != c.isSaving,
-        builder: (context, state) {
-          return Stack(
-            children: <Widget>[
-              const GradeFormPageScaffold(),
-              SavingInProgressOverlay(isSaving: state.isSaving),
-            ],
-          );
-        },
-      ),
+    final gradeFormBloc = useProvider(gradeFormBlocProvider)
+      ..add(GradeFormEvent.initialized(
+          optionOf(grade ?? GradeFormState.initial().grade),
+          optionOf(subject)));
+
+    return BlocConsumer<GradeFormBloc, GradeFormState>(
+      bloc: gradeFormBloc,
+      listenWhen: (p, c) =>
+          p.saveFailureOrSuccessOption != c.saveFailureOrSuccessOption,
+      listener: (context, state) {
+        buildErrorMessages(context, state);
+      },
+      buildWhen: (p, c) => p.isSaving != c.isSaving,
+      builder: (context, state) {
+        return Stack(
+          children: <Widget>[
+            const GradeFormPageScaffold(),
+            SavingInProgressOverlay(isSaving: state.isSaving),
+          ],
+        );
+      },
     );
   }
 

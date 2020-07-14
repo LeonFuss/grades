@@ -37,6 +37,7 @@ class HeaderCardPainter extends CustomPainter {
         style: textStyle,
       );
       final textPainter = TextPainter(
+        textAlign: TextAlign.center,
         text: textSpan,
         textDirection: TextDirection.ltr,
       );

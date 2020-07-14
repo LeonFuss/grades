@@ -37,7 +37,7 @@ class GradeFormBloc extends Bloc<GradeFormEvent, GradeFormState> {
         yield e.initialGradeOption.fold(
           () => state.copyWith(
             grade: e.subject.fold(
-              () => state.grade,
+              () => Grade.empty(term: Term(1)),
               (a) => state.grade.copyWith(subjectId: a.id),
             ),
           ),
@@ -56,7 +56,7 @@ class GradeFormBloc extends Bloc<GradeFormEvent, GradeFormState> {
                     subjects: r,
                     grade: r.isNotEmpty() && e.initialGradeOption.isNone()
                         ? state.grade.copyWith(subjectId: r.asList().first.id)
-                        : state.grade),
+                        : Grade.empty(term: Term(1))),
                 (a) => state.copyWith(
                       subjects: r,
                     )));
@@ -103,6 +103,10 @@ class GradeFormBloc extends Bloc<GradeFormEvent, GradeFormState> {
               : await _gradeRepository.create(state.grade);
         }
         yield state.copyWith(
+          grade: failureOrSuccess == null
+              ? state.grade
+              : failureOrSuccess.fold(
+                  (l) => state.grade, (r) => GradeFormState.initial().grade),
           isSaving: false,
           showErrorMessages: true,
           saveFailureOrSuccessOption: optionOf(failureOrSuccess),

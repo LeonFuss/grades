@@ -3,8 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grades/application/grades/form/grade_form_bloc.dart';
+import 'package:grades/presentation/core/providers.dart';
 import 'package:grades/presentation/core/style/app_colors.dart';
 import 'package:grades/presentation/core/style/text_style.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sized_context/sized_context.dart';
 
 import '../update_grade_widgets.dart';
@@ -14,6 +16,7 @@ class GradeDialogHeader extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
+    final gradeFormBloc = gradeFormBlocProvider.read(context);
     return Stack(
       children: <Widget>[
         Positioned.fill(
@@ -34,7 +37,7 @@ class GradeDialogHeader extends SliverPersistentHeaderDelegate {
           left: 16,
           top: 70,
           right: 100,
-          child: buildSubjectName(),
+          child: buildSubjectName(gradeFormBloc),
         ),
         Positioned(
           right: 0,
@@ -51,34 +54,38 @@ class GradeDialogHeader extends SliverPersistentHeaderDelegate {
           child: ValueSlider(
             height: 80,
             width: context.widthPx - 64,
-            onChanged: (v) => _onValueSliderChanged(v, context),
+            onChanged: (v) => _onValueSliderChanged(v, gradeFormBloc),
             color: AppColors.accent,
           ),
         ),
         Positioned(
           bottom: 60,
           left: context.widthPct(0.5) - 10,
-          child: buildGradesText(),
+          child: buildGradesText(gradeFormBloc),
         )
       ],
     );
   }
 
-  BlocBuilder<GradeFormBloc, GradeFormState> buildSubjectName() {
+  BlocBuilder<GradeFormBloc, GradeFormState> buildSubjectName(
+      GradeFormBloc bloc) {
     return BlocBuilder<GradeFormBloc, GradeFormState>(
+      bloc: bloc,
       buildWhen: (p, c) => p.isEditing != c.isEditing,
       builder: (context, state) {
         return Text(
           state.isEditing ? 'Bearbeite \neine Note' : 'Erstelle \neine Note',
-          style: TextStyles.title,
+          style: TextStyles.headline,
           softWrap: true,
         );
       },
     );
   }
 
-  BlocBuilder<GradeFormBloc, GradeFormState> buildGradesText() {
+  BlocBuilder<GradeFormBloc, GradeFormState> buildGradesText(
+      GradeFormBloc bloc) {
     return BlocBuilder<GradeFormBloc, GradeFormState>(
+      bloc: bloc,
       buildWhen: (p, c) => p.grade.value != c.grade.value,
       builder: (context, state) {
         return Text(state.grade.value.getOrCrash().toString(),
@@ -87,12 +94,12 @@ class GradeDialogHeader extends SliverPersistentHeaderDelegate {
     );
   }
 
-  void _onValueSliderChanged(double value, BuildContext context) {
-    context.bloc<GradeFormBloc>().add(
-          GradeFormEvent.gradeValueChanged(
-            (min(value * 15 + 1, 15)).round().toString(),
-          ),
-        );
+  void _onValueSliderChanged(double value, GradeFormBloc bloc) {
+    bloc.add(
+      GradeFormEvent.gradeValueChanged(
+        (min(value * 15 + 1, 15)).round().toString(),
+      ),
+    );
   }
 
   @override

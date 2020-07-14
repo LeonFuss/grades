@@ -1,12 +1,19 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:grades/application/grades/watcher/grade_watcher_bloc.dart';
 import 'package:grades/application/subject/actor/bloc/subject_actor_bloc.dart';
 import 'package:grades/domain/subjects/subject.dart';
 import 'package:grades/presentation/core/page_routes.dart';
+import 'package:grades/presentation/core/providers.dart';
 import 'package:grades/presentation/core/style/app_colors.dart';
+import 'package:grades/presentation/core/style/app_design.dart';
+import 'package:grades/presentation/core/style/text_style.dart';
 import 'package:grades/presentation/screens/grades/grades_detail/grades_detail_screen.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:sized_context/sized_context.dart';
 
-class SubjectItem extends StatelessWidget {
+class SubjectItem extends HookWidget {
   const SubjectItem({
     Key key,
     @required this.subject,
@@ -16,46 +23,46 @@ class SubjectItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final subjectActorBloc = useProvider(subjectActorBlocProvider);
     return Container(
       margin: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-          color: AppColors.bottomBar,
-          borderRadius: const BorderRadius.all(Radius.circular(16.0))),
+          color: AppColors.white, borderRadius: AppDesign.borderRadius),
       child: InkWell(
-        borderRadius: const BorderRadius.all(Radius.circular(16.0)),
-        onTap: () => Navigator.of(context)
-            .push(PageRoutes.sharedAxis(() => GradesDetailScreen(subject))),
+        borderRadius: AppDesign.borderRadius,
+        onTap: () {
+          gradeWatcherBlocProvider
+              .read(context)
+              .add(GradeWatcherEvent.watchSubjectGradesStarted(subject));
+          Navigator.of(context)
+              .push(PageRoutes.sharedAxis(() => GradesDetailScreen(subject)));
+        },
         onLongPress: () {
-          final gradeActorBloc = context.bloc<SubjectActorBloc>();
-          showDialog(
+          showModal(
             context: context,
             builder: (context) {
-              return BlocProvider.value(
-                value: gradeActorBloc,
-                child: AlertDialog(
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8))),
-                  title: const Text('Fach löschen'),
-                  content: Text(
-                    "Nach dem Löschen ist das Fach ${subject.name.getOrCrash().trim()} nicht mehr wiederherstellbar",
-                  ),
-                  actions: <Widget>[
-                    FlatButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: const Text('ABRECHEN'),
-                    ),
-                    FlatButton(
-                      onPressed: () {
-                        gradeActorBloc.add(SubjectActorEvent.deleted(subject));
-                        Navigator.pop(context);
-                      },
-                      child: const Text(
-                        'LÖSCHEN',
-                        style: TextStyle(color: AppColors.trashCanColor),
-                      ),
-                    ),
-                  ],
+              return AlertDialog(
+                shape: AppDesign.roundedBorder,
+                title: const Text('Fach löschen'),
+                content: Text(
+                  "Nach dem Löschen ist das Fach ${subject.name.getOrCrash().trim()} nicht mehr wiederherstellbar",
                 ),
+                actions: <Widget>[
+                  FlatButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('ABRECHEN'),
+                  ),
+                  FlatButton(
+                    onPressed: () {
+                      subjectActorBloc.add(SubjectActorEvent.deleted(subject));
+                      Navigator.pop(context);
+                    },
+                    child: const Text(
+                      'LÖSCHEN',
+                      style: TextStyle(color: AppColors.trashCanColor),
+                    ),
+                  ),
+                ],
               );
             },
           );
@@ -68,29 +75,20 @@ class SubjectItem extends StatelessWidget {
                 width: constraints.maxWidth,
                 height: constraints.maxWidth,
                 child: Container(
-                  margin:
-                      EdgeInsets.all(MediaQuery.of(context).size.width * 0.03),
+                  margin: EdgeInsets.all(context.widthPct(0.03)),
                   decoration: BoxDecoration(
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(32.0)),
+                      borderRadius: AppDesign.borderRadius,
                       color: AppColors.redWithOpacity),
                   child: Center(
-                      child: Text(
-                    subject.average.toString(),
-                    style: Theme.of(context).textTheme.headline5.copyWith(
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 1,
-                        color: AppColors.fontColor),
-                  )),
+                    child: Text(subject.average.toString(),
+                        style: TextStyles.title),
+                  ),
                 ),
               ),
               const Spacer(),
               Text(
                 subject.name.getOrCrash(),
-                style: Theme.of(context)
-                    .textTheme
-                    .headline6
-                    .copyWith(fontWeight: FontWeight.w500, letterSpacing: 1),
+                style: TextStyles.title,
               ),
               const Spacer(
                 flex: 6,

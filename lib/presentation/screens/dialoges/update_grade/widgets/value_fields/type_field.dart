@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:grades/application/grades/form/grade_form_bloc.dart';
 import 'package:grades/domain/grades/value_objects.dart';
+import 'package:grades/presentation/core/providers.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class TypeField extends HookWidget {
   const TypeField({
@@ -12,7 +14,10 @@ class TypeField extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final gradeFormBloc = useProvider(gradeFormBlocProvider);
+
     return BlocConsumer<GradeFormBloc, GradeFormState>(
+      bloc: gradeFormBloc,
       listenWhen: (p, c) => p.isEditing != c.isEditing,
       listener: (context, state) {},
       buildWhen: (p, c) => p.grade.type != c.grade.type,
@@ -26,16 +31,14 @@ class TypeField extends HookWidget {
               labelText: 'Type / Name',
               counterText: '',
             ),
-            onChanged: (value) => context
-                .bloc<GradeFormBloc>()
-                .add(GradeFormEvent.gradeTypeChanged(value)),
-            validator: (_) =>
-                context.bloc<GradeFormBloc>().state.grade.type.value.fold(
-                      (f) => f.maybeMap(
-                        orElse: () => null,
-                      ),
-                      (_) => null,
-                    ),
+            onChanged: (value) =>
+                gradeFormBloc.add(GradeFormEvent.gradeTypeChanged(value)),
+            validator: (_) => gradeFormBloc.state.grade.type.value.fold(
+              (f) => f.maybeMap(
+                orElse: () => null,
+              ),
+              (_) => null,
+            ),
             items: GradeType.gradeTypes
                 .map(
                   (e) => DropdownMenuItem(

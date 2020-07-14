@@ -6,13 +6,13 @@ import 'package:google_fonts/google_fonts.dart';
 class FontSizes {
   static double scale = 1;
 
-  static double get body => 14 * scale;
+  static double get body => 18 * scale;
 
-  static double get bodySm => 12 * scale;
+  static double get bodySm => 16 * scale;
 
-  static double get title => 16 * scale;
+  static double get title => 24 * scale;
 
-  static double get headline => 24 * scale;
+  static double get headline => 32 * scale;
 }
 
 class TextStyles {

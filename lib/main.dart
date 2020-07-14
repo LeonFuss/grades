@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grades/presentation/core/app_widget.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:injectable/injectable.dart';
 
 import 'injection.dart';
@@ -9,5 +10,5 @@ void main() {
   configureInjection(Environment.prod);
 
   /// Top-Level Function um das Rendern des FLutter-Frameworks zu starten
-  runApp(AppWidget());
+  runApp(ProviderScope(child: AppWidget()));
 }

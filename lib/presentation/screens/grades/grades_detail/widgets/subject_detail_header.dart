@@ -3,14 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grades/application/subject/singel_grade_watcher/bloc/subject_watcher_bloc.dart';
 import 'package:grades/domain/subjects/subject.dart';
+import 'package:grades/presentation/core/providers.dart';
 import 'package:grades/presentation/core/style/app_colors.dart';
+import 'package:grades/presentation/core/style/text_style.dart';
 import 'package:grades/presentation/screens/grades/grades_detail/widgets/subject_detail_header_painter.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SubjectDetailHeader extends SliverPersistentHeaderDelegate {
   final Subject subject;
   final BuildContext context;
 
   SubjectDetailHeader(this.context, {this.subject});
+
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
@@ -42,10 +46,7 @@ class SubjectDetailHeader extends SliverPersistentHeaderDelegate {
           right: 100,
           child: Text(
             subject.name.getOrCrash(),
-            style: Theme.of(context)
-                .textTheme
-                .headline4
-                .copyWith(color: AppColors.secondFontColor),
+            style: TextStyles.headline,
             softWrap: true,
           ),
         ),
@@ -65,14 +66,15 @@ class SubjectDetailHeader extends SliverPersistentHeaderDelegate {
           left: 16,
           child:
               BlocBuilder<SingleSubjectWatcherBloc, SingleSubjectWatcherState>(
+                  bloc: singleSubjectWatcherBlocProvider.read(context),
                   builder: (context, state) {
-            return Text(
-              state.maybeWhen(
-                  loadSuccess: (s, t) => s.average.toString(),
-                  orElse: () => '--'),
-              style: Theme.of(context).textTheme.headline4,
-            );
-          }),
+                    return Text(
+                      state.maybeWhen(
+                          loadSuccess: (s, t) => s.average.toString(),
+                          orElse: () => '--'),
+                      style: TextStyles.headline.c(AppColors.fontColor),
+                    );
+                  }),
         )
       ],
     );

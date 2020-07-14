@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:grades/application/grades/actor/grade_actor_bloc.dart';
 import 'package:grades/application/grades/watcher/grade_watcher_bloc.dart';
-import 'package:grades/application/subject/actor/bloc/subject_actor_bloc.dart';
 import 'package:grades/application/subject/singel_grade_watcher/bloc/subject_watcher_bloc.dart';
 import 'package:grades/domain/grades/value_objects.dart';
 import 'package:grades/domain/subjects/subject.dart';
-import 'package:grades/injection.dart';
 import 'package:grades/presentation/core/page_routes.dart';
+import 'package:grades/presentation/core/providers.dart';
 import 'package:grades/presentation/core/style/app_colors.dart';
 import 'package:grades/presentation/screens/dialoges/update_grade/update_grade_page.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'widgets/grade_detail_item.dart';
 import 'widgets/grade_type_overview.dart';
@@ -21,35 +20,17 @@ class GradesDetailScreen extends HookWidget {
 
   const GradesDetailScreen(this.subject);
 
-  Widget wrappedRoute(BuildContext context, Widget child) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<GradeWatcherBloc>(
-          create: (context) => getIt<GradeWatcherBloc>()
-            ..add(GradeWatcherEvent.watchSubjectGradesStarted(subject)),
-        ),
-        BlocProvider<SubjectActorBloc>(
-          create: (context) => getIt<SubjectActorBloc>(),
-        ),
-        BlocProvider<GradeActorBloc>(
-          create: (context) => getIt<GradeActorBloc>(),
-        ),
-        BlocProvider<SingleSubjectWatcherBloc>(
-          create: (context) => getIt<SingleSubjectWatcherBloc>()
-            ..add(SingleSubjectWatcherEvent.watchSubjectStarted(subject)),
-        ),
-      ],
-      child: child,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return wrappedRoute(
-      context,
-      BlocBuilder<SingleSubjectWatcherBloc, SingleSubjectWatcherState>(
-          builder: (context, subjectState) {
+    final singleSubjectWatcherBloc =
+        useProvider(singleSubjectWatcherBlocProvider);
+    final gradeWatcherBloc = useProvider(gradeWatcherBlocProvider);
+
+    return BlocBuilder<SingleSubjectWatcherBloc, SingleSubjectWatcherState>(
+      bloc: singleSubjectWatcherBloc,
+      builder: (context, subjectState) {
         return BlocBuilder<GradeWatcherBloc, GradeWatcherState>(
+          bloc: gradeWatcherBloc,
           builder: (context, state) => Scaffold(
             body: Container(
               color: AppColors.scaffold,
@@ -103,13 +84,15 @@ class GradesDetailScreen extends HookWidget {
                       delegate: SliverChildBuilderDelegate((context, index) {
                         return state.maybeMap(
                             loadSuccess: (s) => Padding(
-                                  padding: const EdgeInsets.all(16.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0, vertical: 8.0),
                                   child: GradeDetailItem(
                                     grade: s.oralGrades[index],
                                   ),
                                 ),
                             loadFailure: (value) => Padding(
-                                  padding: const EdgeInsets.all(16.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0, vertical: 8.0),
                                   child: Text(value.gradeFailures.toString()),
                                 ),
                             orElse: () => const Center(
@@ -142,7 +125,7 @@ class GradesDetailScreen extends HookWidget {
             ),
           ),
         );
-      }),
+      },
     );
   }
 }

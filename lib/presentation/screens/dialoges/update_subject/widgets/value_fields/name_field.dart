@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:grades/application/subject/form/bloc/subject_form_bloc.dart';
 import 'package:grades/domain/subjects/value_objects.dart';
+import 'package:grades/presentation/core/providers.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class NameField extends HookWidget {
   const NameField({
@@ -12,9 +14,11 @@ class NameField extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final subjectFormBloc = useProvider(subjectFormBlocProvider);
     final textEditingController = useTextEditingController();
 
     return BlocConsumer<SubjectFormBloc, SubjectFormState>(
+      bloc: subjectFormBloc,
       listenWhen: (p, c) => p.isEditing != c.isEditing,
       listener: (context, state) {
         textEditingController.text = state.subject.name.getOrCrash();
@@ -32,19 +36,17 @@ class NameField extends HookWidget {
             autofocus: true,
             maxLength: SubjectName.maxLength,
             maxLengthEnforced: true,
-            onChanged: (value) => context
-                .bloc<SubjectFormBloc>()
-                .add(SubjectFormEvent.nameChanged(value)),
-            validator: (_) =>
-                context.bloc<SubjectFormBloc>().state.subject.name.value.fold(
-                      (f) => f.maybeMap(
-                        empty: (f) => 'Der Name darf nicht leer sein',
-                        exceedingLength: (f) =>
-                            'Die maximale Länge beträgt ${f.max} Zeichen',
-                        orElse: () => null,
-                      ),
-                      (_) => null,
-                    ),
+            onChanged: (value) =>
+                subjectFormBloc.add(SubjectFormEvent.nameChanged(value)),
+            validator: (_) => subjectFormBloc.state.subject.name.value.fold(
+              (f) => f.maybeMap(
+                empty: (f) => 'Der Name darf nicht leer sein',
+                exceedingLength: (f) =>
+                    'Die maximale Länge beträgt ${f.max} Zeichen',
+                orElse: () => null,
+              ),
+              (_) => null,
+            ),
           ),
         );
       },

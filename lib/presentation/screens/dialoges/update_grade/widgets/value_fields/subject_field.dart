@@ -3,6 +3,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:grades/application/grades/form/grade_form_bloc.dart';
+import 'package:grades/presentation/core/providers.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SubjectField extends HookWidget {
   const SubjectField({
@@ -11,9 +13,11 @@ class SubjectField extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final gradeFormBloc = useProvider(gradeFormBlocProvider);
     final textEditingController = useTextEditingController();
 
     return BlocConsumer<GradeFormBloc, GradeFormState>(
+      bloc: gradeFormBloc,
       listenWhen: (p, c) => p.isEditing != c.isEditing,
       listener: (context, state) {
         textEditingController.text = state.grade.description.getOrCrash();
@@ -31,9 +35,8 @@ class SubjectField extends HookWidget {
               labelText: 'Fach',
               counterText: '',
             ),
-            onChanged: (value) => context
-                .bloc<GradeFormBloc>()
-                .add(GradeFormEvent.subjectChanged(value)),
+            onChanged: (value) =>
+                gradeFormBloc.add(GradeFormEvent.subjectChanged(value)),
             items: subjects
                 .asList()
                 .map(
