@@ -16,7 +16,7 @@ class _$GradesDTOTearOff {
   const _$GradesDTOTearOff();
 
   _GradesDTO call(
-      {@JsonKey(ignore: true) String id,
+      {@json.JsonKey(ignore: true) String id,
       @required DateTime creationTime,
       @required int value,
       @required String type,
@@ -39,7 +39,7 @@ class _$GradesDTOTearOff {
 const $GradesDTO = _$GradesDTOTearOff();
 
 mixin _$GradesDTO {
-  @JsonKey(ignore: true)
+  @json.JsonKey(ignore: true)
   String get id;
   DateTime get creationTime;
   int get value;
@@ -56,7 +56,7 @@ abstract class $GradesDTOCopyWith<$Res> {
   factory $GradesDTOCopyWith(GradesDTO value, $Res Function(GradesDTO) then) =
       _$GradesDTOCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(ignore: true) String id,
+      {@json.JsonKey(ignore: true) String id,
       DateTime creationTime,
       int value,
       String type,
@@ -103,7 +103,7 @@ abstract class _$GradesDTOCopyWith<$Res> implements $GradesDTOCopyWith<$Res> {
       __$GradesDTOCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(ignore: true) String id,
+      {@json.JsonKey(ignore: true) String id,
       DateTime creationTime,
       int value,
       String type,
@@ -148,7 +148,7 @@ class __$GradesDTOCopyWithImpl<$Res> extends _$GradesDTOCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_GradesDTO extends _GradesDTO {
   const _$_GradesDTO(
-      {@JsonKey(ignore: true) this.id,
+      {@json.JsonKey(ignore: true) this.id,
       @required this.creationTime,
       @required this.value,
       @required this.type,
@@ -167,7 +167,7 @@ class _$_GradesDTO extends _GradesDTO {
       _$_$_GradesDTOFromJson(json);
 
   @override
-  @JsonKey(ignore: true)
+  @json.JsonKey(ignore: true)
   final String id;
   @override
   final DateTime creationTime;
@@ -234,7 +234,7 @@ class _$_GradesDTO extends _GradesDTO {
 abstract class _GradesDTO extends GradesDTO {
   const _GradesDTO._() : super._();
   const factory _GradesDTO(
-      {@JsonKey(ignore: true) String id,
+      {@json.JsonKey(ignore: true) String id,
       @required DateTime creationTime,
       @required int value,
       @required String type,
@@ -246,7 +246,7 @@ abstract class _GradesDTO extends GradesDTO {
       _$_GradesDTO.fromJson;
 
   @override
-  @JsonKey(ignore: true)
+  @json.JsonKey(ignore: true)
   String get id;
   @override
   DateTime get creationTime;

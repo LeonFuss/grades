@@ -15,7 +15,7 @@ class HeaderCard extends HookWidget {
   Widget build(BuildContext context) {
     final statisticBloc = useProvider(statisticBlocProvider);
     final gradeValue = useDropdownValue(context, 0);
-    final Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
 
     return Hero(
       tag: 'main_header',

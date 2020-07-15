@@ -14,10 +14,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class SignInForm extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final LoginBloc loginBloc = useProvider(loginBlocProvider);
-    final FocusNode focusNode = useFocusNode();
+    final loginBloc = useProvider(loginBlocProvider);
+    final focusNode = useFocusNode();
 
-    final Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
     return BlocConsumer<LoginBloc, LoginState>(
       bloc: loginBloc,
       listener: (context, state) {

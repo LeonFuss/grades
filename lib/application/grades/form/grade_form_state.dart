@@ -13,7 +13,7 @@ abstract class GradeFormState with _$GradeFormState {
 
   factory GradeFormState.initial() => GradeFormState(
         subjects: KtList.empty(),
-        grade: Grade.empty(),
+        grade: Grade.empty(Term(1)),
         showErrorMessages: false,
         isEditing: false,
         isSaving: false,

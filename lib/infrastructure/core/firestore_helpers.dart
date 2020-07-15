@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:grades/domain/auth/i_auth_facade.dart';
-import 'package:grades/domain/auth/user.dart';
 import 'package:grades/domain/core/errors.dart';
 import 'package:grades/injection.dart';
 
@@ -12,7 +11,7 @@ extension FirestoreX on Firestore {
   /// Sollte das nicht erfüllt sein wird ein  [NotAuthenticatedError] geworfen.
   Future<DocumentReference> userDocument() async {
     final userOption = await getIt<IAuthFacade>().getSignedInUser();
-    final User user = userOption.getOrElse(() => throw NotAuthenticatedError());
+    final user = userOption.getOrElse(() => throw NotAuthenticatedError());
     return Firestore.instance
         .collection('users')
         .document(user.id.getOrCrash());

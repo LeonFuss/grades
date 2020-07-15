@@ -24,7 +24,7 @@ class GradeItem extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(8))),
               title: const Text('Note löschen'),
               content: Text(
-                "Nach dem Löschen ist die Note ${grade.description.getOrCrash().trim()} nicht mehr wiederherstellbar",
+                'Nach dem Löschen ist die Note ${grade.description.getOrCrash().trim()} nicht mehr wiederherstellbar',
               ),
               actions: <Widget>[
                 FlatButton(

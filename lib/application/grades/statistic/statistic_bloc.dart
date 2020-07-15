@@ -4,10 +4,10 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:grades/domain/grades/grade.dart';
+import 'package:grades/domain/grades/grade_failures.dart';
+import 'package:grades/domain/grades/i_grade_repository.dart';
 import 'package:grades/domain/grades/value_objects.dart';
-import 'package:grades/domain/subjects/i_subject_repository.dart';
 import 'package:grades/domain/subjects/subject.dart';
-import 'package:grades/domain/subjects/subject_failures.dart';
 import 'package:grades/domain/subjects/value_objects.dart';
 import 'package:injectable/injectable.dart';
 import 'package:kt_dart/collection.dart';
@@ -20,12 +20,12 @@ part 'statistic_state.dart';
 /// gibt die korrespondierenden Ergebnisse zurück.
 @injectable
 class StatisticBloc extends Bloc<StatisticEvent, StatisticState> {
-  final ISubjectRepository _subjectRepository;
+  final IGradeRepository _gradeRepository;
 
-  StatisticBloc(this._subjectRepository)
+  StatisticBloc(this._gradeRepository)
       : super(StatisticState.initial(term: Term(1)));
 
-  StreamSubscription<Either<SubjectFailures, KtList<Grade>>>
+  StreamSubscription<Either<GradeFailures, KtList<Grade>>>
       _gradesStreamSubscription;
 
   @override
@@ -41,7 +41,7 @@ class StatisticBloc extends Bloc<StatisticEvent, StatisticState> {
         ///Ein Stream zur Datenbank wird hergestellt und
         ///die ermittelten Daten werden durch das Event [GradeWatchAllEvent.gradesReceived] weitergegeben.
         await _gradesStreamSubscription?.cancel();
-        _gradesStreamSubscription = _subjectRepository
+        _gradesStreamSubscription = _gradeRepository
             .watchAllGrades(term)
             .listen((grades) => add(StatisticEvent.gradesReceived(
                   grades,
@@ -57,13 +57,13 @@ class StatisticBloc extends Bloc<StatisticEvent, StatisticState> {
         yield e.failureOrGrades
             .fold((f) => StatisticState.loadFailure(failures: f, term: term),
                 (grades) {
-          final List<Grade> sortedGrades = grades.asList().toList();
+          final sortedGrades = grades.asList().toList();
           sortedGrades.sort((a, b) => a.creationTime.compareTo(b.creationTime));
           final oralGrades = sortedGrades
-              .where((grade) => grade.type.getOrCrash() == "Mündlich")
+              .where((grade) => grade.type.getOrCrash() == 'Mündlich')
               .toList();
           final writtenGrades = sortedGrades
-              .where((grade) => grade.type.getOrCrash() == "Schriftlich")
+              .where((grade) => grade.type.getOrCrash() == 'Schriftlich')
               .toList();
 
           return StatisticState.loadSuccess(

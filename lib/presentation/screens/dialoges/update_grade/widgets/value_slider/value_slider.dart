@@ -87,7 +87,7 @@ class _ValueSliderState extends State<ValueSlider>
   }
 
   void _updateDragPosition(Offset value) {
-    double newDragPosition = 0;
+    var newDragPosition = 0.0;
     if (value.dx <= 0) {
       newDragPosition = 0;
     } else if (value.dx > widget.width) {
@@ -102,7 +102,7 @@ class _ValueSliderState extends State<ValueSlider>
   }
 
   void _onDragStart(BuildContext context, DragStartDetails updateDetails) {
-    final Offset localOffset =
+    final localOffset =
         _getLocalOffsetFromGlobalOffset(context, updateDetails.globalPosition);
     _slideController.setStateToStart();
     _updateDragPosition(localOffset);
@@ -110,7 +110,7 @@ class _ValueSliderState extends State<ValueSlider>
   }
 
   void _onDragUpdate(BuildContext context, DragUpdateDetails updateDetails) {
-    final Offset localOffset =
+    final localOffset =
         _getLocalOffsetFromGlobalOffset(context, updateDetails.globalPosition);
     _slideController.setStateToSliding();
     _updateDragPosition(localOffset);
@@ -125,7 +125,7 @@ class _ValueSliderState extends State<ValueSlider>
 
   Offset _getLocalOffsetFromGlobalOffset(
       BuildContext context, Offset globalPosition) {
-    final RenderBox box = context.findRenderObject() as RenderBox;
+    final box = context.findRenderObject() as RenderBox;
     return box.globalToLocal(globalPosition);
   }
 }

@@ -59,7 +59,7 @@ class UpdateGradeFloatingActionButton extends HookWidget {
                 ),
                 const SizedBox(width: 4),
                 Text(
-                  "SPEICHERN",
+                  'SPEICHERN',
                   style: TextStyles.body.c(AppColors.white),
                 ),
               ],

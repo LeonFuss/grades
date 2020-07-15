@@ -11,8 +11,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class GradesOverviewBody extends HookWidget {
   @override
   Widget build(BuildContext context) {
-    final SubjectWatcherBloc subjectWatcherBloc =
-        useProvider(subjectWatcherBlocProvider);
+    final subjectWatcherBloc = useProvider(subjectWatcherBlocProvider);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[

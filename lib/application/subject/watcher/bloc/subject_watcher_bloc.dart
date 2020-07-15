@@ -40,8 +40,10 @@ class SubjectWatcherBloc
         ///Ein Stream zur Datenbank wird hergestellt und
         ///1die ermittelten Daten werden durch das Event [SubjectWatcherEvent.subjectsReceived] weitergegeben.
         await _subjectStreamSubscription?.cancel();
-        _subjectStreamSubscription = _subjectRepository.watchAll(term).listen(
-            (subjects) => add(SubjectWatcherEvent.subjectsReceived(subjects)));
+        _subjectStreamSubscription = _subjectRepository
+            .watchAllSubjects(term)
+            .listen((subjects) =>
+                add(SubjectWatcherEvent.subjectsReceived(subjects)));
       },
 
       ///[SubjectWatcherEvent.subjectsReceived] wurde ausgelöst.

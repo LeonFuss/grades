@@ -11,8 +11,8 @@ class SubjectDetailHeaderPainter extends CustomPainter {
 
     final paint = Paint()..color = AppColors.secondScaffold;
 
-    for (int i = 0; i < 4; i++) {
-      for (int j = 0; j < 5; j++) {
+    for (var i = 0; i < 4; i++) {
+      for (var j = 0; j < 5; j++) {
         canvas.drawCircle(
             Offset(width / 9 * 7 - width / 8 * i,
                 (height / 8 * j + 20).toDouble()),

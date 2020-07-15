@@ -4,6 +4,9 @@ import 'package:grades/domain/core/value_objects.dart';
 import 'package:grades/domain/grades/value_objects.dart';
 import 'package:grades/domain/subjects/subject.dart';
 import 'package:grades/domain/subjects/value_objects.dart';
+import 'package:grades/infrastructure/sql_database/app_database.dart';
+import 'package:json_annotation/json_annotation.dart' as json;
+import 'package:moor/moor.dart';
 
 part 'subjects_dto.freezed.dart';
 part 'subjects_dto.g.dart';
@@ -13,7 +16,7 @@ part 'subjects_dto.g.dart';
 @freezed
 abstract class SubjectsDTO implements _$SubjectsDTO {
   const factory SubjectsDTO({
-    @JsonKey(ignore: true) String id,
+    @json.JsonKey(ignore: true) String id,
     @required String name,
     @required double average,
     @required double oralAverage,
@@ -48,9 +51,32 @@ abstract class SubjectsDTO implements _$SubjectsDTO {
     );
   }
 
+  SubjectsCompanion toDBO() {
+    return SubjectsCompanion(
+      term: Value(term),
+      id: Value(id),
+      name: Value(name),
+      average: Value(average),
+      oralAverage: Value(oralAverage),
+      writtenAverage: Value(writtenAverage),
+      position: Value(position),
+    );
+  }
+
   factory SubjectsDTO.fromFirestore(DocumentSnapshot snapshot) {
     return SubjectsDTO.fromJson(snapshot.data)
         .copyWith(id: snapshot.documentID);
+  }
+
+  factory SubjectsDTO.fromDBO(SubjectDBO dbo) {
+    return SubjectsDTO(
+        term: dbo.term,
+        position: dbo.position,
+        writtenAverage: dbo.writtenAverage,
+        oralAverage: dbo.oralAverage,
+        average: dbo.average,
+        name: dbo.name,
+        id: dbo.id);
   }
 
   factory SubjectsDTO.fromJson(Map<String, dynamic> json) =>

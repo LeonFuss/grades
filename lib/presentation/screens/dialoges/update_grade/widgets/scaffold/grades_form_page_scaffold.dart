@@ -17,7 +17,7 @@ class GradeFormPageScaffold extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final gradeFormBloc = useProvider(gradeFormBlocProvider);
-    final bool showFab = context.mq.viewInsets.bottom < 40;
+    final showFab = context.mq.viewInsets.bottom < 40;
 
     return Container(
       color: AppColors.secondScaffold,

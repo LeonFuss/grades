@@ -10,7 +10,7 @@ abstract class GradeWatchAllEvent with _$GradeWatchAllEvent {
   ///Daten wurden erfolgreich empfangen.
   ///Validierung der Daten gefordert.
   const factory GradeWatchAllEvent.gradesReceived(
-    Either<SubjectFailures, KtList<Grade>> failureOrGrades,
+    Either<GradeFailures, KtList<Grade>> failureOrGrades,
   ) = GradesReceived;
 
   ///Wechseln des aktuellen Halbjahres gefordert.

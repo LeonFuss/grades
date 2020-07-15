@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:grades/domain/grades/i_grade_repository.dart';
 import 'package:grades/domain/subjects/i_subject_repository.dart';
 import 'package:grades/domain/subjects/subject.dart';
 import 'package:grades/domain/subjects/subject_failures.dart';
@@ -15,9 +16,11 @@ part 'subject_actor_state.dart';
 @injectable
 class SubjectActorBloc extends Bloc<SubjectActorEvent, SubjectActorState> {
   final ISubjectRepository _subjectRepository;
+  final IGradeRepository _gradeRepository;
 
   SubjectActorBloc(
     this._subjectRepository,
+    this._gradeRepository,
   ) : super(const SubjectActorState.initial());
 
   @override
@@ -26,9 +29,12 @@ class SubjectActorBloc extends Bloc<SubjectActorEvent, SubjectActorState> {
   ) async* {
     yield const SubjectActorState.actionInProgress();
     final possibleFailure = await event.when(
-      deleted: (subject) => _subjectRepository.delete(event.subject),
-      create: (subject) => _subjectRepository.create(event.subject),
-      update: (subject) => _subjectRepository.update(event.subject),
+      deleted: (subject) {
+        _subjectRepository.deleteSubject(event.subject);
+        _gradeRepository.deleteAllSubjectGrades(event.subject);
+      },
+      create: (subject) => _subjectRepository.createSubject(event.subject),
+      update: (subject) => _subjectRepository.updateSubject(event.subject),
     );
 
     yield possibleFailure.fold(

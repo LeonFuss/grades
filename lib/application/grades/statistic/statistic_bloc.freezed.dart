@@ -17,7 +17,7 @@ class _$StatisticEventTearOff {
   }
 
   GradesReceived gradesReceived(
-      Either<SubjectFailures, KtList<Grade>> failureOrGrades) {
+      Either<GradeFailures, KtList<Grade>> failureOrGrades) {
     return GradesReceived(
       failureOrGrades,
     );
@@ -39,14 +39,13 @@ mixin _$StatisticEvent {
     @required Result statisticStarted(),
     @required
         Result gradesReceived(
-            Either<SubjectFailures, KtList<Grade>> failureOrGrades),
+            Either<GradeFailures, KtList<Grade>> failureOrGrades),
     @required Result changeTerm(Term term),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result statisticStarted(),
-    Result gradesReceived(
-        Either<SubjectFailures, KtList<Grade>> failureOrGrades),
+    Result gradesReceived(Either<GradeFailures, KtList<Grade>> failureOrGrades),
     Result changeTerm(Term term),
     @required Result orElse(),
   });
@@ -120,7 +119,7 @@ class _$WatchSubjectGradesStarted implements WatchSubjectGradesStarted {
     @required Result statisticStarted(),
     @required
         Result gradesReceived(
-            Either<SubjectFailures, KtList<Grade>> failureOrGrades),
+            Either<GradeFailures, KtList<Grade>> failureOrGrades),
     @required Result changeTerm(Term term),
   }) {
     assert(statisticStarted != null);
@@ -133,8 +132,7 @@ class _$WatchSubjectGradesStarted implements WatchSubjectGradesStarted {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result statisticStarted(),
-    Result gradesReceived(
-        Either<SubjectFailures, KtList<Grade>> failureOrGrades),
+    Result gradesReceived(Either<GradeFailures, KtList<Grade>> failureOrGrades),
     Result changeTerm(Term term),
     @required Result orElse(),
   }) {
@@ -182,7 +180,7 @@ abstract class $GradesReceivedCopyWith<$Res> {
   factory $GradesReceivedCopyWith(
           GradesReceived value, $Res Function(GradesReceived) then) =
       _$GradesReceivedCopyWithImpl<$Res>;
-  $Res call({Either<SubjectFailures, KtList<Grade>> failureOrGrades});
+  $Res call({Either<GradeFailures, KtList<Grade>> failureOrGrades});
 }
 
 class _$GradesReceivedCopyWithImpl<$Res>
@@ -202,7 +200,7 @@ class _$GradesReceivedCopyWithImpl<$Res>
     return _then(GradesReceived(
       failureOrGrades == freezed
           ? _value.failureOrGrades
-          : failureOrGrades as Either<SubjectFailures, KtList<Grade>>,
+          : failureOrGrades as Either<GradeFailures, KtList<Grade>>,
     ));
   }
 }
@@ -212,7 +210,7 @@ class _$GradesReceived implements GradesReceived {
       : assert(failureOrGrades != null);
 
   @override
-  final Either<SubjectFailures, KtList<Grade>> failureOrGrades;
+  final Either<GradeFailures, KtList<Grade>> failureOrGrades;
 
   @override
   String toString() {
@@ -243,7 +241,7 @@ class _$GradesReceived implements GradesReceived {
     @required Result statisticStarted(),
     @required
         Result gradesReceived(
-            Either<SubjectFailures, KtList<Grade>> failureOrGrades),
+            Either<GradeFailures, KtList<Grade>> failureOrGrades),
     @required Result changeTerm(Term term),
   }) {
     assert(statisticStarted != null);
@@ -256,8 +254,7 @@ class _$GradesReceived implements GradesReceived {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result statisticStarted(),
-    Result gradesReceived(
-        Either<SubjectFailures, KtList<Grade>> failureOrGrades),
+    Result gradesReceived(Either<GradeFailures, KtList<Grade>> failureOrGrades),
     Result changeTerm(Term term),
     @required Result orElse(),
   }) {
@@ -299,10 +296,9 @@ class _$GradesReceived implements GradesReceived {
 
 abstract class GradesReceived implements StatisticEvent {
   const factory GradesReceived(
-          Either<SubjectFailures, KtList<Grade>> failureOrGrades) =
-      _$GradesReceived;
+      Either<GradeFailures, KtList<Grade>> failureOrGrades) = _$GradesReceived;
 
-  Either<SubjectFailures, KtList<Grade>> get failureOrGrades;
+  Either<GradeFailures, KtList<Grade>> get failureOrGrades;
   $GradesReceivedCopyWith<GradesReceived> get copyWith;
 }
 
@@ -364,7 +360,7 @@ class _$ChangeTerm implements ChangeTerm {
     @required Result statisticStarted(),
     @required
         Result gradesReceived(
-            Either<SubjectFailures, KtList<Grade>> failureOrGrades),
+            Either<GradeFailures, KtList<Grade>> failureOrGrades),
     @required Result changeTerm(Term term),
   }) {
     assert(statisticStarted != null);
@@ -377,8 +373,7 @@ class _$ChangeTerm implements ChangeTerm {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result statisticStarted(),
-    Result gradesReceived(
-        Either<SubjectFailures, KtList<Grade>> failureOrGrades),
+    Result gradesReceived(Either<GradeFailures, KtList<Grade>> failureOrGrades),
     Result changeTerm(Term term),
     @required Result orElse(),
   }) {
@@ -468,7 +463,7 @@ class _$StatisticStateTearOff {
   }
 
   LoadFailure loadFailure(
-      {@required SubjectFailures failures, @required Term term}) {
+      {@required GradeFailures failures, @required Term term}) {
     return LoadFailure(
       failures: failures,
       term: term,
@@ -499,7 +494,7 @@ mixin _$StatisticState {
             String worseSubjectAverage,
             String gradeAverage,
             Term term),
-    @required Result loadFailure(SubjectFailures failures, Term term),
+    @required Result loadFailure(GradeFailures failures, Term term),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
@@ -517,7 +512,7 @@ mixin _$StatisticState {
         String worseSubjectAverage,
         String gradeAverage,
         Term term),
-    Result loadFailure(SubjectFailures failures, Term term),
+    Result loadFailure(GradeFailures failures, Term term),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -634,7 +629,7 @@ class _$Initial implements Initial {
             String worseSubjectAverage,
             String gradeAverage,
             Term term),
-    @required Result loadFailure(SubjectFailures failures, Term term),
+    @required Result loadFailure(GradeFailures failures, Term term),
   }) {
     assert(initial != null);
     assert(loadInProgress != null);
@@ -660,7 +655,7 @@ class _$Initial implements Initial {
         String worseSubjectAverage,
         String gradeAverage,
         Term term),
-    Result loadFailure(SubjectFailures failures, Term term),
+    Result loadFailure(GradeFailures failures, Term term),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -786,7 +781,7 @@ class _$DataTransferInProgress implements DataTransferInProgress {
             String worseSubjectAverage,
             String gradeAverage,
             Term term),
-    @required Result loadFailure(SubjectFailures failures, Term term),
+    @required Result loadFailure(GradeFailures failures, Term term),
   }) {
     assert(initial != null);
     assert(loadInProgress != null);
@@ -812,7 +807,7 @@ class _$DataTransferInProgress implements DataTransferInProgress {
         String worseSubjectAverage,
         String gradeAverage,
         Term term),
-    Result loadFailure(SubjectFailures failures, Term term),
+    Result loadFailure(GradeFailures failures, Term term),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1068,7 +1063,7 @@ class _$LoadSuccess implements LoadSuccess {
             String worseSubjectAverage,
             String gradeAverage,
             Term term),
-    @required Result loadFailure(SubjectFailures failures, Term term),
+    @required Result loadFailure(GradeFailures failures, Term term),
   }) {
     assert(initial != null);
     assert(loadInProgress != null);
@@ -1105,7 +1100,7 @@ class _$LoadSuccess implements LoadSuccess {
         String worseSubjectAverage,
         String gradeAverage,
         Term term),
-    Result loadFailure(SubjectFailures failures, Term term),
+    Result loadFailure(GradeFailures failures, Term term),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1194,9 +1189,9 @@ abstract class $LoadFailureCopyWith<$Res>
           LoadFailure value, $Res Function(LoadFailure) then) =
       _$LoadFailureCopyWithImpl<$Res>;
   @override
-  $Res call({SubjectFailures failures, Term term});
+  $Res call({GradeFailures failures, Term term});
 
-  $SubjectFailuresCopyWith<$Res> get failures;
+  $GradeFailuresCopyWith<$Res> get failures;
 }
 
 class _$LoadFailureCopyWithImpl<$Res> extends _$StatisticStateCopyWithImpl<$Res>
@@ -1215,17 +1210,17 @@ class _$LoadFailureCopyWithImpl<$Res> extends _$StatisticStateCopyWithImpl<$Res>
   }) {
     return _then(LoadFailure(
       failures:
-          failures == freezed ? _value.failures : failures as SubjectFailures,
+          failures == freezed ? _value.failures : failures as GradeFailures,
       term: term == freezed ? _value.term : term as Term,
     ));
   }
 
   @override
-  $SubjectFailuresCopyWith<$Res> get failures {
+  $GradeFailuresCopyWith<$Res> get failures {
     if (_value.failures == null) {
       return null;
     }
-    return $SubjectFailuresCopyWith<$Res>(_value.failures, (value) {
+    return $GradeFailuresCopyWith<$Res>(_value.failures, (value) {
       return _then(_value.copyWith(failures: value));
     });
   }
@@ -1237,7 +1232,7 @@ class _$LoadFailure implements LoadFailure {
         assert(term != null);
 
   @override
-  final SubjectFailures failures;
+  final GradeFailures failures;
   @override
   final Term term;
 
@@ -1285,7 +1280,7 @@ class _$LoadFailure implements LoadFailure {
             String worseSubjectAverage,
             String gradeAverage,
             Term term),
-    @required Result loadFailure(SubjectFailures failures, Term term),
+    @required Result loadFailure(GradeFailures failures, Term term),
   }) {
     assert(initial != null);
     assert(loadInProgress != null);
@@ -1311,7 +1306,7 @@ class _$LoadFailure implements LoadFailure {
         String worseSubjectAverage,
         String gradeAverage,
         Term term),
-    Result loadFailure(SubjectFailures failures, Term term),
+    Result loadFailure(GradeFailures failures, Term term),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -1355,10 +1350,9 @@ class _$LoadFailure implements LoadFailure {
 
 abstract class LoadFailure implements StatisticState {
   const factory LoadFailure(
-      {@required SubjectFailures failures,
-      @required Term term}) = _$LoadFailure;
+      {@required GradeFailures failures, @required Term term}) = _$LoadFailure;
 
-  SubjectFailures get failures;
+  GradeFailures get failures;
   @override
   Term get term;
   @override

@@ -22,5 +22,5 @@ abstract class GradeWatchAllState with _$GradeWatchAllState {
   ///Zustand der eintritt, wenn Daten nicht erfolgreich geladen wurden.
   ///Es sind ein Fehlerbericht und das aktuelle Halbjahr gespeichert.
   const factory GradeWatchAllState.loadFailure(
-      {@required SubjectFailures failures, @required Term term}) = LoadFailure;
+      {@required GradeFailures failures, @required Term term}) = LoadFailure;
 }

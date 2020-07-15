@@ -35,31 +35,32 @@ class GradeFormBloc extends Bloc<GradeFormEvent, GradeFormState> {
     yield* event.map(
       initialized: (e) async* {
         yield e.initialGradeOption.fold(
-          () => state.copyWith(
+          () => GradeFormState.initial().copyWith(
             grade: e.subject.fold(
-              () => Grade.empty(term: Term(1)),
+              () => Grade.empty(Term(1)),
               (a) => state.grade.copyWith(subjectId: a.id),
             ),
           ),
           (initialGrade) {
-            return state.copyWith(
+            return GradeFormState.initial().copyWith(
               grade: initialGrade,
               isEditing: true,
             );
           },
         );
-        final subjects = await _subjectRepository.getAll(state.grade.term);
-        yield subjects.fold(
-            (l) => state,
-            (r) => e.subject.fold(
+        final subjects =
+            await _subjectRepository.getAllSubjects(state.grade.term);
+        yield subjects.fold((l) => state, (r) => state.copyWith(subjects: r)
+            /* (r) => e.subject.fold(
                 () => state.copyWith(
                     subjects: r,
                     grade: r.isNotEmpty() && e.initialGradeOption.isNone()
                         ? state.grade.copyWith(subjectId: r.asList().first.id)
-                        : Grade.empty(term: Term(1))),
+                        : state.grade),
                 (a) => state.copyWith(
                       subjects: r,
-                    )));
+                    ))*/
+            );
       },
       descriptionChanged: (e) async* {
         yield state.copyWith(
@@ -99,8 +100,8 @@ class GradeFormBloc extends Bloc<GradeFormEvent, GradeFormState> {
 
         if (state.grade.failureOption.isNone()) {
           failureOrSuccess = state.isEditing
-              ? await _gradeRepository.update(state.grade)
-              : await _gradeRepository.create(state.grade);
+              ? await _gradeRepository.updateGrade(state.grade)
+              : await _gradeRepository.createGrade(state.grade);
         }
         yield state.copyWith(
           grade: failureOrSuccess == null

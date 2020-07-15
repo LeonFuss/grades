@@ -18,7 +18,7 @@ class HeaderCard extends HookWidget {
     final gradeWatchAllBloc = useProvider(gradeWatchAllBlocProvider)
       ..add(const GradeWatchAllEvent.watchAllStarted());
     final gradeValue = useDropdownValue(context, 0);
-    final Size size = MediaQuery.of(context).size;
+    final size = MediaQuery.of(context).size;
 
     return Hero(
       tag: 'main_header',

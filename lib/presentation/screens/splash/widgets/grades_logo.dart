@@ -9,7 +9,7 @@ class GradesLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double sizeParam = size ?? MediaQuery.of(context).size.height / 50;
+    final sizeParam = size ?? MediaQuery.of(context).size.height / 50;
     return Center(
       child: CustomPaint(
         painter: LogoPainter(),
@@ -25,8 +25,8 @@ class GradesLogo extends StatelessWidget {
 class LogoPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    Path path = Path();
-    final Paint paint = Paint();
+    var path = Path();
+    final paint = Paint();
 
     path.addOval(Rect.fromCircle(
         center: Offset(size.width * 0.3, size.height * 0.5),

@@ -13,19 +13,18 @@ class HeaderCardPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final Paint paint = Paint()
+    final paint = Paint()
       ..color = AppColors.scaffold
       ..strokeWidth = 0.2;
-    final int gradeCount = ((size.width - 40) / 40).ceil();
+    final gradeCount = ((size.width - 40) / 40).ceil();
 
     const gradeValueOverview = [0, 5, 10, 15];
 
-    final int maxGradeCount = min(gradeCount, grades.size);
+    final maxGradeCount = min(gradeCount, grades.size);
 
-    final int valueHeight =
-        ((size.height * 0.94) / gradeValueOverview.last).ceil();
+    final valueHeight = ((size.height * 0.94) / gradeValueOverview.last).ceil();
 
-    final int valueWidth = ((size.width * 0.9) / gradeCount).ceil();
+    final valueWidth = ((size.width * 0.9) / gradeCount).ceil();
 
     for (final gradeValue in gradeValueOverview) {
       final textStyle = TextStyle(
@@ -51,10 +50,10 @@ class HeaderCardPainter extends CustomPainter {
       canvas.drawLine(Offset(40, offset.dy + 10),
           Offset(size.width, offset.dy + 10), paint);
     }
-    final Path path = Path();
+    final path = Path();
     paint.strokeWidth = 2;
 
-    final List<Offset> gradeOffsets = _getOffsetList(
+    final gradeOffsets = _getOffsetList(
         gradeCount, maxGradeCount, valueHeight, valueWidth, size);
 
     for (final gradeOffset in gradeOffsets) {
@@ -63,7 +62,7 @@ class HeaderCardPainter extends CustomPainter {
 
     canvas.drawPath(path, paint);
 
-    for (int i = 0; i < gradeOffsets.length; i++) {
+    for (var i = 0; i < gradeOffsets.length; i++) {
       if (i == gradeOffsets.length - 1) break;
       final offset1 = gradeOffsets[i];
       final offset2 = gradeOffsets[i + 1];
@@ -79,9 +78,9 @@ class HeaderCardPainter extends CustomPainter {
   List<Offset> _getOffsetList(int gradeCount, int maxGradeCount,
       int valueHeight, int valueWidth, Size size) {
     final visibleGrades = grades.asList().sublist(grades.size - maxGradeCount);
-    final List<Offset> offsets = [];
+    final offsets = <Offset>[];
 
-    for (int i = 0; i < visibleGrades.length; i++) {
+    for (var i = 0; i < visibleGrades.length; i++) {
       final value = visibleGrades[i].value.getOrCrash();
       final offset = Offset((i * valueWidth + 40).toDouble(),
           size.height - (value * valueHeight).toDouble());

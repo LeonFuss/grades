@@ -62,30 +62,30 @@ class ValuePainter extends CustomPainter {
   }
 
   void _paintRestingWave(Canvas canvas, Size size) {
-    final Path path = Path();
+    final path = Path();
     path.moveTo(0.0, size.height / 2);
     path.lineTo(size.width, size.height / 2);
     canvas.drawPath(path, wavePainter);
   }
 
   void _paintStartupWave(Canvas canvas, Size size) {
-    final WaveCurveDefinitions line = _calculateWaveLineDefinitions(size);
+    final line = _calculateWaveLineDefinitions(size);
 
-    final double waveHeight = lerpDouble(size.height / 2, line.controlHeight,
+    final waveHeight = lerpDouble(size.height / 2, line.controlHeight,
         Curves.elasticOut.transform(animationProgress));
     line.controlHeight = waveHeight;
     _paintWaveLine(canvas, size, line);
   }
 
   void _paintSlidingWave(Canvas canvas, Size size) {
-    final WaveCurveDefinitions line = _calculateWaveLineDefinitions(size);
+    final line = _calculateWaveLineDefinitions(size);
     _paintWaveLine(canvas, size, line);
   }
 
   void _paintStoppingWave(Canvas canvas, Size size) {
-    final WaveCurveDefinitions line = _calculateWaveLineDefinitions(size);
+    final line = _calculateWaveLineDefinitions(size);
 
-    final double waveHeight = lerpDouble(line.controlHeight, size.height / 2,
+    final waveHeight = lerpDouble(line.controlHeight, size.height / 2,
         Curves.elasticOut.transform(animationProgress));
 
     line.controlHeight = waveHeight;
@@ -95,7 +95,7 @@ class ValuePainter extends CustomPainter {
 
   void _paintWaveLine(
       Canvas canvas, Size size, WaveCurveDefinitions waveCurve) {
-    final Path path = Path();
+    final path = Path();
     path.moveTo(0.0, size.height / 2);
     path.lineTo(waveCurve.startOfBezier, size.height / 2);
     path.cubicTo(
@@ -118,44 +118,44 @@ class ValuePainter extends CustomPainter {
   }
 
   WaveCurveDefinitions _calculateWaveLineDefinitions(Size size) {
-    final double minWaveHeight = size.height / 2 * 0.2;
-    final double maxWaveHeight = size.height / 2 * 0.8;
+    final minWaveHeight = size.height / 2 * 0.2;
+    final maxWaveHeight = size.height / 2 * 0.8;
 
-    final double controlHeight =
+    final controlHeight =
         (size.height / 2 - minWaveHeight) - (maxWaveHeight * dragPercentage);
 
-    final double bendWidth = 20 + 20 * dragPercentage;
-    final double bezierWidth = 20 + 20 * dragPercentage;
+    final bendWidth = 20 + 20 * dragPercentage;
+    final bezierWidth = 20 + 20 * dragPercentage;
 
-    double centerPoint = sliderPosition;
+    var centerPoint = sliderPosition;
     centerPoint = (centerPoint > size.width) ? size.width : centerPoint;
 
-    double startOfBend = centerPoint - bendWidth / 2;
-    double startOfBezier = startOfBend - bezierWidth;
-    double endOfBend = sliderPosition + bendWidth / 2;
-    double endOfBezier = endOfBend + bezierWidth;
+    var startOfBend = centerPoint - bendWidth / 2;
+    var startOfBezier = startOfBend - bezierWidth;
+    var endOfBend = sliderPosition + bendWidth / 2;
+    var endOfBezier = endOfBend + bezierWidth;
 
     startOfBend = (startOfBend <= 0.0) ? 0.0 : startOfBend;
     startOfBezier = (startOfBezier <= 0.0) ? 0.0 : startOfBezier;
     endOfBend = (endOfBend > size.width) ? size.width : endOfBend;
     endOfBezier = (endOfBezier > size.width) ? size.width : endOfBezier;
 
-    double leftBendControlPoint1 = startOfBend;
-    double leftBendControlPoint2 = startOfBend;
-    double rightBendControlPoint1 = endOfBend;
-    double rightBendControlPoint2 = endOfBend;
+    var leftBendControlPoint1 = startOfBend;
+    var leftBendControlPoint2 = startOfBend;
+    var rightBendControlPoint1 = endOfBend;
+    var rightBendControlPoint2 = endOfBend;
 
-    const double bendability = 25.0;
-    const double maxSlideDifference = 30.0;
-    double slideDifference = (sliderPosition - _previousSliderPosition).abs();
+    const bendability = 25.0;
+    const maxSlideDifference = 30.0;
+    var slideDifference = (sliderPosition - _previousSliderPosition).abs();
 
     slideDifference = (slideDifference > maxSlideDifference)
         ? maxSlideDifference
         : slideDifference;
 
-    double bend =
+    var bend =
         lerpDouble(0.0, bendability, slideDifference / maxSlideDifference);
-    final bool moveLeft = sliderPosition < _previousSliderPosition;
+    final moveLeft = sliderPosition < _previousSliderPosition;
     bend = moveLeft ? -bend : bend;
 
     leftBendControlPoint1 = leftBendControlPoint1 + bend;
@@ -165,7 +165,7 @@ class ValuePainter extends CustomPainter {
 
     centerPoint = centerPoint - bend;
 
-    final WaveCurveDefinitions waveCurveDefinitions = WaveCurveDefinitions(
+    final waveCurveDefinitions = WaveCurveDefinitions(
       controlHeight: controlHeight,
       startOfBezier: startOfBezier,
       endOfBezier: endOfBezier,
@@ -181,7 +181,7 @@ class ValuePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(ValuePainter oldDelegate) {
-    final double diff = _previousSliderPosition - oldDelegate.sliderPosition;
+    final diff = _previousSliderPosition - oldDelegate.sliderPosition;
     if (diff.abs() > 20) {
       _previousSliderPosition = sliderPosition;
     } else {

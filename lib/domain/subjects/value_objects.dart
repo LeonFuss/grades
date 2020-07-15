@@ -70,9 +70,9 @@ class Average extends ValueObject<double> {
   factory Average.fromGrades(List<Grade> input) {
     if (input == null || input.isEmpty) return Average.empty();
 
-    final List<int> grades =
+    final grades =
         input.map((Grade grade) => grade.value.getOrCrash()).toList();
-    final int sum =
+    final sum =
         grades.fold(0, (previousValue, element) => previousValue + element);
     return Average(sum / grades.length);
   }

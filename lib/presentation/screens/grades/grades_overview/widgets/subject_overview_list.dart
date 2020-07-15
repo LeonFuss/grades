@@ -55,7 +55,7 @@ class SubjectOverviewList extends HookWidget {
                       shape: AppDesign.roundedBorder,
                       title: const Text('Fach löschen'),
                       content: Text(
-                        "Nach dem Löschen ist das Fach ${subject.name.getOrCrash().trim()} nicht mehr wiederherstellbar",
+                        'Nach dem Löschen ist das Fach ${subject.name.getOrCrash().trim()} nicht mehr wiederherstellbar',
                       ),
                       actions: <Widget>[
                         FlatButton(

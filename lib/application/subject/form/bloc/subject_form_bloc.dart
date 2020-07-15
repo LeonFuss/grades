@@ -27,9 +27,9 @@ class SubjectFormBloc extends Bloc<SubjectFormEvent, SubjectFormState> {
     yield* event.map(
       initialized: (e) async* {
         yield e.initialSubjectOption.fold(
-          () => state,
+          () => SubjectFormState.initial(),
           (initialSubject) {
-            return state.copyWith(
+            return SubjectFormState.initial().copyWith(
               subject: initialSubject,
               isEditing: true,
             );
@@ -53,8 +53,8 @@ class SubjectFormBloc extends Bloc<SubjectFormEvent, SubjectFormState> {
 
         if (state.subject.failureOption.isNone()) {
           failureOrSuccess = state.isEditing
-              ? await _subjectRepository.update(state.subject)
-              : await _subjectRepository.create(state.subject);
+              ? await _subjectRepository.updateSubject(state.subject)
+              : await _subjectRepository.createSubject(state.subject);
         }
         yield state.copyWith(
           isSaving: false,

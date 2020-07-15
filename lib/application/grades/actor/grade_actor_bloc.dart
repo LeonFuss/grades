@@ -26,9 +26,9 @@ class GradeActorBloc extends Bloc<GradeActorEvent, GradeActorState> {
   ) async* {
     yield const GradeActorState.actionInProgress();
     final possibleFailure = await event.when(
-      deleted: (grade) => _gradeRepository.delete(event.grade),
-      create: (grade) => _gradeRepository.create(event.grade),
-      update: (grade) => _gradeRepository.update(event.grade),
+      deleted: (grade) => _gradeRepository.deleteGrade(event.grade),
+      create: (grade) => _gradeRepository.createGrade(event.grade),
+      update: (grade) => _gradeRepository.updateGrade(event.grade),
     );
 
     _gradeWatchAllBloc.add(const GradeWatchAllEvent.watchAllStarted());

@@ -16,7 +16,7 @@ class _$SubjectsDTOTearOff {
   const _$SubjectsDTOTearOff();
 
   _SubjectsDTO call(
-      {@JsonKey(ignore: true) String id,
+      {@json.JsonKey(ignore: true) String id,
       @required String name,
       @required double average,
       @required double oralAverage,
@@ -39,7 +39,7 @@ class _$SubjectsDTOTearOff {
 const $SubjectsDTO = _$SubjectsDTOTearOff();
 
 mixin _$SubjectsDTO {
-  @JsonKey(ignore: true)
+  @json.JsonKey(ignore: true)
   String get id;
   String get name;
   double get average;
@@ -57,7 +57,7 @@ abstract class $SubjectsDTOCopyWith<$Res> {
           SubjectsDTO value, $Res Function(SubjectsDTO) then) =
       _$SubjectsDTOCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(ignore: true) String id,
+      {@json.JsonKey(ignore: true) String id,
       String name,
       double average,
       double oralAverage,
@@ -105,7 +105,7 @@ abstract class _$SubjectsDTOCopyWith<$Res>
       __$SubjectsDTOCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(ignore: true) String id,
+      {@json.JsonKey(ignore: true) String id,
       String name,
       double average,
       double oralAverage,
@@ -151,7 +151,7 @@ class __$SubjectsDTOCopyWithImpl<$Res> extends _$SubjectsDTOCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_SubjectsDTO extends _SubjectsDTO {
   const _$_SubjectsDTO(
-      {@JsonKey(ignore: true) this.id,
+      {@json.JsonKey(ignore: true) this.id,
       @required this.name,
       @required this.average,
       @required this.oralAverage,
@@ -170,7 +170,7 @@ class _$_SubjectsDTO extends _SubjectsDTO {
       _$_$_SubjectsDTOFromJson(json);
 
   @override
-  @JsonKey(ignore: true)
+  @json.JsonKey(ignore: true)
   final String id;
   @override
   final String name;
@@ -238,7 +238,7 @@ class _$_SubjectsDTO extends _SubjectsDTO {
 abstract class _SubjectsDTO extends SubjectsDTO {
   const _SubjectsDTO._() : super._();
   const factory _SubjectsDTO(
-      {@JsonKey(ignore: true) String id,
+      {@json.JsonKey(ignore: true) String id,
       @required String name,
       @required double average,
       @required double oralAverage,
@@ -250,7 +250,7 @@ abstract class _SubjectsDTO extends SubjectsDTO {
       _$_SubjectsDTO.fromJson;
 
   @override
-  @JsonKey(ignore: true)
+  @json.JsonKey(ignore: true)
   String get id;
   @override
   String get name;

@@ -59,9 +59,9 @@ class GradeWatcherBloc extends Bloc<GradeWatcherEvent, GradeWatcherState> {
             (f) => GradeWatcherState.loadFailure(gradeFailures: f, term: term),
             (grades) {
           final oralGrades =
-              grades.filter((grade) => grade.type.getOrCrash() == "Mündlich");
+              grades.filter((grade) => grade.type.getOrCrash() == 'Mündlich');
           final writtenGrades = grades
-              .filter((grade) => grade.type.getOrCrash() == "Schriftlich");
+              .filter((grade) => grade.type.getOrCrash() == 'Schriftlich');
 
           final oralAverage = Average.fromGrades(oralGrades.asList());
           final writtenAverage = Average.fromGrades(writtenGrades.asList());

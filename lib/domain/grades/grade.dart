@@ -20,7 +20,7 @@ abstract class Grade implements _$Grade {
 
   const Grade._();
 
-  factory Grade.empty({Term term}) {
+  factory Grade.empty(Term term) {
     return Grade(
       creationTime: DateTime.now().toUtc(),
       id: UniqueId(),

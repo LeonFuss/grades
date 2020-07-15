@@ -14,17 +14,11 @@ class SubjectField extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final gradeFormBloc = useProvider(gradeFormBlocProvider);
-    final textEditingController = useTextEditingController();
 
-    return BlocConsumer<GradeFormBloc, GradeFormState>(
+    return BlocBuilder<GradeFormBloc, GradeFormState>(
       bloc: gradeFormBloc,
-      listenWhen: (p, c) => p.isEditing != c.isEditing,
-      listener: (context, state) {
-        textEditingController.text = state.grade.description.getOrCrash();
-      },
       buildWhen: (p, c) =>
-          p.grade.description != c.grade.description ||
-          p.subjects != c.subjects,
+          p.grade.subjectId != c.grade.subjectId || p.subjects != c.subjects,
       builder: (context, state) {
         final subjects = state.subjects;
         return Padding(

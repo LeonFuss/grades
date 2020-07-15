@@ -60,6 +60,17 @@ dependencies:
 
   google_fonts: ^1.1.0
 
+  #Database
+  moor: ^3.2.0
+
+  moor_ffi: ^0.7.0
+
+  path: ^1.6.4
+
+  path_provider: ^1.6.11
+
+
+
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +81,8 @@ dev_dependencies:
   freezed: ^0.11.2
 
   json_serializable: ^3.3.0
+
+  moor_generator: ^3.2.0
 
  #DO not upgrade
   pedantic: ^1.9.0

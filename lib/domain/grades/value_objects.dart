@@ -57,8 +57,8 @@ class GradeType extends ValueObject<String> {
   final Either<ValueFailure<String>, String> value;
 
   static const List<String> gradeTypes = [
-    "Schriftlich",
-    "Mündlich",
+    'Schriftlich',
+    'Mündlich',
   ];
 
   factory GradeType(String input) {

@@ -9,7 +9,7 @@ abstract class StatisticEvent with _$StatisticEvent {
   ///Daten wurden erfolgreich empfangen.
   ///Validierung der Daten gefordert.
   const factory StatisticEvent.gradesReceived(
-    Either<SubjectFailures, KtList<Grade>> failureOrGrades,
+    Either<GradeFailures, KtList<Grade>> failureOrGrades,
   ) = GradesReceived;
 
   ///Wechseln des aktuellen Halbjahres gefordert.
