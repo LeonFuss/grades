@@ -69,6 +69,8 @@ dependencies:
 
   path_provider: ^1.6.11
 
+  hive: ^1.4.1+1
+
 
 
 

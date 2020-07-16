@@ -17,6 +17,7 @@ import 'package:grades/infrastructure/sql_database/grade_dao.dart';
 import 'package:grades/infrastructure/sql_database/subject_dao.dart';
 import 'package:grades/domain/subjects/i_subject_repository.dart';
 import 'package:grades/infrastructure/subjects/subject_repository.dart';
+import 'package:grades/infrastructure/inital_startup/initial_startup.dart';
 import 'package:grades/application/auth/login/bloc/login_bloc.dart';
 import 'package:grades/application/grade/watcher/grade_watcher_bloc.dart';
 import 'package:grades/application/subject/singel_grade_watcher/bloc/subject_watcher_bloc.dart';
@@ -77,6 +78,7 @@ void $initGetIt(GetIt g, {String environment}) {
 
   //Eager singletons must be registered in the right order
   g.registerSingleton<AppDatabase>(AppDatabase());
+  g.registerSingleton<InitialStartup>(InitialStartup());
 }
 
 class _$FirebaseInjectableModule extends FirebaseInjectableModule {}

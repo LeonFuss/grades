@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:grades/infrastructure/core/db_path.dart';
 import 'package:injectable/injectable.dart';
 import 'package:moor/moor.dart';
 import 'package:moor_ffi/moor_ffi.dart';
@@ -23,8 +24,8 @@ class AppDatabase extends _$AppDatabase {
 
 LazyDatabase _openConnection() {
   return LazyDatabase(() async {
-    final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(p.join(dbFolder.path, 'db.sqlite'));
+    final path = await getDirectoryPath();
+    final file = File(p.join(path, 'db.sqlite'));
     return VmDatabase(file);
   });
 }
