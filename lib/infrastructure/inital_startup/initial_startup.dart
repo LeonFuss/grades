@@ -27,12 +27,13 @@ class InitialStartup {
     }
   }
 
-  Future<Either<StartUpFailures, Unit>> startUpPassed()async{
-    try{
+  Future<Either<StartUpFailures, Unit>> startUpPassed() async {
+    try {
       final box = await Hive.openBox<bool>('startup');
-      return right(box.put('isFirstStartup',false));
-    }catch(e){
-      return left(StartupFailures.unexpected());
+      await box.put('isFirstStartup', false);
+      return right(unit);
+    } catch (e) {
+      return left(StartUpFailures.unexpected());
     }
   }
 }
