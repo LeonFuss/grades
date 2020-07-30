@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:grades/domain/grades/grade.dart';
-import 'package:grades/domain/grades/grade_failures.dart';
-import 'package:grades/domain/grades/i_grade_repository.dart';
-import 'package:grades/domain/grades/value_objects.dart';
+import 'package:grades/domain/grade/grades/grade.dart';
+import 'package:grades/domain/grade/grades/grade_failures.dart';
+import 'package:grades/domain/grade/grades/i_grade_repository.dart';
+import 'package:grades/domain/grade/grades/value_objects.dart';
 import 'package:injectable/injectable.dart';
 
 part 'grade_watcher_bloc.freezed.dart';

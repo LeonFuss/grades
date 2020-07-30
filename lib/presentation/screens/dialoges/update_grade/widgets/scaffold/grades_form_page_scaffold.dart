@@ -31,7 +31,7 @@ class GradeFormPageScaffold extends HookWidget {
                 FloatingActionButtonLocation.centerFloat,
             backgroundColor: AppColors.secondScaffold,
             body: BlocBuilder<GradeFormBloc, GradeFormState>(
-              bloc: gradeFormBloc,
+              cubit: gradeFormBloc,
               buildWhen: (p, c) => p.showErrorMessages != c.showErrorMessages,
               builder: (context, state) {
                 return Form(

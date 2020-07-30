@@ -16,12 +16,16 @@ class _$TimetableItemTearOff {
       {@required UniqueId id,
       @required UniqueId subjectId,
       @required Room room,
-      @required SubjectName subjectName}) {
+      @required SubjectName subjectName,
+      @required Day day,
+      @required Period period}) {
     return _TimetableItem(
       id: id,
       subjectId: subjectId,
       room: room,
       subjectName: subjectName,
+      day: day,
+      period: period,
     );
   }
 }
@@ -34,6 +38,8 @@ mixin _$TimetableItem {
   UniqueId get subjectId;
   Room get room;
   SubjectName get subjectName;
+  Day get day;
+  Period get period;
 
   $TimetableItemCopyWith<TimetableItem> get copyWith;
 }
@@ -43,7 +49,12 @@ abstract class $TimetableItemCopyWith<$Res> {
           TimetableItem value, $Res Function(TimetableItem) then) =
       _$TimetableItemCopyWithImpl<$Res>;
   $Res call(
-      {UniqueId id, UniqueId subjectId, Room room, SubjectName subjectName});
+      {UniqueId id,
+      UniqueId subjectId,
+      Room room,
+      SubjectName subjectName,
+      Day day,
+      Period period});
 }
 
 class _$TimetableItemCopyWithImpl<$Res>
@@ -60,6 +71,8 @@ class _$TimetableItemCopyWithImpl<$Res>
     Object subjectId = freezed,
     Object room = freezed,
     Object subjectName = freezed,
+    Object day = freezed,
+    Object period = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as UniqueId,
@@ -69,6 +82,8 @@ class _$TimetableItemCopyWithImpl<$Res>
       subjectName: subjectName == freezed
           ? _value.subjectName
           : subjectName as SubjectName,
+      day: day == freezed ? _value.day : day as Day,
+      period: period == freezed ? _value.period : period as Period,
     ));
   }
 }
@@ -80,7 +95,12 @@ abstract class _$TimetableItemCopyWith<$Res>
       __$TimetableItemCopyWithImpl<$Res>;
   @override
   $Res call(
-      {UniqueId id, UniqueId subjectId, Room room, SubjectName subjectName});
+      {UniqueId id,
+      UniqueId subjectId,
+      Room room,
+      SubjectName subjectName,
+      Day day,
+      Period period});
 }
 
 class __$TimetableItemCopyWithImpl<$Res>
@@ -99,6 +119,8 @@ class __$TimetableItemCopyWithImpl<$Res>
     Object subjectId = freezed,
     Object room = freezed,
     Object subjectName = freezed,
+    Object day = freezed,
+    Object period = freezed,
   }) {
     return _then(_TimetableItem(
       id: id == freezed ? _value.id : id as UniqueId,
@@ -108,6 +130,8 @@ class __$TimetableItemCopyWithImpl<$Res>
       subjectName: subjectName == freezed
           ? _value.subjectName
           : subjectName as SubjectName,
+      day: day == freezed ? _value.day : day as Day,
+      period: period == freezed ? _value.period : period as Period,
     ));
   }
 }
@@ -117,11 +141,15 @@ class _$_TimetableItem extends _TimetableItem {
       {@required this.id,
       @required this.subjectId,
       @required this.room,
-      @required this.subjectName})
+      @required this.subjectName,
+      @required this.day,
+      @required this.period})
       : assert(id != null),
         assert(subjectId != null),
         assert(room != null),
         assert(subjectName != null),
+        assert(day != null),
+        assert(period != null),
         super._();
 
   @override
@@ -132,10 +160,14 @@ class _$_TimetableItem extends _TimetableItem {
   final Room room;
   @override
   final SubjectName subjectName;
+  @override
+  final Day day;
+  @override
+  final Period period;
 
   @override
   String toString() {
-    return 'TimetableItem(id: $id, subjectId: $subjectId, room: $room, subjectName: $subjectName)';
+    return 'TimetableItem(id: $id, subjectId: $subjectId, room: $room, subjectName: $subjectName, day: $day, period: $period)';
   }
 
   @override
@@ -151,7 +183,11 @@ class _$_TimetableItem extends _TimetableItem {
                 const DeepCollectionEquality().equals(other.room, room)) &&
             (identical(other.subjectName, subjectName) ||
                 const DeepCollectionEquality()
-                    .equals(other.subjectName, subjectName)));
+                    .equals(other.subjectName, subjectName)) &&
+            (identical(other.day, day) ||
+                const DeepCollectionEquality().equals(other.day, day)) &&
+            (identical(other.period, period) ||
+                const DeepCollectionEquality().equals(other.period, period)));
   }
 
   @override
@@ -160,7 +196,9 @@ class _$_TimetableItem extends _TimetableItem {
       const DeepCollectionEquality().hash(id) ^
       const DeepCollectionEquality().hash(subjectId) ^
       const DeepCollectionEquality().hash(room) ^
-      const DeepCollectionEquality().hash(subjectName);
+      const DeepCollectionEquality().hash(subjectName) ^
+      const DeepCollectionEquality().hash(day) ^
+      const DeepCollectionEquality().hash(period);
 
   @override
   _$TimetableItemCopyWith<_TimetableItem> get copyWith =>
@@ -173,7 +211,9 @@ abstract class _TimetableItem extends TimetableItem {
       {@required UniqueId id,
       @required UniqueId subjectId,
       @required Room room,
-      @required SubjectName subjectName}) = _$_TimetableItem;
+      @required SubjectName subjectName,
+      @required Day day,
+      @required Period period}) = _$_TimetableItem;
 
   @override
   UniqueId get id;
@@ -183,6 +223,10 @@ abstract class _TimetableItem extends TimetableItem {
   Room get room;
   @override
   SubjectName get subjectName;
+  @override
+  Day get day;
+  @override
+  Period get period;
   @override
   _$TimetableItemCopyWith<_TimetableItem> get copyWith;
 }

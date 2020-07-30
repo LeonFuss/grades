@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:grades/domain/grades/grade.dart';
+import 'package:grades/domain/grade/grades/grade.dart';
 import 'package:grades/presentation/core/style/app_colors.dart';
 import 'package:kt_dart/collection.dart';
 

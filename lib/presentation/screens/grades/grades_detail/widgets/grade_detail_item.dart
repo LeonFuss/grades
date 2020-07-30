@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grades/application/grades/actor/grade_actor_bloc.dart';
-import 'package:grades/domain/grades/grade.dart';
+import 'package:grades/domain/grade/grades/grade.dart';
 import 'package:grades/presentation/core/page_routes.dart';
 import 'package:grades/presentation/core/providers.dart';
 import 'package:grades/presentation/core/style/app_colors.dart';

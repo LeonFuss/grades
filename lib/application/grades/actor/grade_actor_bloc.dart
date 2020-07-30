@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:grades/application/grades/watch_all/bloc/grade_watch_all_bloc.dart';
-import 'package:grades/domain/grades/grade.dart';
-import 'package:grades/domain/grades/grade_failures.dart';
-import 'package:grades/domain/grades/i_grade_repository.dart';
+import 'package:grades/domain/grade/grades/grade.dart';
+import 'package:grades/domain/grade/grades/grade_failures.dart';
+import 'package:grades/domain/grade/grades/i_grade_repository.dart';
 import 'package:injectable/injectable.dart';
 
 part 'grade_actor_bloc.freezed.dart';

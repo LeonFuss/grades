@@ -19,7 +19,7 @@ class SignInForm extends HookWidget {
 
     final size = MediaQuery.of(context).size;
     return BlocConsumer<LoginBloc, LoginState>(
-      bloc: loginBloc,
+      cubit: loginBloc,
       listener: (context, state) {
         state.authFailureOrSuccessOption.fold(
           () {},

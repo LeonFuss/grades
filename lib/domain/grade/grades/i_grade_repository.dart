@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:grades/domain/grades/grade.dart';
-import 'package:grades/domain/grades/grade_failures.dart';
-import 'package:grades/domain/grades/value_objects.dart';
-import 'package:grades/domain/subjects/subject.dart';
+import 'grade.dart';
+import 'grade_failures.dart';
+import 'value_objects.dart';
+import '../subjects/subject.dart';
 import 'package:kt_dart/collection.dart';
 
 ///Interface zur Kommunikation mit der Datenbank

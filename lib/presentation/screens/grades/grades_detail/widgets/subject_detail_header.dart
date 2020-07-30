@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grades/application/subject/singel_grade_watcher/bloc/subject_watcher_bloc.dart';
-import 'package:grades/domain/subjects/subject.dart';
+import 'package:grades/domain/grade/subjects/subject.dart';
 import 'package:grades/presentation/core/providers.dart';
 import 'package:grades/presentation/core/style/app_colors.dart';
 import 'package:grades/presentation/core/style/text_style.dart';
@@ -66,7 +66,7 @@ class SubjectDetailHeader extends SliverPersistentHeaderDelegate {
           left: 16,
           child:
               BlocBuilder<SingleSubjectWatcherBloc, SingleSubjectWatcherState>(
-                  bloc: singleSubjectWatcherBlocProvider.read(context),
+                  cubit: singleSubjectWatcherBlocProvider.read(context),
                   builder: (context, state) {
                     return Text(
                       state.maybeWhen(

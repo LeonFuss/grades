@@ -23,7 +23,7 @@ class NoteFormPageScaffold extends HookWidget {
         backgroundColor: AppColors.secondScaffold,
         iconTheme: IconThemeData(color: AppColors.accent),
         title: BlocBuilder<SubjectFormBloc, SubjectFormState>(
-          bloc: subjectFormBloc,
+          cubit: subjectFormBloc,
           buildWhen: (p, c) => p.isEditing != c.isEditing,
           builder: (context, state) => Text(
             state.isEditing ? 'Bearbeite ein Fach' : 'Erstelle ein Fach',
@@ -45,7 +45,7 @@ class NoteFormPageScaffold extends HookWidget {
         ],
       ),
       body: BlocBuilder<SubjectFormBloc, SubjectFormState>(
-        bloc: subjectFormBloc,
+        cubit: subjectFormBloc,
         buildWhen: (p, c) => p.showErrorMessages != c.showErrorMessages,
         builder: (context, state) {
           return Form(

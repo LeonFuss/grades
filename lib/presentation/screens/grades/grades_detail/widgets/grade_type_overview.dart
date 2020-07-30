@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:grades/domain/grades/value_objects.dart';
-import 'package:grades/domain/subjects/subject.dart';
+import 'package:grades/domain/grade/grades/value_objects.dart';
+import 'package:grades/domain/grade/subjects/subject.dart';
 import 'package:grades/presentation/core/style/text_style.dart';
 
 class GradeTypeOverview extends StatelessWidget {

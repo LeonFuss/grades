@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:grades/application/grades/watcher/grade_watcher_bloc.dart';
 import 'package:grades/application/subject/actor/bloc/subject_actor_bloc.dart';
-import 'package:grades/domain/subjects/subject.dart';
+import 'package:grades/domain/grade/subjects/subject.dart';
 import 'package:grades/presentation/core/page_routes.dart';
 import 'package:grades/presentation/core/providers.dart';
 import 'package:grades/presentation/core/style/app_colors.dart';

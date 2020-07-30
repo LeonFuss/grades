@@ -3,8 +3,9 @@ import 'package:grades/domain/core/errors.dart';
 import 'package:grades/domain/core/failures.dart';
 import 'package:grades/domain/core/value_objects.dart';
 import 'package:grades/domain/core/value_validators.dart';
-import 'package:grades/domain/grades/grade.dart';
-import 'package:grades/domain/subjects/subject.dart';
+import 'package:grades/domain/grade/grades/grade.dart';
+
+import 'subject.dart';
 
 ///Die Datei enthält alle Wertobjekte, die für die Klasse [Subject] notwendig sind.
 ///Die Wertobjekte folgen dabei dem gleichen Schema:
@@ -26,6 +27,10 @@ class SubjectName extends ValueObject<String> {
           .flatMap((a) => validateSingleLine(a))
           .flatMap((a) => validateMaxStringLength(input, maxLength)),
     );
+  }
+
+  factory SubjectName.uninitialized() {
+    return SubjectName._(left(ValueFailure.notInitialized(failedValue: '')));
   }
 
   const SubjectName._(this.value);

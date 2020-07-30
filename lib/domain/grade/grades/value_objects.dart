@@ -3,7 +3,7 @@ import 'package:grades/domain/core/failures.dart';
 import 'package:grades/domain/core/value_objects.dart';
 import 'package:grades/domain/core/value_transformers.dart';
 import 'package:grades/domain/core/value_validators.dart';
-import 'package:grades/domain/grades/grade.dart';
+import 'grade.dart';
 import 'package:kt_dart/kt.dart';
 
 ///Die Datei enthält alle Wertobjekte, die für die Klasse [Grade] notwendig sind.

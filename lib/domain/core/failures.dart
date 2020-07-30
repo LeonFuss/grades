@@ -54,4 +54,20 @@ abstract class ValueFailure<T> with _$ValueFailure<T> {
   const factory ValueFailure.invalidStringInput({
     @required T failedValue,
   }) = _InvalidStringInput<T>;
+
+  const factory ValueFailure.invalidGradeSystem({
+    @required T failedValue,
+  }) = _InvalidGradeSystem<T>;
+
+  const factory ValueFailure.invalidDay({
+    @required T failedValue,
+  }) = _InvalidDay<T>;
+
+  const factory ValueFailure.periodOutOfBounds({
+    @required T failedValue,
+  }) = _PeriodOutOfBounds<T>;
+
+  const factory ValueFailure.lessonDurationOutOfBounds({
+    @required T failedValue,
+  }) = _LessonDurationOutOfBounds<T>;
 }

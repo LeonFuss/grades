@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:grades/application/grades/statistic/statistic_bloc.dart';
-import 'package:grades/domain/grades/value_objects.dart';
+import 'package:grades/domain/grade/grades/value_objects.dart';
 import 'package:grades/presentation/core/providers.dart';
 import 'package:grades/presentation/core/style/app_colors.dart';
 import 'package:grades/presentation/core/style/text_style.dart';
@@ -17,7 +17,7 @@ class GradeStatisticScreen extends HookWidget {
     return Scaffold(
       backgroundColor: AppColors.accent,
       body: BlocBuilder<StatisticBloc, StatisticState>(
-          bloc: statisticBloc,
+          cubit: statisticBloc,
           builder: (context, state) {
             return state.maybeMap(
                 orElse: () => Center(

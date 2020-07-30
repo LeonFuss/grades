@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:grades/application/grades/statistic/statistic_bloc.dart';
-import 'package:grades/domain/grades/grade.dart';
+import 'package:grades/domain/grade/grades/grade.dart';
 import 'package:grades/presentation/core/providers.dart';
 import 'package:grades/presentation/core/style/app_colors.dart';
 import 'package:grades/presentation/core/style/text_style.dart';
@@ -72,7 +72,7 @@ class HeaderCard extends HookWidget {
               left: 32,
               right: 40,
               child: BlocBuilder<StatisticBloc, StatisticState>(
-                bloc: statisticBloc,
+                cubit: statisticBloc,
                 builder: (context, state) {
                   return state.maybeMap(
                     loadFailure: (state) => Text('Fehler: ${state.failures}'),

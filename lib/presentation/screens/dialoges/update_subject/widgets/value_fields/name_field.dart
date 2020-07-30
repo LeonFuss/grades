@@ -3,7 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:grades/application/subject/form/bloc/subject_form_bloc.dart';
-import 'package:grades/domain/subjects/value_objects.dart';
+import 'package:grades/domain/grade/subjects/value_objects.dart';
 import 'package:grades/presentation/core/providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -18,7 +18,7 @@ class NameField extends HookWidget {
     final textEditingController = useTextEditingController();
 
     return BlocConsumer<SubjectFormBloc, SubjectFormState>(
-      bloc: subjectFormBloc,
+      cubit: subjectFormBloc,
       listenWhen: (p, c) => p.isEditing != c.isEditing,
       listener: (context, state) {
         textEditingController.text = state.subject.name.getOrCrash();

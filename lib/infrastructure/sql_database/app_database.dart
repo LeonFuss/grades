@@ -5,7 +5,6 @@ import 'package:injectable/injectable.dart';
 import 'package:moor/moor.dart';
 import 'package:moor_ffi/moor_ffi.dart';
 import 'package:path/path.dart' as p;
-import 'package:path_provider/path_provider.dart';
 
 import 'grade_dao.dart';
 import 'subject_dao.dart';

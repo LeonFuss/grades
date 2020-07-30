@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:grades/domain/grades/value_objects.dart';
-import 'package:grades/domain/subjects/i_subject_repository.dart';
-import 'package:grades/domain/subjects/subject.dart' as s;
-import 'package:grades/domain/subjects/subject_failures.dart';
+import 'package:grades/domain/grade/grades/value_objects.dart';
+import 'package:grades/domain/grade/subjects/i_subject_repository.dart';
+import 'package:grades/domain/grade/subjects/subject.dart' as s;
+import 'package:grades/domain/grade/subjects/subject_failures.dart';
 import 'package:grades/infrastructure/sql_database/app_database.dart';
 import 'package:grades/infrastructure/sql_database/tables.dart';
 import 'package:grades/infrastructure/subjects/subjects_dto.dart';

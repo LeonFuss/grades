@@ -23,7 +23,7 @@ class GradesOverviewBody extends HookWidget {
           ),
         ),
         BlocBuilder<SubjectWatcherBloc, SubjectWatcherState>(
-          bloc: subjectWatcherBloc,
+          cubit: subjectWatcherBloc,
           builder: (BuildContext context, SubjectWatcherState state) {
             return state.when(
                 initial: (term) => const SizedBox(),

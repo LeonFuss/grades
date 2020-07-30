@@ -16,7 +16,7 @@ class SubjectField extends HookWidget {
     final gradeFormBloc = useProvider(gradeFormBlocProvider);
 
     return BlocBuilder<GradeFormBloc, GradeFormState>(
-      bloc: gradeFormBloc,
+      cubit: gradeFormBloc,
       buildWhen: (p, c) =>
           p.grade.subjectId != c.grade.subjectId || p.subjects != c.subjects,
       builder: (context, state) {

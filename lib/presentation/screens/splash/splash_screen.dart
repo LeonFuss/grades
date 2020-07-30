@@ -14,7 +14,7 @@ class SplashScreen extends HookWidget {
   Widget build(BuildContext context) {
     final authBloc = useProvider(authBlocProvider);
     return BlocListener<AuthBloc, AuthState>(
-      bloc: authBloc,
+      cubit: authBloc,
       listener: (context, state) {
         state.map(
           initial: (_) {},

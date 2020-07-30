@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:grades/application/grades/watcher/grade_watcher_bloc.dart';
 import 'package:grades/application/subject/singel_grade_watcher/bloc/subject_watcher_bloc.dart';
-import 'package:grades/domain/grades/value_objects.dart';
-import 'package:grades/domain/subjects/subject.dart';
+import 'package:grades/domain/grade/grades/value_objects.dart';
+import 'package:grades/domain/grade/subjects/subject.dart';
 import 'package:grades/presentation/core/page_routes.dart';
 import 'package:grades/presentation/core/providers.dart';
 import 'package:grades/presentation/core/style/app_colors.dart';
@@ -27,10 +27,10 @@ class GradesDetailScreen extends HookWidget {
     final gradeWatcherBloc = useProvider(gradeWatcherBlocProvider);
 
     return BlocBuilder<SingleSubjectWatcherBloc, SingleSubjectWatcherState>(
-      bloc: singleSubjectWatcherBloc,
+      cubit: singleSubjectWatcherBloc,
       builder: (context, subjectState) {
         return BlocBuilder<GradeWatcherBloc, GradeWatcherState>(
-          bloc: gradeWatcherBloc,
+          cubit: gradeWatcherBloc,
           builder: (context, state) => Scaffold(
             body: Container(
               color: AppColors.scaffold,

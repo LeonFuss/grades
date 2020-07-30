@@ -2,8 +2,8 @@ import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:grades/domain/core/failures.dart';
 import 'package:grades/domain/core/value_objects.dart';
-import 'package:grades/domain/grades/value_objects.dart';
-import 'package:grades/domain/subjects/value_objects.dart';
+import 'package:grades/domain/grade/grades/value_objects.dart';
+import 'value_objects.dart';
 
 part 'subject.freezed.dart';
 

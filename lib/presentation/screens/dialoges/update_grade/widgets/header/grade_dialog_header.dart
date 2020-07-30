@@ -70,7 +70,7 @@ class GradeDialogHeader extends SliverPersistentHeaderDelegate {
   BlocBuilder<GradeFormBloc, GradeFormState> buildSubjectName(
       GradeFormBloc bloc) {
     return BlocBuilder<GradeFormBloc, GradeFormState>(
-      bloc: bloc,
+      cubit: bloc,
       buildWhen: (p, c) => p.isEditing != c.isEditing,
       builder: (context, state) {
         return Text(
@@ -85,7 +85,7 @@ class GradeDialogHeader extends SliverPersistentHeaderDelegate {
   BlocBuilder<GradeFormBloc, GradeFormState> buildGradesText(
       GradeFormBloc bloc) {
     return BlocBuilder<GradeFormBloc, GradeFormState>(
-      bloc: bloc,
+      cubit: bloc,
       buildWhen: (p, c) => p.grade.value != c.grade.value,
       builder: (context, state) {
         return Text(state.grade.value.getOrCrash().toString(),

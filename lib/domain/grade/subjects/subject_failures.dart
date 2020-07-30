@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:grades/domain/subjects/subject.dart';
+import 'subject.dart';
 
 part 'subject_failures.freezed.dart';
 

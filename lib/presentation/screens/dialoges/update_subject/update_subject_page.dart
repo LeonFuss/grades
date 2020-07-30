@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:grades/application/subject/form/bloc/subject_form_bloc.dart';
-import 'package:grades/domain/subjects/subject.dart';
-import 'package:grades/domain/subjects/subject_failures.dart';
+import 'package:grades/domain/grade/subjects/subject.dart';
+import 'package:grades/domain/grade/subjects/subject_failures.dart';
 import 'package:grades/injection.dart';
 import 'package:grades/presentation/core/helpers/error_handling.dart';
 import 'package:grades/presentation/core/providers.dart';
@@ -40,7 +40,7 @@ class UpdateSubjectPage extends HookWidget {
         return Consumer((context, read) {
           final subjectFormBloc = read(subjectFormBlocProvider);
           return BlocConsumer<SubjectFormBloc, SubjectFormState>(
-            bloc: subjectFormBloc,
+            cubit: subjectFormBloc,
             listenWhen: (p, c) =>
                 p.saveFailureOrSuccessOption != c.saveFailureOrSuccessOption,
             listener: (context, state) {

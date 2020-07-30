@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grades/domain/core/extension_helper.dart';
-import 'package:grades/domain/subjects/subject.dart';
+import 'package:grades/domain/grade/subjects/subject.dart';
 import 'package:kt_dart/kt.dart';
 
 import 'add_item.dart';

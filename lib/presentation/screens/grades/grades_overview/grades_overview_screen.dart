@@ -26,7 +26,7 @@ class GradesOverviewScreen extends HookWidget {
         .add(const StatisticEvent.statisticStarted());
 
     return BlocListener<AuthBloc, AuthState>(
-      bloc: authBloc,
+      cubit: authBloc,
       listener: (context, state) {
         state.maybeMap(
           unauthenticated: (_) => Navigator.of(context)
@@ -35,7 +35,7 @@ class GradesOverviewScreen extends HookWidget {
         );
       },
       child: BlocBuilder<SubjectWatcherBloc, SubjectWatcherState>(
-        bloc: subjectWatcherBloc,
+        cubit: subjectWatcherBloc,
         builder: (context, state) => Scaffold(
           backgroundColor: AppColors.scaffold,
           body: RefreshIndicator(

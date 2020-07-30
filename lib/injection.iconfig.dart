@@ -12,12 +12,11 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:grades/infrastructure/auth/firebase_auth_facade.dart';
 import 'package:grades/domain/auth/i_auth_facade.dart';
 import 'package:grades/infrastructure/grades/grade_repository.dart';
-import 'package:grades/domain/grades/i_grade_repository.dart';
+import 'package:grades/domain/grade/grades/i_grade_repository.dart';
 import 'package:grades/infrastructure/sql_database/grade_dao.dart';
 import 'package:grades/infrastructure/sql_database/subject_dao.dart';
-import 'package:grades/domain/subjects/i_subject_repository.dart';
+import 'package:grades/domain/grade/subjects/i_subject_repository.dart';
 import 'package:grades/infrastructure/subjects/subject_repository.dart';
-import 'package:grades/infrastructure/inital_startup/initial_startup.dart';
 import 'package:grades/application/auth/login/bloc/login_bloc.dart';
 import 'package:grades/application/grade/watcher/grade_watcher_bloc.dart';
 import 'package:grades/application/subject/singel_grade_watcher/bloc/subject_watcher_bloc.dart';
@@ -78,7 +77,6 @@ void $initGetIt(GetIt g, {String environment}) {
 
   //Eager singletons must be registered in the right order
   g.registerSingleton<AppDatabase>(AppDatabase());
-  g.registerSingleton<InitialStartup>(InitialStartup());
 }
 
 class _$FirebaseInjectableModule extends FirebaseInjectableModule {}

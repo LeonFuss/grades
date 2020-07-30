@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:grades/application/grades/form/grade_form_bloc.dart';
-import 'package:grades/domain/grades/grade.dart';
-import 'package:grades/domain/grades/grade_failures.dart';
-import 'package:grades/domain/subjects/subject.dart';
+import 'package:grades/domain/grade/grades/grade.dart';
+import 'package:grades/domain/grade/grades/grade_failures.dart';
+import 'package:grades/domain/grade/subjects/subject.dart';
 import 'package:grades/injection.dart';
 import 'package:grades/presentation/core/helpers/error_handling.dart';
 import 'package:grades/presentation/core/providers.dart';
@@ -39,7 +39,7 @@ class UpdateGradePage extends HookWidget {
         return Consumer((context, read) {
           final bloc = read(gradeFormBlocProvider);
           return BlocConsumer<GradeFormBloc, GradeFormState>(
-            bloc: bloc,
+            cubit: bloc,
             listenWhen: (p, c) =>
                 p.saveFailureOrSuccessOption != c.saveFailureOrSuccessOption,
             listener: (context, state) {

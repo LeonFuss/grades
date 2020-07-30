@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:grades/domain/core/value_objects.dart';
-import 'package:grades/domain/grades/grade.dart';
-import 'package:grades/domain/grades/value_objects.dart';
+import 'package:grades/domain/grade/grades/grade.dart';
+import 'package:grades/domain/grade/grades/value_objects.dart';
 import 'package:grades/infrastructure/sql_database/app_database.dart';
 import 'package:json_annotation/json_annotation.dart' as json;
 import 'package:moor/moor.dart';
