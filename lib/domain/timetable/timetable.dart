@@ -13,5 +13,7 @@ abstract class Timetable implements _$Timetable, IEntity {
   const factory Timetable({
     @required UniqueId id,
     @required LessonDuration lessonDuration,
+    @required BreakDurations breakDuration,
+    @required BreakPositions breakPosition,
   }) = _Timetable;
 }

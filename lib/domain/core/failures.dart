@@ -70,4 +70,8 @@ abstract class ValueFailure<T> with _$ValueFailure<T> {
   const factory ValueFailure.lessonDurationOutOfBounds({
     @required T failedValue,
   }) = _LessonDurationOutOfBounds<T>;
+
+  const factory ValueFailure.invalidBreakPosition({
+    @required T failedValue,
+  }) = _InvalidBreakPoints<T>;
 }

@@ -13,10 +13,15 @@ class _$TimetableTearOff {
   const _$TimetableTearOff();
 
   _Timetable call(
-      {@required UniqueId id, @required LessonDuration lessonDuration}) {
+      {@required UniqueId id,
+      @required LessonDuration lessonDuration,
+      @required BreakDurations breakDuration,
+      @required BreakPositions breakPosition}) {
     return _Timetable(
       id: id,
       lessonDuration: lessonDuration,
+      breakDuration: breakDuration,
+      breakPosition: breakPosition,
     );
   }
 }
@@ -27,6 +32,8 @@ const $Timetable = _$TimetableTearOff();
 mixin _$Timetable {
   UniqueId get id;
   LessonDuration get lessonDuration;
+  BreakDurations get breakDuration;
+  BreakPositions get breakPosition;
 
   $TimetableCopyWith<Timetable> get copyWith;
 }
@@ -34,7 +41,11 @@ mixin _$Timetable {
 abstract class $TimetableCopyWith<$Res> {
   factory $TimetableCopyWith(Timetable value, $Res Function(Timetable) then) =
       _$TimetableCopyWithImpl<$Res>;
-  $Res call({UniqueId id, LessonDuration lessonDuration});
+  $Res call(
+      {UniqueId id,
+      LessonDuration lessonDuration,
+      BreakDurations breakDuration,
+      BreakPositions breakPosition});
 }
 
 class _$TimetableCopyWithImpl<$Res> implements $TimetableCopyWith<$Res> {
@@ -48,12 +59,20 @@ class _$TimetableCopyWithImpl<$Res> implements $TimetableCopyWith<$Res> {
   $Res call({
     Object id = freezed,
     Object lessonDuration = freezed,
+    Object breakDuration = freezed,
+    Object breakPosition = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed ? _value.id : id as UniqueId,
       lessonDuration: lessonDuration == freezed
           ? _value.lessonDuration
           : lessonDuration as LessonDuration,
+      breakDuration: breakDuration == freezed
+          ? _value.breakDuration
+          : breakDuration as BreakDurations,
+      breakPosition: breakPosition == freezed
+          ? _value.breakPosition
+          : breakPosition as BreakPositions,
     ));
   }
 }
@@ -63,7 +82,11 @@ abstract class _$TimetableCopyWith<$Res> implements $TimetableCopyWith<$Res> {
           _Timetable value, $Res Function(_Timetable) then) =
       __$TimetableCopyWithImpl<$Res>;
   @override
-  $Res call({UniqueId id, LessonDuration lessonDuration});
+  $Res call(
+      {UniqueId id,
+      LessonDuration lessonDuration,
+      BreakDurations breakDuration,
+      BreakPositions breakPosition});
 }
 
 class __$TimetableCopyWithImpl<$Res> extends _$TimetableCopyWithImpl<$Res>
@@ -78,30 +101,48 @@ class __$TimetableCopyWithImpl<$Res> extends _$TimetableCopyWithImpl<$Res>
   $Res call({
     Object id = freezed,
     Object lessonDuration = freezed,
+    Object breakDuration = freezed,
+    Object breakPosition = freezed,
   }) {
     return _then(_Timetable(
       id: id == freezed ? _value.id : id as UniqueId,
       lessonDuration: lessonDuration == freezed
           ? _value.lessonDuration
           : lessonDuration as LessonDuration,
+      breakDuration: breakDuration == freezed
+          ? _value.breakDuration
+          : breakDuration as BreakDurations,
+      breakPosition: breakPosition == freezed
+          ? _value.breakPosition
+          : breakPosition as BreakPositions,
     ));
   }
 }
 
 class _$_Timetable extends _Timetable with DiagnosticableTreeMixin {
-  const _$_Timetable({@required this.id, @required this.lessonDuration})
+  const _$_Timetable(
+      {@required this.id,
+      @required this.lessonDuration,
+      @required this.breakDuration,
+      @required this.breakPosition})
       : assert(id != null),
         assert(lessonDuration != null),
+        assert(breakDuration != null),
+        assert(breakPosition != null),
         super._();
 
   @override
   final UniqueId id;
   @override
   final LessonDuration lessonDuration;
+  @override
+  final BreakDurations breakDuration;
+  @override
+  final BreakPositions breakPosition;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Timetable(id: $id, lessonDuration: $lessonDuration)';
+    return 'Timetable(id: $id, lessonDuration: $lessonDuration, breakDuration: $breakDuration, breakPosition: $breakPosition)';
   }
 
   @override
@@ -110,7 +151,9 @@ class _$_Timetable extends _Timetable with DiagnosticableTreeMixin {
     properties
       ..add(DiagnosticsProperty('type', 'Timetable'))
       ..add(DiagnosticsProperty('id', id))
-      ..add(DiagnosticsProperty('lessonDuration', lessonDuration));
+      ..add(DiagnosticsProperty('lessonDuration', lessonDuration))
+      ..add(DiagnosticsProperty('breakDuration', breakDuration))
+      ..add(DiagnosticsProperty('breakPosition', breakPosition));
   }
 
   @override
@@ -121,14 +164,22 @@ class _$_Timetable extends _Timetable with DiagnosticableTreeMixin {
                 const DeepCollectionEquality().equals(other.id, id)) &&
             (identical(other.lessonDuration, lessonDuration) ||
                 const DeepCollectionEquality()
-                    .equals(other.lessonDuration, lessonDuration)));
+                    .equals(other.lessonDuration, lessonDuration)) &&
+            (identical(other.breakDuration, breakDuration) ||
+                const DeepCollectionEquality()
+                    .equals(other.breakDuration, breakDuration)) &&
+            (identical(other.breakPosition, breakPosition) ||
+                const DeepCollectionEquality()
+                    .equals(other.breakPosition, breakPosition)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(lessonDuration);
+      const DeepCollectionEquality().hash(lessonDuration) ^
+      const DeepCollectionEquality().hash(breakDuration) ^
+      const DeepCollectionEquality().hash(breakPosition);
 
   @override
   _$TimetableCopyWith<_Timetable> get copyWith =>
@@ -139,12 +190,18 @@ abstract class _Timetable extends Timetable {
   const _Timetable._() : super._();
   const factory _Timetable(
       {@required UniqueId id,
-      @required LessonDuration lessonDuration}) = _$_Timetable;
+      @required LessonDuration lessonDuration,
+      @required BreakDurations breakDuration,
+      @required BreakPositions breakPosition}) = _$_Timetable;
 
   @override
   UniqueId get id;
   @override
   LessonDuration get lessonDuration;
+  @override
+  BreakDurations get breakDuration;
+  @override
+  BreakPositions get breakPosition;
   @override
   _$TimetableCopyWith<_Timetable> get copyWith;
 }
